@@ -1,0 +1,8 @@
+* text eol=lf
+
+*.c text
+*.h text
+
+*.pgm binary
+*.png binary
+*.jpg binary
