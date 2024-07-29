@@ -5,10 +5,8 @@ LFLAGS = -lm
 TARGET = backprojector
 SRC = backprojector.c
 
-# Default target
 all: $(TARGET)
-
-# build the target executable
+.PHONY: $(TARGET) # force the target to be rebuilt
 $(TARGET):
 	$(CC) $(CFLAGS) -o $(TARGET) $(SRC) $(LFLAGS)
 
