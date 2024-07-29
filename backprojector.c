@@ -1,6 +1,6 @@
 /**
 * Usage:
-*  compile:  gcc -std=c99 -Wall -Wpedantic -fopenmp  backprojector.c -lm -o backprojector
+*  compile:  gcc -std=c99 -Wall -Wpedantic -fopenmp backprojector.c -lm -o backprojector
 *  run:      ./backprojector 0 1 < CubeWithSphere.pgm
 *  convert:  TODO: convert the outputted 3-dimentional array to a 3D image
 */
