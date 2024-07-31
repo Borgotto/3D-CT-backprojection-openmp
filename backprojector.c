@@ -1,43 +1,35 @@
 /**
 * Usage:
 *  compile:  gcc -std=c99 -Wall -Wpedantic -fopenmp backprojector.c -lm -o backprojector
-*  run:      ./backprojector 0 1 < CubeWithSphere.pgm
+*  run:      ./backprojector < CubeWithSphere.pgm
 *  convert:  TODO: convert the outputted 3-dimentional array to a 3D image
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <omp.h>
-
-#ifndef M_PI
-#define M_PI (3.14159265358979323846)
-#endif
-
-#define VOXEL_X 100             // voxel side along x-axis
-#define VOXEL_Y 100             // voxel side along y-axis
-#define VOXEL_Z 100             // voxel side along z-axis
-
-#define PIXEL 85                // detector's pixel side lenght
-
-#define AP 90                   // source path angle
-#define STEP_ANGLE 15           // angular distance between each source step
-#define NTHETA ((int)((AP) / (STEP_ANGLE))) // number of steps
-
-
-typedef enum {
-    X, Y, Z
-} axis;
-
-typedef struct {
-    double x, y, z;
-} point3D;
-
-typedef struct {
-    int min, max;
-} range;
+#include "backprojector.h"
+#include "fileReader.h"
 
 
 int main() {
+    projection image;
+    image.size = -1; // Initialize to a negative value to enter the loop
+
+    for (int i = 0; image.size != 0; i++) {
+        image = readPGM("image.pgm", i);
+
+        // Print the matrix to verify
+        for (int i = 0; i < image.size; i++) {
+            for (int j = 0; j < image.size; j++) {
+                printf("%d ", (int)image.pixels[i][j]);
+            }
+            printf("\n");
+        }
+
+        // Free the image's pixels matrix before reading the next one
+        for (int i = 0; i < image.size; i++) {
+            free(image.pixels[i]);
+        }
+        free(image.pixels);
+    }
+
     return 0;
 }
