@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -std=c99 -Wall -Wpedantic -fopenmp
+CFLAGS = -g -std=c99 -Wall -Wpedantic -fopenmp
 LFLAGS = -lm
 
 TARGET = backprojector
