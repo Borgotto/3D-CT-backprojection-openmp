@@ -1,7 +1,2 @@
 .vscode
-build/
-..gitignore.swp
-backprojector
-backprojector.exe
-backprojector.o
-*.pgm
+/backprojector*
