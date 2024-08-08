@@ -36,6 +36,14 @@ typedef struct range {
 } range;
 
 typedef struct projection {
-    unsigned int size;
-    double** pixels;
+    int index;              // index of the projection
+    double angle;           // angle from which the projection was taken
+    unsigned int length;    // side length of the square image
+    double maxVal;          // maximum value a pixel can have
+    double* pixels;         // 2D array of length length * length
 } projection;
+
+typedef struct volume {
+    unsigned int nVoxelsX, nVoxelsY, nVoxelsZ;
+    double* coefficients;   // 3D array of length nVoxelsX * nVoxelsY * nVoxelsZ
+} volume;
