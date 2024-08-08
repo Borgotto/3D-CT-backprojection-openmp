@@ -3,7 +3,7 @@ CFLAGS = -g -std=c99 -Wall -Wpedantic -fopenmp
 LFLAGS = -lm
 
 TARGET = backprojector
-SRC = backprojector.c
+SRC = src/backprojector.c
 
 all: $(TARGET)
 .PHONY: $(TARGET) # force the target to be rebuilt
