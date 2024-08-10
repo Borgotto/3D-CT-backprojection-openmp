@@ -10,6 +10,16 @@
 #include "fileWriter.h"
 
 
+// Precompute the sin and cos values for each angle to save computation time
+double sin_table[NTHETA], cos_table[NTHETA];
+void init_tables() {
+    for(int i = 0; i < NTHETA; i++) {
+        sin_table[i] = sin((AP / 2 - i * STEP_ANGLE) * M_PI / 180);
+        cos_table[i] = cos((AP / 2 - i * STEP_ANGLE) * M_PI / 180);
+    }
+}
+
+
 int main() {
     /*
     * This struct is used to store the calculated coefficients of the voxels
