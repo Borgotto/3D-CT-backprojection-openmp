@@ -1,10 +1,10 @@
 #ifndef BACKPROJECTOR_H
 typedef struct projection {
-    int index;              // index of the projection
-    double angle;           // angle from which the projection was taken
-    unsigned int length;    // side length of the square image
-    double maxVal;          // maximum value a pixel can have
-    double* pixels;         // 2D array of length length * length
+    int index;                   // index of the projection out of NTHETA
+    double angle;                // angle from which the projection was taken
+    double maxVal;               // maximum absorption value assumed by the pixels
+    unsigned int nSidePixels;    // numbers of pixels on one side of the detector (square)
+    double* pixels;              // 2D array of size nPixels * nPixels
 } projection;
 #endif
 
@@ -68,7 +68,7 @@ void readPGM(const char* filename, const unsigned int index, projection* project
     // Initialize the projection struct
     projection->index = index;
     sscanf(line, "%*s %*s %lf", &projection->angle);
-    projection->length = width;
+    projection->nSidePixels = width;
     projection->maxVal = maxVal;
     projection->pixels = (double*)malloc(width * width * sizeof(double));
     // extract the value after "angle:" from the line and store it in the struct
@@ -91,9 +91,9 @@ void readPGM(const char* filename, const unsigned int index, projection* project
     fclose(file);
 
     // DEBUG: print the matrix to verify
-    // for (int x = 0; x < projection->length; x++) {
-    //     for (int y = 0; y < projection->length; y++) {
-    //         printf("%3d  ", (int)projection->pixels[x * projection->length + y]);
+    // for (int x = 0; x < projection->nSidePixels; x++) {
+    //     for (int y = 0; y < projection->nSidePixels; y++) {
+    //         printf("%3d  ", (int)projection->pixels[x * projection->nSidePixels + y]);
     //     }
     //     printf("\n");
     // }
