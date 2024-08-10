@@ -12,15 +12,32 @@
 #define M_PI (3.14159265358979323846)
 #endif
 
-#define VOXEL_X 100             // size of a single voxel in the x-axis
-#define VOXEL_Y 100             // size of a single voxel in the y-axis
-#define VOXEL_Z 100             // size of a single voxel in the z-axis
 
-#define PIXEL 85                // side lenght of a single square pixel
+//! All of these physical constants are measured in micrometers unless stated otherwise
 
-#define AP 90                   // rays source initial angle (in degrees)
-#define STEP_ANGLE 15           // distance between rays sources (in degrees)
-#define NTHETA ((int)((AP) / (STEP_ANGLE))) // number of steps
+#define VOXEL_SIZE_X 100         // size of a single voxel in the x-axis in
+#define VOXEL_SIZE_Y 100         // size of a single voxel in the y-axis in
+#define VOXEL_SIZE_Z 100         // size of a single voxel in the z-axis in
+#define PIXEL_SIZE   85          // side lenght of a single square pixel
+
+#define AP 90                    // rays source initial angle (in degrees)
+#define STEP_ANGLE 15            // distance between rays sources (in degrees)
+
+#define DOD 150000               // distance from the object to the detector
+#define DOS 600000               // distance from the object to the source
+
+#define VOXEL_MATRIX_SIZE 100000 // side length of the volumetric object (cube)
+//#define DETECTOR_SIZE     200000 // side length of the detector (square)
+
+// Macros to calculate derived constants
+#define NVOXELS_X ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_X)) // number of voxels in the x-axis
+#define NVOXELS_Y ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_Y)) // number of voxels in the y-axis
+#define NVOXELS_Z ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_Z)) // number of voxels in the z-axis
+#define NPLANES_X ((NVOXELS_X) + 1)                         // number of planes in the x-axis
+#define NPLANES_Y ((NVOXELS_Y) + 1)                         // number of planes in the y-axis
+#define NPLANES_Z ((NVOXELS_Z) + 1)                         // number of planes in the z-axis
+#define NTHETA    ((int)((AP) / (STEP_ANGLE)) + 1)          // number of rays sources
+//#define NPIXELS   ((int)((DETECTOR_SIZE) / (PIXEL_SIZE)))   // number of pixels in the detector
 
 
 typedef enum axis {
@@ -36,14 +53,15 @@ typedef struct range {
 } range;
 
 typedef struct projection {
-    int index;              // index of the projection
-    double angle;           // angle from which the projection was taken
-    unsigned int length;    // side length of the square image
-    double maxVal;          // maximum value a pixel can have
-    double* pixels;         // 2D array of length length * length
+    int index;                   // index of the projection out of NTHETA
+    double angle;                // angle from which the projection was taken
+    double maxVal;               // maximum absorption value assumed by the pixels
+    unsigned int nSidePixels;    // numbers of pixels on one side of the detector (square)
+    double* pixels;              // 2D array of size nPixels * nPixels
 } projection;
 
 typedef struct volume {
-    unsigned int nVoxelsX, nVoxelsY, nVoxelsZ;
-    double* coefficients;   // 3D array of length nVoxelsX * nVoxelsY * nVoxelsZ
+    const unsigned int nVoxelsX, nVoxelsY, nVoxelsZ; // equal to NVOXELS_X, NVOXELS_Y, NVOXELS_Z
+    const unsigned int nPlanesX, nPlanesY, nPlanesZ; // equal to NPLANES_X, NPLANES_Y, NPLANES_Z
+    double* coefficients;        // 3D array of size nVoxelsX * nVoxelsY * nVoxelsZ
 } volume;
