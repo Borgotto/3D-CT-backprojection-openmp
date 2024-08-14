@@ -5,6 +5,14 @@
 *  convert:  TODO: convert the outputted 3-dimentional array to a 3D image
 */
 
+#include <stdio.h>      // printf, perror
+#include <stdlib.h>     // malloc, calloc, free
+#include <stdbool.h>    // bool, true, false
+#include <string.h>     // strcmp, strstr
+#include <math.h>       // sin, cos
+#include <float.h>      // DBL_MAX, DBL_MIN
+#include <omp.h>
+
 #include "backprojector.h"
 #include "fileReader.h"
 #include "fileWriter.h"
