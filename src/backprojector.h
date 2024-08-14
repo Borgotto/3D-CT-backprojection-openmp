@@ -7,6 +7,7 @@
 #endif
 
 //! All of these physical constants are measured in micrometers unless stated otherwise
+//! The origin of the 3D space is at the volumetric center of the object
 
 #define VOXEL_SIZE_X 100         // size of a single voxel in the x-axis in
 #define VOXEL_SIZE_Y 100         // size of a single voxel in the y-axis in
@@ -16,10 +17,16 @@
 #define AP 90                    // rays source initial angle (in degrees)
 #define STEP_ANGLE 15            // distance between rays sources (in degrees)
 
-#define DOD 150000               // distance from the volumetric center of object to the detector
-#define DOS 600000               // distance from the volumetric center of object to the source
-
-#define VOXEL_MATRIX_SIZE 100000 // side length of the volumetric object (cube)
+#ifdef WORK_UNITS
+    // These values will be used when running benchmarks for scalability
+    #define VOXEL_MATRIX_SIZE ((int)((WORK_UNITS) * (VOXEL_SIZE_X) * 125 / 294))
+    #define DOD ((int)(1.5 * (VOXEL_MATRIX_SIZE)))
+    #define DOS ((int)(6 * (VOXEL_MATRIX_SIZE)))
+#else
+    #define VOXEL_MATRIX_SIZE 100000 // side length of the volumetric object (cube)
+    #define DOD 150000               // distance from the volumetric center of object to the detector
+    #define DOS 600000               // distance from the volumetric center of object to the source
+#endif
 
 //! These two values depend on the input data and are calculated at runtime
 //#define DETECTOR_SIZE     200000 // side length of the detector (square)
