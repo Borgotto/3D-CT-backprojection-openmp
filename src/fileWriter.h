@@ -1,8 +1,8 @@
 #ifndef BACKPROJECTOR_H
-typedef struct volume {
-    unsigned int nVoxelsX, nVoxelsY, nVoxelsZ;
-    double* coefficients;   // 3D array of length nVoxelsX * nVoxelsY * nVoxelsZ
-} volume;
+    typedef struct volume {
+        unsigned int nVoxelsX, nVoxelsY, nVoxelsZ;
+        double* coefficients;   // 3D array of length nVoxelsX * nVoxelsY * nVoxelsZ
+    } volume;
 #endif
 
 /*

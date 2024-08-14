@@ -1,11 +1,11 @@
 #ifndef BACKPROJECTOR_H
-typedef struct projection {
-    int index;                   // index of the projection out of NTHETA
-    double angle;                // angle from which the projection was taken
-    double maxVal;               // maximum absorption value assumed by the pixels
-    unsigned int nSidePixels;    // numbers of pixels on one side of the detector (square)
-    double* pixels;              // 2D array of size nPixels * nPixels
-} projection;
+    typedef struct projection {
+        int index;                   // index of the projection out of NTHETA
+        double angle;                // angle from which the projection was taken
+        double maxVal;               // maximum absorption value assumed by the pixels
+        unsigned int nSidePixels;    // numbers of pixels on one side of the detector (square)
+        double* pixels;              // 2D array of size nPixels * nPixels
+    } projection;
 #endif
 
 /*

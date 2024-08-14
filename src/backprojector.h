@@ -1,17 +1,10 @@
 #ifndef BACKPROJECTOR_H
-#define BACKPROJECTOR_H
+    #define BACKPROJECTOR_H
 #endif
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-#include <omp.h>
 
 #ifndef M_PI
-#define M_PI (3.14159265358979323846)
+    #define M_PI (3.14159265358979323846)
 #endif
-
 
 //! All of these physical constants are measured in micrometers unless stated otherwise
 
@@ -23,13 +16,16 @@
 #define AP 90                    // rays source initial angle (in degrees)
 #define STEP_ANGLE 15            // distance between rays sources (in degrees)
 
-#define DOD 150000               // distance from the object to the detector
-#define DOS 600000               // distance from the object to the source
+#define DOD 150000               // distance from the volumetric center of object to the detector
+#define DOS 600000               // distance from the volumetric center of object to the source
 
 #define VOXEL_MATRIX_SIZE 100000 // side length of the volumetric object (cube)
-//#define DETECTOR_SIZE     200000 // side length of the detector (square)
 
-// Macros to calculate derived constants
+//! These two values depend on the input data and are calculated at runtime
+//#define DETECTOR_SIZE     200000 // side length of the detector (square)
+//#define NPIXELS   ((int)((DETECTOR_SIZE) / (PIXEL_SIZE)))   // number of pixels in the detector
+
+// Macros for derived constants
 #define NVOXELS_X ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_X)) // number of voxels in the x-axis
 #define NVOXELS_Y ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_Y)) // number of voxels in the y-axis
 #define NVOXELS_Z ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_Z)) // number of voxels in the z-axis
@@ -37,7 +33,6 @@
 #define NPLANES_Y ((NVOXELS_Y) + 1)                         // number of planes in the y-axis
 #define NPLANES_Z ((NVOXELS_Z) + 1)                         // number of planes in the z-axis
 #define NTHETA    ((int)((AP) / (STEP_ANGLE)) + 1)          // number of rays sources
-//#define NPIXELS   ((int)((DETECTOR_SIZE) / (PIXEL_SIZE)))   // number of pixels in the detector
 
 
 typedef enum axis {
