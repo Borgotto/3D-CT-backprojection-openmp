@@ -36,7 +36,7 @@
 
 
 typedef enum axis {
-    X, Y, Z
+    X, Y, Z, NONE = -1
 } axis;
 
 typedef struct point3D {
