@@ -17,9 +17,9 @@
 #define AP 90                    // rays source initial angle (in degrees)
 #define STEP_ANGLE 15            // distance between rays sources (in degrees)
 
-#ifdef WORK_UNITS
+#ifdef _WORK_UNITS
     // These values will be used when running benchmarks for scalability
-    #define VOXEL_MATRIX_SIZE ((int)((WORK_UNITS) * (VOXEL_SIZE_X) * 125 / 294))
+    #define VOXEL_MATRIX_SIZE ((int)((_WORK_UNITS) * (VOXEL_SIZE_X) * 125 / 294))
     #define DOD ((int)(1.5 * (VOXEL_MATRIX_SIZE)))
     #define DOS ((int)(6 * (VOXEL_MATRIX_SIZE)))
 #else
@@ -36,22 +36,32 @@
 #define NVOXELS_X ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_X)) // number of voxels in the x-axis
 #define NVOXELS_Y ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_Y)) // number of voxels in the y-axis
 #define NVOXELS_Z ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_Z)) // number of voxels in the z-axis
+
 #define NPLANES_X ((NVOXELS_X) + 1)                         // number of planes in the x-axis
 #define NPLANES_Y ((NVOXELS_Y) + 1)                         // number of planes in the y-axis
 #define NPLANES_Z ((NVOXELS_Z) + 1)                         // number of planes in the z-axis
+
 #define NTHETA    ((int)((AP) / (STEP_ANGLE)) + 1)          // number of rays sources
 
-
 typedef enum axis {
-    X, Y, Z, NONE = -1
+    NONE = -1,
+    X = 0,
+    Y = 1,
+    Z = 2
 } axis;
 
-typedef struct point3D {
-    double x, y, z;
+typedef union point3D {
+    double coordinates[3];
+    struct {
+        double x, y, z;
+    };
 } point3D;
 
-typedef struct range {
-    int min, max;
+typedef union range {
+    int bounds[2];
+    struct {
+        int min, max;
+    };
 } range;
 
 typedef struct projection {

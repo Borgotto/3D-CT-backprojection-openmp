@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -g -std=c99 -Wall -Wpedantic -fopenmp
-LFLAGS = -lm
+CFLAGS = -g -std=c11 -Wall -Wpedantic -fopenmp
+LFLAGS = -lm -D_WORK_UNITS=20
 
 TARGET = backprojector
 SRC = src/backprojector.c
