@@ -18,6 +18,10 @@
 * projection: the projection struct to store the read image and its attributes
 */
 void readPGM(FILE* file, const unsigned int index, projection* projection) {
+    // TODO: receive the file pointer as a parameter broke the parser,
+    // TODO: as a workaround, seek to the beginning of the file before reading
+    fseek(file, 0, SEEK_SET);
+
     // Make sure it's a PGM file
     char fileFormat[3];
     fscanf(file, "%2s", fileFormat);
@@ -82,7 +86,6 @@ void readPGM(FILE* file, const unsigned int index, projection* projection) {
             projection->pixels[x * width + y] = pixelValue;
         }
     }
-    fclose(file);
 
     // DEBUG: print the matrix to verify
     // for (int x = 0; x < projection->nSidePixels; x++) {
