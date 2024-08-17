@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -std=c11 -Wall -Wpedantic -fopenmp
+CFLAGS = -std=c11 -Wall -Wpedantic -fopenmp -g -pg
 LFLAGS = -lm -D_WORK_UNITS=20
 
 TARGET = backprojector
@@ -11,6 +11,6 @@ $(TARGET):
 	$(CC) $(CFLAGS) -o $(TARGET) $(SRC) $(LFLAGS)
 
 clean:
-	rm -f $(TARGET)
+	rm -f $(TARGET) gmon.out
 
 .PHONY: all clean
