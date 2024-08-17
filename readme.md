@@ -26,7 +26,7 @@ gcc -std=c11 -Wall -Wpedantic -fopenmp backprojector.c -lm -o backprojector -pg
 ```
 the profiling snapshots found in the [profiling/snapshots](profiling/snapshots) directory were generated using the following command:
 ```bash
-gprof backprojector | gprof2dot -n0 -e0 | dot -Tsvg -Gbgcolor=transparent -o profiling/snapshots/"$(ls -l ./profiling/snapshots/ | wc -l) - $(date '+%Y-%m-%d %H:%M:%S')".svg
+gprof backprojector | gprof2dot -n0 -e0 | dot -Tsvg -Gbgcolor=transparent -o profiling/snapshots/"$(ls -l ./profiling/snapshots/ | wc -l) - $(date '+%Y-%m-%d %H.%M.%S')".svg
 ```
 you can then convert them to png using the following command:
 ```bash

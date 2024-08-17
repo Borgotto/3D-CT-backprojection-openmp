@@ -13,7 +13,7 @@ make
 ./backprojector "$@"
 
 # snapshot name
-SNAPSHOT_NAME="profiling/snapshots/$(ls -l ./profiling/snapshots/ | wc -l) - $(date '+%Y-%m-%d %H:%M:%S')"
+SNAPSHOT_NAME="profiling/snapshots/$(ls -l ./profiling/snapshots/ | wc -l) - $(date '+%Y-%m-%d %H.%M.%S')"
 
 # run profiler
 gprof backprojector | gprof2dot -n0 -e0 | dot -Tsvg -Gbgcolor=transparent -o "$SNAPSHOT_NAME".svg
