@@ -11,11 +11,13 @@
 #include <string.h>     // strcmp, strstr
 #include <math.h>       // sin, cos
 #include <float.h>      // DBL_MAX, DBL_MIN
+#include <assert.h>     // assert
+#include <unistd.h>     // isatty
 #include <omp.h>
 
-#include "backprojector.h"
-#include "fileReader.h"
-#include "fileWriter.h"
+#include "backprojector.h" // All of the constants and structs needed for the backprojection algorithm
+#include "fileReader.h"    // Functions to read the projection images from the file
+#include "fileWriter.h"    // Functions to write the reconstructed 3D object to a file
 
 
 // Precompute the sin and cos values for each angle to save computation time
@@ -27,8 +29,21 @@ void init_tables() {
     }
 }
 
+int main(int argc, char* argv[]) {
 
-int main() {
+    // Check if input file is provided either as an argument or through stdin
+    if (argc < 2 && isatty(fileno(stdin))) {
+        fprintf(stderr, "No input file provided\n");
+        return 1;
+    }
+    // Open the input file or use stdin
+    FILE* inputFile = (argc >= 2) ? fopen(argv[1], "r") : stdin;
+    if (inputFile == NULL) {
+        perror("Error opening file");
+        return 1;
+    }
+
+
     /*
     * This struct is used to store the calculated coefficients of the voxels
     * using the backprojection algorithm starting from the projection images
@@ -55,12 +70,12 @@ int main() {
 
     // For each projection image in the file
     for (int i = 0; i < NTHETA; i++) {
-        readPGM("./tests/example_input.pgm", i, &projection);
+        readPGM(inputFile, i, &projection);
         if (projection.pixels == NULL) {
             break; // No more images to read
         }
 
-        // TODO: Implement the backprojection algorithm to calculate the coefficients
+        computeBackProjection(&volume, &projection);
 
         // free the memory allocated by the readPGM function
         // before reading the next image
@@ -69,5 +84,6 @@ int main() {
 
     writeVolume("output.txt", &volume);
     free(volume.coefficients);
+    fclose(inputFile);
     return 0;
 }

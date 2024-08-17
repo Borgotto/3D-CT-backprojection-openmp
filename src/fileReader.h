@@ -17,13 +17,7 @@
 *        which one to read (0-indexed)
 * projection: the projection struct to store the read image and its attributes
 */
-void readPGM(const char* filename, const unsigned int index, projection* projection) {
-    FILE *file = fopen(filename, "r");
-    if (file == NULL) {
-        perror("Error opening file");
-        exit(1);
-    }
-
+void readPGM(FILE* file, const unsigned int index, projection* projection) {
     // Make sure it's a PGM file
     char fileFormat[3];
     fscanf(file, "%2s", fileFormat);
