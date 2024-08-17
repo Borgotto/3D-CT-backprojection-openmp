@@ -19,9 +19,14 @@ where `<input_file>` is the path to the input `.PGM` file
 
 
 ## Capture profiling data
-The profiling snapshots found in the [profiling/snapshots](profiling/snapshots) directory were generated using the following command:
+First, compile the program with the `-pg` flag and run it as usual:
 ```bash
-make && ./backprojector ./tests/example_input.pgm && gprof backprojector | gprof2dot -n0 -e0 | dot -Tsvg -Gbgcolor=transparent -o profiling/snapshots/"$(ls -l ./profiling/snapshots/ | wc -l) - $(date '+%Y-%m-%d %H:%M:%S')".svg
+gcc -std=c11 -Wall -Wpedantic -fopenmp backprojector.c -lm -o backprojector -pg
+./backprojector <input_file>
+```
+the profiling snapshots found in the [profiling/snapshots](profiling/snapshots) directory were generated using the following command:
+```bash
+gprof backprojector | gprof2dot -n0 -e0 | dot -Tsvg -Gbgcolor=transparent -o profiling/snapshots/"$(ls -l ./profiling/snapshots/ | wc -l) - $(date '+%Y-%m-%d %H:%M:%S')".svg
 ```
 you can then convert them to png using the following command:
 ```bash
