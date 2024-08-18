@@ -82,7 +82,7 @@ double getPlanePosition(int index, axis axis) {
 * Functions defined in the Siddon's algorithm
 **********************************************/
 
-void getSidesIntersections(const ray ray, const axis parallelTo, range intersections[3]) {
+void getSidesIntersections(const ray ray, double intersections[3][2], axis parallelTo) {
     const point3D source = ray.source;
     const point3D pixel = ray.pixel;
     for (axis axis = X; axis <= Z; axis++) {
@@ -96,14 +96,12 @@ void getSidesIntersections(const ray ray, const axis parallelTo, range intersect
 
         // Calculate the entry and exit points of the ray with the planes of this axis
         // Siddon's algorithm, equation (4)
-        intersections[axis] = (range){
-            .min = (firstPlane - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]),
-            .max = (lastPlane - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis])
-        };
+        intersections[axis][0] = (firstPlane - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
+        intersections[axis][1] = (lastPlane - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
     }
 }
 
-double getAMin(const axis parallelTo, const range intersections[3]) {
+double getAMin(double intersections[3][2], const axis parallelTo) {
     double aMin = 0.0;
     for (axis axis = X; axis <= Z; axis++) {
         if (axis == parallelTo) {
@@ -111,12 +109,12 @@ double getAMin(const axis parallelTo, const range intersections[3]) {
         }
 
         // Siddon's algorithm, equation (5)
-        aMin = fmax(aMin, fmin(intersections[axis].min, intersections[axis].max));
+        aMin = fmax(aMin, fmin(intersections[axis][0], intersections[axis][1]));
     }
     return aMin;
 }
 
-double getAMax(const axis parallelTo, const range intersections[3]) {
+double getAMax(double intersections[3][2], const axis parallelTo) {
     double aMax = 1.0;
     for (axis axis = X; axis <= Z; axis++) {
         if (axis == parallelTo) {
@@ -124,7 +122,7 @@ double getAMax(const axis parallelTo, const range intersections[3]) {
         }
 
         // Siddon's algorithm, equation (5)
-        aMax = fmin(aMax, fmax(intersections[axis].min, intersections[axis].max));
+        aMax = fmin(aMax, fmax(intersections[axis][0], intersections[axis][1]));
     }
     return aMax;
 }
@@ -312,12 +310,12 @@ void computeBackProjection(volume* volume, const projection* projection) {
             // the planes. For each (3) axis the first element is the entry point
             // of the ray into the first plane of that axis and the second element
             // is the exit point of the ray from the last plane of that axis.
-            range intersections[3];
-            getSidesIntersections(ray, parallelTo, intersections);
+            double intersections[3][2];
+            getSidesIntersections(ray, intersections, parallelTo);
 
             // Find aMin and aMax with intersections with the side planes
-            double aMin = getAMin(parallelTo, intersections);
-            double aMax = getAMax(parallelTo, intersections);
+            double aMin = getAMin(intersections, parallelTo);
+            double aMax = getAMax(intersections, parallelTo);
 
             if (aMin >= aMax) {
                 continue; // The ray doesn't intersect the volume
