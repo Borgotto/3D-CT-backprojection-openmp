@@ -247,9 +247,13 @@ bool isArraySorted(const double array[], int size) {
 void computeAbsorption(const ray ray, const double a[], const int lenA, const double pixelAbsorptionValue, volume* volume) {
     const point3D source = ray.source;
     const point3D pixel = ray.pixel;
+
     // distance between the source(1) and the pixel(2)
     // Siddon's algorithm, equation (11)
     const double d12 = sqrt(pow(pixel.x - source.x, 2) + pow(pixel.y - source.y, 2) + pow(pixel.z - source.z, 2));
+    const double firstPlaneX = getPlanePosition(0, X);
+    const double firstPlaneY = getPlanePosition(0, Y);
+    const double firstPlaneZ = getPlanePosition(0, Z);
 
     for(int i = 1; i < lenA; i ++){
         // Siddon's algorithm, equation (10)
@@ -259,10 +263,9 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
 
         // Calculate the voxel indices that the ray intersects
         // Siddon's algorithm, equation (12)
-        const int voxelX = ((source.x) + aMid * (pixel.x - source.x) - getPlanePosition(0, X)) / VOXEL_SIZE_X;
-        const int voxelY = ((source.y) + aMid * (pixel.y - source.y) - getPlanePosition(0, Y)) / VOXEL_SIZE_Y;
-        const int voxelZ = ((source.z) + aMid * (pixel.z - source.z) - getPlanePosition(0, Z)) / VOXEL_SIZE_Z;
-
+        const int voxelX = ((source.x) + aMid * (pixel.x - source.x) - firstPlaneX) / VOXEL_SIZE_X;
+        const int voxelY = ((source.y) + aMid * (pixel.y - source.y) - firstPlaneY) / VOXEL_SIZE_Y;
+        const int voxelZ = ((source.z) + aMid * (pixel.z - source.z) - firstPlaneZ) / VOXEL_SIZE_Z;
 
         // Update the value of the voxel given the value of the pixel and the
         // length of the segment that the ray intersects with the voxel
