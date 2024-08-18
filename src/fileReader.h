@@ -19,19 +19,21 @@
 bool readPGM(FILE* file, projection* projection) {
     // If the read pointer is at the beginning of the file
     if (ftell(file) == 0) {
-        // Make sure it's a PGM file
         char fileFormat[3];
-        fscanf(file, "%2s", fileFormat);
+        int width, height;
+        double maxVal;
+
+        // Make sure it's a PGM file and read its attributes
+        if(fscanf(file, "%2s", fileFormat) == EOF ||
+           fscanf(file, "%d %d", &width, &height) == EOF ||
+           fscanf(file, "%lf", &maxVal) == EOF) {
+            return false; // Error reading the file
+        }
         if (strcmp(fileFormat, "P2") != 0) {
             fprintf(stderr, "Unsupported PGM format\n");
             fclose(file);
             exit(1);
         }
-        // Read the PGM file attributes
-        int width, height;
-        double maxVal;
-        fscanf(file, "%d %d", &width, &height);
-        fscanf(file, "%lf", &maxVal);
         // Initialize the projection struct
         projection->nSidePixels = width;
         projection->maxVal = maxVal;
@@ -72,7 +74,9 @@ bool readPGM(FILE* file, projection* projection) {
     double pixelValue;
     for (int x = 0; x < projection->nSidePixels; x++) {
         for (int y = 0; y < projection->nSidePixels; y++) {
-            fscanf(file, "%lf", &pixelValue);
+            if (fscanf(file, "%lf", &pixelValue) == EOF) {
+                return false;
+            }
             projection->pixels[x * projection->nSidePixels + y] = pixelValue;
         }
     }
