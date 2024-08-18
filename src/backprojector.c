@@ -404,14 +404,25 @@ int main(int argc, char* argv[]) {
     projection projection;
 
     double initialTime = omp_get_wtime();
+    double projectionTimes[NTHETA];
 
     // Read the projection images from the file and compute the backprojection
     while (readPGM(inputFile, &projection)) {
+        printf("Processing projection %d/%d\n", projection.index + 1, NTHETA);
+
+        double projectionTime = omp_get_wtime();
+
         computeBackProjection(&volume, &projection);
+
+        projectionTimes[projection.index] = omp_get_wtime() - projectionTime;
+
+        printf("previous took %.3lf seconds\n", projectionTimes[projection.index]);
+        printf("\033[2A");
     }
 
     double finalTime = omp_get_wtime();
-    printf("Time taken: %lf seconds\n", finalTime - initialTime);
+    printf("Average time per projection: %.3lf seconds\n", (finalTime - initialTime) / NTHETA);
+    printf("Total time for %d projections: %.3lf seconds\n", NTHETA, finalTime - initialTime);
 
     writeVolume("output.txt", &volume);
 
