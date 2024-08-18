@@ -23,6 +23,7 @@
     #define DOD ((int)(1.5 * (VOXEL_MATRIX_SIZE)))
     #define DOS ((int)(6 * (VOXEL_MATRIX_SIZE)))
 #else
+    // These values can be modified based on the machine's capabilities
     #define VOXEL_MATRIX_SIZE 100000 // side length of the volumetric object (cube)
     #define DOD 150000               // distance from the volumetric center of object to the detector
     #define DOS 600000               // distance from the volumetric center of object to the source
@@ -56,6 +57,13 @@ typedef union point3D {
         double x, y, z;
     };
 } point3D;
+
+typedef union ray {
+    const point3D points[2];
+    struct {
+        const point3D source, pixel;
+    };
+} ray;
 
 typedef union range {
     int bounds[2];

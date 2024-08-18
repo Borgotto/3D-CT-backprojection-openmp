@@ -61,7 +61,9 @@ point3D getPixelPosition(int row, int col, const projection* projection) {
 * Given a ray's source and the pixel's center, determine if the ray is parallel
 * to one of the 3D space axes then return said axis or -1 if not parallel to any.
 */
-axis getParallelAxis(const point3D source, const point3D pixel) {
+axis getParallelAxis(const ray ray) {
+    const point3D source = ray.source;
+    const point3D pixel = ray.pixel;
     if (source.x == pixel.x) {
         return X;
     } else if (source.y == pixel.y) {
@@ -80,7 +82,9 @@ double getPlanePosition(int index, axis axis) {
 * Functions defined in the Siddon's algorithm
 **********************************************/
 
-void getSidesIntersections(const point3D source, const point3D pixel, double intersections[3][2], axis parallelTo) {
+void getSidesIntersections(const ray ray, double intersections[3][2], axis parallelTo) {
+    const point3D source = ray.source;
+    const point3D pixel = ray.pixel;
     for (axis axis = X; axis <= Z; axis++) {
         if (axis == parallelTo) {
             continue; // Skip the axis that the ray is parallel to
@@ -123,7 +127,9 @@ double getAMax(double intersections[3][2], const axis parallelTo) {
     return aMax;
 }
 
-void getPlanesRanges(const point3D source, const point3D pixel, range planesIndexes[3], const double aMin, const double aMax, const axis parallelTo) {
+void getPlanesRanges(const ray ray, range planesIndexes[3], const double aMin, const double aMax, const axis parallelTo) {
+    const point3D source = ray.source;
+    const point3D pixel = ray.pixel;
     for (axis axis = X; axis <= Z; axis++) {
         double firstPlane = getPlanePosition(0, axis);
         double lastPlane = getPlanePosition(nPlanes[axis] - 1, axis);
@@ -142,7 +148,9 @@ void getPlanesRanges(const point3D source, const point3D pixel, range planesInde
     }
 }
 
-void getAllIntersections(const point3D source, const point3D pixel, const range planesRanges[3], double* a[3]) {
+void getAllIntersections(const ray ray, const range planesRanges[3], double* a[3]) {
+    const point3D source = ray.source;
+    const point3D pixel = ray.pixel;
     for (axis axis = X; axis <= Z; axis++) {
         int minIndex = planesRanges[axis].min;
         int maxIndex = planesRanges[axis].max;
@@ -236,7 +244,9 @@ bool isArraySorted(const double array[], int size) {
     return true;
 }
 
-void computeAbsorption(const point3D source, const point3D pixel, const double a[], const int lenA, const double pixelAbsorptionValue, volume* volume) {
+void computeAbsorption(const ray ray, const double a[], const int lenA, const double pixelAbsorptionValue, volume* volume) {
+    const point3D source = ray.source;
+    const point3D pixel = ray.pixel;
     // distance between the source(1) and the pixel(2)
     // Siddon's algorithm, equation (11)
     const double d12 = sqrt(pow(pixel.x - source.x, 2) + pow(pixel.y - source.y, 2) + pow(pixel.z - source.z, 2));
@@ -290,17 +300,18 @@ void computeBackProjection(volume* volume, const projection* projection) {
     for (int row = 0; row < projection->nSidePixels; row++) {
         for (int col = 0; col < projection->nSidePixels; col++) {
             point3D pixel = getPixelPosition(row, col, projection);
+            ray ray = {.source=source, .pixel=pixel};
 
             // Calculate if the ray is parallel to one of the 3D space axes,
             // this will be useful for checks later in the Siddon's algorithm
-            axis parallelTo = getParallelAxis(source, pixel);
+            axis parallelTo = getParallelAxis(ray);
 
             // This array will contain the intersection points of the ray with
             // the planes. For each (3) axis the first element is the entry point
             // of the ray into the first plane of that axis and the second element
             // is the exit point of the ray from the last plane of that axis.
             double intersections[3][2];
-            getSidesIntersections(source, pixel, intersections, parallelTo);
+            getSidesIntersections(ray, intersections, parallelTo);
 
             // Find aMin and aMax with intersections with the side planes
             double aMin = getAMin(intersections, parallelTo);
@@ -316,7 +327,7 @@ void computeBackProjection(volume* volume, const projection* projection) {
             * coefficients of the voxels that the ray intersects.
             */
             range planesRanges[3];
-            getPlanesRanges(source, pixel, planesRanges, aMin, aMax, parallelTo);
+            getPlanesRanges(ray, planesRanges, aMin, aMax, parallelTo);
 
             // Calculate all of the intersections of the ray with the planes of
             // all axes and merge them into a single array
@@ -326,7 +337,7 @@ void computeBackProjection(volume* volume, const projection* projection) {
             const int aZSize = fmax(0, planesRanges[Z].max - planesRanges[Z].min);
             assert(aXSize >= 0 && aYSize >= 0 && aZSize >= 0);
             double aX[aXSize], aY[aYSize], aZ[aZSize];
-            getAllIntersections(source, pixel, planesRanges, (double*[]){aX, aY, aZ});
+            getAllIntersections(ray, planesRanges, (double*[]){aX, aY, aZ});
 
             // Merge all of the intersections into a single sorted array
             const int mergedSize = aXSize + aYSize + aZSize;
@@ -337,7 +348,7 @@ void computeBackProjection(volume* volume, const projection* projection) {
             // Calculate the coefficients of the voxels that the ray intersects
             // TODO: finish implementing this properly
             const double pixelAbsorptionValue = projection->pixels[row * projection->nSidePixels + col];
-            computeAbsorption(source, pixel, aMerged, mergedSize, pixelAbsorptionValue, volume);
+            computeAbsorption(ray, aMerged, mergedSize, pixelAbsorptionValue, volume);
         }
     }
 }
