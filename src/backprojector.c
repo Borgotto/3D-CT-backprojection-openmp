@@ -424,7 +424,7 @@ int main(int argc, char* argv[]) {
     printf("Average time per projection: %.3lf seconds\n", (finalTime - initialTime) / NTHETA);
     printf("Total time for %d projections: %.3lf seconds\n", NTHETA, finalTime - initialTime);
 
-    writeVolume("output.txt", &volume);
+    writeVolume(outputFile, &volume);
 
     fclose(inputFile);
     fclose(outputFile);
