@@ -92,7 +92,7 @@ void getSidesIntersections(const ray ray, const axis parallelTo, double intersec
 
         double firstPlane, lastPlane;
         firstPlane = getPlanePosition(0, axis);
-        lastPlane = getPlanePosition(nPlanes[axis] - 1, axis);
+        lastPlane = getPlanePosition(nVoxels[axis], axis);
 
         // Calculate the entry and exit points of the ray with the planes of this axis
         // Siddon's algorithm, equation (4)
@@ -132,7 +132,7 @@ void getPlanesRanges(const ray ray, range planesIndexes[3], const double aMin, c
     const point3D pixel = ray.pixel;
     for (axis axis = X; axis <= Z; axis++) {
         double firstPlane = getPlanePosition(0, axis);
-        double lastPlane = getPlanePosition(nPlanes[axis] - 1, axis);
+        double lastPlane = getPlanePosition(nVoxels[axis], axis);
 
         // Siddon's algorithm, equation (6)
         int minIndex, maxIndex;
