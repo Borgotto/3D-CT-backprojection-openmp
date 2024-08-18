@@ -289,8 +289,8 @@ void computeBackProjection(volume* volume, const projection* projection) {
     }
 
     // Calculate sin and cos values for the angle of this projection
-    long double angle = projection->angle;
-    long double rad = angle * M_PI / 180;
+    const long double angle = projection->angle;
+    const long double rad = angle * M_PI / 180;
     sinTable[projection->index] = sinl(rad);
     cosTable[projection->index] = cosl(rad);
 
@@ -301,12 +301,12 @@ void computeBackProjection(volume* volume, const projection* projection) {
     // coefficients of the voxels that contribute to the pixel.
     for (int row = 0; row < projection->nSidePixels; row++) {
         for (int col = 0; col < projection->nSidePixels; col++) {
-            point3D pixel = getPixelPosition(row, col, projection);
-            ray ray = {.source=source, .pixel=pixel};
+            const point3D pixel = getPixelPosition(row, col, projection);
+            const ray ray = {.source=source, .pixel=pixel};
 
             // Calculate if the ray is parallel to one of the 3D space axes,
             // this will be useful for checks later in the Siddon's algorithm
-            axis parallelTo = getParallelAxis(ray);
+            const axis parallelTo = getParallelAxis(ray);
 
             // This array will contain the intersection points of the ray with
             // the planes. For each (3) axis the first element is the entry point

@@ -52,9 +52,9 @@ typedef enum axis {
 } axis;
 
 typedef union point3D {
-    double coordinates[3];
+    const double coordinates[3];
     struct {
-        double x, y, z;
+        const double x, y, z;
     };
 } point3D;
 
