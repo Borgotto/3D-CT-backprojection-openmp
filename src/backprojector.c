@@ -394,25 +394,18 @@ int main(int argc, char* argv[]) {
 
     double initialTime = omp_get_wtime();
 
-    // For each projection image in the file
-    for (int i = 0; i < NTHETA; i++) {
-        readPGM(inputFile, i, &projection);
-        if (projection.pixels == NULL) {
-            break; // No more images to read
-        }
-
+    // Read the projection images from the file and compute the backprojection
+    while (readPGM(inputFile, &projection)) {
         computeBackProjection(&volume, &projection);
-
-        // free the memory allocated by the readPGM function
-        // before reading the next image
-        free(projection.pixels);
     }
 
     double finalTime = omp_get_wtime();
+    printf("Time taken: %lf seconds\n", finalTime - initialTime);
 
     writeVolume("output.txt", &volume);
-    free(volume.coefficients);
-    printf("Time taken: %lf seconds\n", finalTime - initialTime);
+
     fclose(inputFile);
+    free(volume.coefficients);
+    free(projection.pixels);
     return 0;
 }
