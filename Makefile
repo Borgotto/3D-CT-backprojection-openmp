@@ -1,6 +1,7 @@
 CC = gcc
-CFLAGS = -std=c11 -Wall -Wpedantic -fopenmp -g -pg
-LFLAGS = -lm -D_WORK_UNITS=200
+CFLAGS = -std=c11 -Wall -Wpedantic -fopenmp
+LFLAGS = -lm
+DEBUGFLAGS = -D_WORK_UNITS=2352 -g -pg -fno-omit-frame-pointer -O0 -fno-inline-functions -fno-inline-functions-called-once -fno-optimize-sibling-calls
 
 TARGET = backprojector
 SRC = src/backprojector.c
@@ -8,7 +9,7 @@ SRC = src/backprojector.c
 all: $(TARGET)
 .PHONY: $(TARGET) # force the target to be rebuilt
 $(TARGET):
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRC) $(LFLAGS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRC) $(LFLAGS) $(DEBUGFLAGS)
 
 clean:
 	rm -f $(TARGET) gmon.out
