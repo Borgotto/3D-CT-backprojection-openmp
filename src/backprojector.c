@@ -82,7 +82,7 @@ double getPlanePosition(int index, axis axis) {
 * Functions defined in the Siddon's algorithm
 **********************************************/
 
-void getSidesIntersections(const ray ray, double intersections[3][2], axis parallelTo) {
+void getSidesIntersections(const ray ray, const axis parallelTo, double intersections[3][2]) {
     const point3D source = ray.source;
     const point3D pixel = ray.pixel;
     for (axis axis = X; axis <= Z; axis++) {
@@ -101,7 +101,7 @@ void getSidesIntersections(const ray ray, double intersections[3][2], axis paral
     }
 }
 
-double getAMin(double intersections[3][2], const axis parallelTo) {
+double getAMin(const axis parallelTo, double intersections[3][2]) {
     double aMin = 0.0;
     for (axis axis = X; axis <= Z; axis++) {
         if (axis == parallelTo) {
@@ -114,7 +114,7 @@ double getAMin(double intersections[3][2], const axis parallelTo) {
     return aMin;
 }
 
-double getAMax(double intersections[3][2], const axis parallelTo) {
+double getAMax(const axis parallelTo, double intersections[3][2]) {
     double aMax = 1.0;
     for (axis axis = X; axis <= Z; axis++) {
         if (axis == parallelTo) {
@@ -311,11 +311,11 @@ void computeBackProjection(volume* volume, const projection* projection) {
             // of the ray into the first plane of that axis and the second element
             // is the exit point of the ray from the last plane of that axis.
             double intersections[3][2];
-            getSidesIntersections(ray, intersections, parallelTo);
+            getSidesIntersections(ray, parallelTo, intersections);
 
             // Find aMin and aMax with intersections with the side planes
-            double aMin = getAMin(intersections, parallelTo);
-            double aMax = getAMax(intersections, parallelTo);
+            double aMin = getAMin(parallelTo, intersections);
+            double aMax = getAMax(parallelTo, intersections);
 
             if (aMin >= aMax) {
                 continue; // The ray doesn't intersect the volume
