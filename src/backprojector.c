@@ -22,7 +22,7 @@
 
 // Convenient variables accessible by indexing using the axis enum
 static const double voxelSize[3] = {VOXEL_SIZE_X, VOXEL_SIZE_Y, VOXEL_SIZE_Z};
-static const int nVoxels[3] = {NVOXELS_X, NVOXELS_Y, NVOXELS_Z};
+//static const int nVoxels[3] = {NVOXELS_X, NVOXELS_Y, NVOXELS_Z};
 static const int nPlanes[3] = {NPLANES_X, NPLANES_Y, NPLANES_Z};
 
 // Cache the sin and cos values of the angles to avoid recalculating them
