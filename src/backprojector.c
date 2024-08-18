@@ -38,7 +38,7 @@ point3D getSourcePosition(int index) {
     return (point3D) {
         .x = -sinTable[index] * DOS,
         .y = cosTable[index] * DOS,
-        .z = 0
+        .z = 0 // 0 because the source is perpendicular to the center of the detector
     };
 }
 
@@ -73,16 +73,7 @@ axis getParallelAxis(const point3D source, const point3D pixel) {
 }
 
 double getPlanePosition(int index, axis axis) {
-    switch (axis) {
-        case X:
-            return -((VOXEL_MATRIX_SIZE) / 2) + index * VOXEL_SIZE_X;
-        case Y:
-            return -((VOXEL_MATRIX_SIZE) / 2) + index * VOXEL_SIZE_Y;
-        case Z:
-            return -((VOXEL_MATRIX_SIZE) / 2) + index * VOXEL_SIZE_Z;
-        default:
-            return 0;
-    }
+    return -((VOXEL_MATRIX_SIZE) / 2) + index * voxelSize[axis];
 }
 
 /*********************************************
@@ -280,7 +271,7 @@ void computeAbsorption(const point3D source, const point3D pixel, const double a
 
 void computeBackProjection(volume* volume, const projection* projection) {
     // Check if the arguments are valid
-    if (volume == NULL || projection == NULL || projection->pixels == NULL) {
+    if (volume == NULL || projection == NULL) {
         printf("Invalid arguments\n");
         return;
     }
