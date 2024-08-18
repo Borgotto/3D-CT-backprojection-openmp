@@ -363,7 +363,15 @@ int main(int argc, char* argv[]) {
     // Open the input file or use stdin
     FILE* inputFile = (argc >= 2) ? fopen(argv[1], "r") : stdin;
     if (inputFile == NULL) {
-        perror("Error opening file");
+        perror("Error opening input file");
+        return 1;
+    }
+
+    // Do the same with the output file
+    FILE* outputFile = (argc >= 3) ? fopen(argv[2], "w") : stdout;
+    if (outputFile == NULL) {
+        perror("Error opening output file");
+        fclose(outputFile);
         return 1;
     }
 
@@ -405,6 +413,7 @@ int main(int argc, char* argv[]) {
     writeVolume("output.txt", &volume);
 
     fclose(inputFile);
+    fclose(outputFile);
     free(volume.coefficients);
     free(projection.pixels);
     return 0;
