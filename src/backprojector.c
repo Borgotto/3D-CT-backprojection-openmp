@@ -9,7 +9,7 @@
 #include <stdlib.h>     // malloc, calloc, free
 #include <stdbool.h>    // bool, true, false
 #include <string.h>     // strcmp, strstr
-#include <math.h>       // sin, cos
+#include <math.h>       // sinl, cosl
 #include <float.h>      // DBL_MAX, DBL_MIN
 #include <assert.h>     // assert
 #include <unistd.h>     // isatty
@@ -25,15 +25,9 @@ static const double voxelSize[3] = {VOXEL_SIZE_X, VOXEL_SIZE_Y, VOXEL_SIZE_Z};
 static const int nVoxels[3] = {NVOXELS_X, NVOXELS_Y, NVOXELS_Z};
 static const int nPlanes[3] = {NPLANES_X, NPLANES_Y, NPLANES_Z};
 
-double sinTable[NTHETA], cosTable[NTHETA];
+// Cache the sin and cos values of the angles to avoid recalculating them
+long double sinTable[NTHETA], cosTable[NTHETA];
 
-// Precompute the sin and cos values for each angle to save computation time
-void initTables() {
-    for(int i = 0; i < NTHETA; i++) {
-        sinTable[i] = sin((AP / 2 - i * STEP_ANGLE) * M_PI / 180);
-        cosTable[i] = cos((AP / 2 - i * STEP_ANGLE) * M_PI / 180);
-    }
-}
 
 /*******************************************
 * Functions to calculate 3D space positions
@@ -291,6 +285,12 @@ void computeBackProjection(volume* volume, const projection* projection) {
         return;
     }
 
+    // Calculate sin and cos values for the angle of this projection
+    long double angle = projection->angle;
+    long double rad = angle * M_PI / 180;
+    sinTable[projection->index] = sinl(rad);
+    cosTable[projection->index] = cosl(rad);
+
     // Get the source point of this projection
     const point3D source = getSourcePosition(projection->index);
 
@@ -353,8 +353,6 @@ void computeBackProjection(volume* volume, const projection* projection) {
 
 
 int main(int argc, char* argv[]) {
-    initTables();
-
     // Check if input file is provided either as an argument or through stdin
     if (argc < 2 && isatty(fileno(stdin))) {
         fprintf(stderr, "No input file provided\n");
