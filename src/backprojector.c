@@ -59,7 +59,7 @@ point3D getPixelPosition(int row, int col, const projection* projection) {
 
 /*
 * Given a ray's source and the pixel's center, determine if the ray is parallel
-* to one of the 3D space axes then return said axis or -1 if not parallel to any.
+* to one of the 3D space axes then return said axis or NONE if not parallel to any.
 */
 axis getParallelAxis(const ray ray) {
     const point3D source = ray.source;
