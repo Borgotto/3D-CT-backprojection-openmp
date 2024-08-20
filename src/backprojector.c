@@ -28,6 +28,26 @@ static const int nPlanes[3] = {NPLANES_X, NPLANES_Y, NPLANES_Z};
 // Cache the sin and cos values of the angles to avoid recalculating them
 long double sinTable[NTHETA], cosTable[NTHETA];
 
+// Cache the first and last plane positions for each axis
+double firstPlane[3], lastPlane[3];
+
+// Fills the cache tables
+void initTables() {
+    // Calculate sin and cos values for the angle of this projection
+    for (int i = 0; i < NTHETA; i++) {
+        const long double angle = AP / 2 + i * STEP_ANGLE;
+        const long double rad = angle * M_PI / 180;
+        sinTable[i] = sinl(rad);
+        cosTable[i] = cosl(rad);
+    }
+
+    // Calculate the first and last plane positions for each axis
+    for (axis axis = X; axis <= Z; axis++) {
+        firstPlane[axis] = -(voxelSize[axis] * nVoxels[axis]) / 2;
+        lastPlane[axis] = (voxelSize[axis] * nVoxels[axis]) / 2;
+    }
+}
+
 
 /*******************************************
 * Functions to calculate 3D space positions
@@ -90,14 +110,10 @@ void getSidesIntersections(const ray ray, const axis parallelTo, double intersec
             continue; // Skip the axis that the ray is parallel to
         }
 
-        double firstPlane, lastPlane;
-        firstPlane = getPlanePosition(0, axis);
-        lastPlane = getPlanePosition(nVoxels[axis], axis);
-
         // Calculate the entry and exit points of the ray with the planes of this axis
         // Siddon's algorithm, equation (4)
-        intersections[axis][0] = (firstPlane - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
-        intersections[axis][1] = (lastPlane - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
+        intersections[axis][0] = (firstPlane[axis] - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
+        intersections[axis][1] = (lastPlane[axis] - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
     }
 }
 
@@ -131,18 +147,15 @@ void getPlanesRanges(const ray ray, range planesIndexes[3], const double aMin, c
     const point3D source = ray.source;
     const point3D pixel = ray.pixel;
     for (axis axis = X; axis <= Z; axis++) {
-        double firstPlane = getPlanePosition(0, axis);
-        double lastPlane = getPlanePosition(nVoxels[axis], axis);
-
         // Siddon's algorithm, equation (6)
         int minIndex, maxIndex;
         if (pixel.coordinates[axis] - source.coordinates[axis] >= 0) {
-            minIndex = nPlanes[axis] - ceil((lastPlane - aMin * (pixel.coordinates[axis] - source.coordinates[axis]) - source.coordinates[axis]) / voxelSize[axis]);
-            maxIndex = floor((source.coordinates[axis] + aMax * (pixel.coordinates[axis] - source.coordinates[axis]) - firstPlane) / voxelSize[axis]);
+            minIndex = nPlanes[axis] - ceil((lastPlane[axis] - aMin * (pixel.coordinates[axis] - source.coordinates[axis]) - source.coordinates[axis]) / voxelSize[axis]);
+            maxIndex = floor((source.coordinates[axis] + aMax * (pixel.coordinates[axis] - source.coordinates[axis]) - firstPlane[axis]) / voxelSize[axis]);
         } else {
-            minIndex = nPlanes[axis] - ceil((lastPlane - aMax * (pixel.coordinates[axis] - source.coordinates[axis]) - source.coordinates[axis]) / voxelSize[axis]);
+            minIndex = nPlanes[axis] - ceil((lastPlane[axis] - aMax * (pixel.coordinates[axis] - source.coordinates[axis]) - source.coordinates[axis]) / voxelSize[axis]);
             // TODO: verify if '1 +' is needed at the beginning of the next line
-            maxIndex = floor((source.coordinates[axis] + aMin * (pixel.coordinates[axis] - source.coordinates[axis]) - firstPlane) / voxelSize[axis]);
+            maxIndex = floor((source.coordinates[axis] + aMin * (pixel.coordinates[axis] - source.coordinates[axis]) - firstPlane[axis]) / voxelSize[axis]);
         }
         planesIndexes[axis] = (range){.min=minIndex, .max=maxIndex};
     }
@@ -251,9 +264,6 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
     // distance between the source(1) and the pixel(2)
     // Siddon's algorithm, equation (11)
     const double d12 = sqrt(pow(pixel.x - source.x, 2) + pow(pixel.y - source.y, 2) + pow(pixel.z - source.z, 2));
-    const double firstPlaneX = getPlanePosition(0, X);
-    const double firstPlaneY = getPlanePosition(0, Y);
-    const double firstPlaneZ = getPlanePosition(0, Z);
 
     for(int i = 1; i < lenA; i ++){
         // Siddon's algorithm, equation (10)
@@ -263,9 +273,9 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
 
         // Calculate the voxel indices that the ray intersects
         // Siddon's algorithm, equation (12)
-        const int voxelX = ((source.x) + aMid * (pixel.x - source.x) - firstPlaneX) / VOXEL_SIZE_X;
-        const int voxelY = ((source.y) + aMid * (pixel.y - source.y) - firstPlaneY) / VOXEL_SIZE_Y;
-        const int voxelZ = ((source.z) + aMid * (pixel.z - source.z) - firstPlaneZ) / VOXEL_SIZE_Z;
+        const int voxelX = ((source.x) + aMid * (pixel.x - source.x) - firstPlane[X]) / VOXEL_SIZE_X;
+        const int voxelY = ((source.y) + aMid * (pixel.y - source.y) - firstPlane[Y]) / VOXEL_SIZE_Y;
+        const int voxelZ = ((source.z) + aMid * (pixel.z - source.z) - firstPlane[Z]) / VOXEL_SIZE_Z;
 
         // Update the value of the voxel given the value of the pixel and the
         // length of the segment that the ray intersects with the voxel
@@ -288,12 +298,6 @@ void computeBackProjection(volume* volume, const projection* projection) {
         printf("Invalid arguments\n");
         return;
     }
-
-    // Calculate sin and cos values for the angle of this projection
-    const long double angle = projection->angle;
-    const long double rad = angle * M_PI / 180;
-    sinTable[projection->index] = sinl(rad);
-    cosTable[projection->index] = cosl(rad);
 
     // Get the source point of this projection
     const point3D source = getSourcePosition(projection->index);
@@ -402,6 +406,8 @@ int main(int argc, char* argv[]) {
     * its values are overwritten each iteration of the loop below to save memory.
     */
     projection projection;
+
+    initTables();
 
     double initialTime = omp_get_wtime();
     double projectionTimes[NTHETA];
