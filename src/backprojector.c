@@ -226,28 +226,6 @@ void mergeIntersections(const double aX[], const double aY[], const double aZ[],
     }
 }
 
-// TODO: time this function and see if it's faster than the previous one
-void fastMergeIntersections(const double aX[], const double aY[], const double aZ[], const int aXSize, const int aYSize, const int aZSize, double aMerged[]) {
-    unsigned int i = 0, j = 0, k = 0, l = 0;
-
-    while (i < aXSize || j < aYSize || k < aZSize) {
-        double x = (i < aXSize) ? aX[i] : DBL_MAX;
-        double y = (j < aYSize) ? aY[j] : DBL_MAX;
-        double z = (k < aZSize) ? aZ[k] : DBL_MAX;
-
-        if (x <= y && x <= z) {
-            aMerged[l++] = x;
-            i++;
-        } else if (y <= x && y <= z) {
-            aMerged[l++] = y;
-            j++;
-        } else {
-            aMerged[l++] = z;
-            k++;
-        }
-    }
-}
-
 bool isArraySorted(const double array[], int size) {
     for (int i = 1; i < size; i++) {
         if (array[i] < array[i - 1]) {
