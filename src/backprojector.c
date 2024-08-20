@@ -276,22 +276,19 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
         const int voxelX = ((source.x) + aMid * (pixel.x - source.x) - firstPlane[X]) / VOXEL_SIZE_X;
         const int voxelY = ((source.y) + aMid * (pixel.y - source.y) - firstPlane[Y]) / VOXEL_SIZE_Y;
         const int voxelZ = ((source.z) + aMid * (pixel.z - source.z) - firstPlane[Z]) / VOXEL_SIZE_Z;
+        assert(voxelX >= 0 && voxelY >= 0 && voxelZ >= 0);
+        assert(voxelX <= NVOXELS_X && voxelY <= NVOXELS_Y && voxelZ <= NVOXELS_Z);
 
         // Update the value of the voxel given the value of the pixel and the
         // length of the segment that the ray intersects with the voxel
         const double voxelAbsorptionValue = pixelAbsorptionValue * segmentLength;
+        assert(voxelAbsorptionValue >= 0);
         const int voxelIndex = voxelX + voxelY * NVOXELS_Y + voxelZ * NVOXELS_Z;
-
-        //printf("voxelIndex: x =%3d/%d, y =%3d/%d, z =%3d/%d => %7d/%d\n", voxelX, NVOXELS_X, voxelY, NVOXELS_Y, voxelZ, NVOXELS_Z, voxelIndex, NVOXELS_X * NVOXELS_Y * NVOXELS_Z);
-        assert(voxelX >= 0 && voxelY >= 0 && voxelZ >= 0);
-        assert(voxelX <= NVOXELS_X && voxelY <= NVOXELS_Y && voxelZ <= NVOXELS_Z);
         assert(voxelIndex >= 0 && voxelIndex <= NVOXELS_X * NVOXELS_Y * NVOXELS_Z);
-        //printf("index: %7d/%d  current: %10.2lf  new: %10.2lf\n", voxelIndex, NVOXELS_X * NVOXELS_Y * NVOXELS_Z, volume->coefficients[voxelIndex], volume->coefficients[voxelIndex] + voxelAbsorptionValue);
 
         // TODO: find a way to avoid using atomic operations, this is a bottleneck
         #pragma omp atomic update
         volume->coefficients[voxelIndex] += voxelAbsorptionValue;
-        assert(volume->coefficients[voxelIndex] >= 0);
     }
 }
 
