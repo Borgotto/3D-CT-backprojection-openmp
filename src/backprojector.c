@@ -399,6 +399,13 @@ int main(int argc, char* argv[]) {
         // TODO: or sacrifice accuracy for memory by using float instead of double
         .coefficients = (double*)calloc(NVOXELS_X * NVOXELS_Y * NVOXELS_Z, sizeof(double))
     };
+    // Check if the memory was allocated successfully
+    if (volume.coefficients == NULL) {
+        perror("Error allocating memory for the volume");
+        fclose(inputFile);
+        fclose(outputFile);
+        return 1;
+    }
 
 
     /*

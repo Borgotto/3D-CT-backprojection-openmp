@@ -38,6 +38,12 @@ bool readPGM(FILE* file, projection* projection) {
         projection->nSidePixels = width;
         projection->maxVal = maxVal;
         projection->pixels = (double*)malloc(width * width * sizeof(double));
+        // Check if the memory allocation was successful
+        if (projection->pixels == NULL) {
+            fprintf(stderr, "Error allocating memory for the projection\n");
+            fclose(file);
+            exit(1);
+        }
     }
 
     // Skip lines until "# angle:" is found
