@@ -287,6 +287,9 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
         assert(voxelX <= NVOXELS_X && voxelY <= NVOXELS_Y && voxelZ <= NVOXELS_Z);
         assert(voxelIndex >= 0 && voxelIndex <= NVOXELS_X * NVOXELS_Y * NVOXELS_Z);
         //printf("index: %7d/%d  current: %10.2lf  new: %10.2lf\n", voxelIndex, NVOXELS_X * NVOXELS_Y * NVOXELS_Z, volume->coefficients[voxelIndex], volume->coefficients[voxelIndex] + voxelAbsorptionValue);
+
+        // TODO: find a way to avoid using atomic operations, this is a bottleneck
+        #pragma omp atomic update
         volume->coefficients[voxelIndex] += voxelAbsorptionValue;
         assert(volume->coefficients[voxelIndex] >= 0);
     }
@@ -304,6 +307,7 @@ void computeBackProjection(volume* volume, const projection* projection) {
 
     // Iterate through every pixel of the projection image and calculate the
     // coefficients of the voxels that contribute to the pixel.
+    #pragma omp parallel for collapse(2) schedule(dynamic) default(none) shared(volume, projection, source)
     for (int row = 0; row < projection->nSidePixels; row++) {
         for (int col = 0; col < projection->nSidePixels; col++) {
             const point3D pixel = getPixelPosition(row, col, projection);
