@@ -1,6 +1,17 @@
+# Visual Studio Code configuration files
 .vscode
+
+# program binary
 /backprojector*
+
+# Profiling output
 gmon.out
 
-#too big for git
+# Example input too big for git
 tests/2352x16464.pgm
+
+# Doxygen binaries
+doc/doxy*
+
+# Backup files
+*.bak
