@@ -7,28 +7,45 @@ gcc -std=c11 -Wall -Wpedantic -fopenmp backprojector.c -lm -o backprojector
 ```
 or simply use the provided Makefile:
 ```bash
-make
+make backprojector
 ```
 
 ## Run
 Run the program with the following command:
 ```bash
-./backprojector <input_file>
+./backprojector <input_file> <output_file>
 ```
 where `<input_file>` is the path to the input `.PGM` file
+and `<output_file>` is the path to the output `.txt` file.
 
-
-## Capture profiling data
-First, compile the program with the `-pg` flag and run it as usual:
+## Profiling
+First, compile the program with the `-pg` flag then run it as usual:
 ```bash
 gcc -std=c11 -Wall -Wpedantic -fopenmp backprojector.c -lm -o backprojector -pg
-./backprojector <input_file>
+./backprojector <input_file> <output_file>
 ```
-the profiling snapshots found in the [profiling/snapshots](profiling/snapshots) directory were generated using the following command:
+convert the `gmon.out` file to a human-readable format using the following command:
 ```bash
 gprof backprojector | gprof2dot -n0 -e0 | dot -Tsvg -Gbgcolor=transparent -o profiling/snapshots/"$(ls -l ./profiling/snapshots/ | wc -l) - $(date '+%Y-%m-%d %H.%M.%S')".svg
 ```
-you can then convert them to png using the following command:
+you can then convert them to `png`:
 ```bash
 convert -background white -alpha remove -alpha off profiling/snapshots/<snapshot>.svg profiling/snapshots/<snapshot>.png
 ```
+
+The profiling snapshots found in the [profiling/snapshots](profiling/snapshots) directory were generated using [this](/profiling/runProfiler.sh) script
+
+## Documentation
+To view the documentation, visit []() or open the [index.html](doc/html/index.html) file in your browser.
+
+The documentation was generated using [Doxygen 1.12.0](https://www.doxygen.nl/) and this [Doxyfile](/doc/Doxyfile).
+```bash
+doxygen Doxyfile
+```
+there's also a Makefile target for it:
+```bash
+make doc
+```
+the generated documentation can be found in the [doc](doc) directory.
+
+
