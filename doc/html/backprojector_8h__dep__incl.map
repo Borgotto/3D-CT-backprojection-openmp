@@ -1,0 +1,5 @@
+<map id="backprojector.h" name="backprojector.h">
+<area shape="rect" id="Node000001" title="Header file for the backprojector module." alt="" coords="5,5,128,31"/>
+<area shape="rect" id="Node000002" href="$backprojector_8c.html" title="Implementation of the backprojection algorithm for CT reconstruction." alt="" coords="6,79,127,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,44,69,79,64,79,64,44"/>
+</map>

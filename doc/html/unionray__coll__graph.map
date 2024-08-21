@@ -1,0 +1,5 @@
+<map id="ray" name="ray">
+<area shape="rect" id="Node000001" title="Union of Struct/Array for representing a straight line in 3D space." alt="" coords="21,123,63,148"/>
+<area shape="rect" id="Node000002" href="$unionpoint3D.html" title="Union of Struct/Array for representing a 3D point in space." alt="" coords="5,5,79,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="45,44,45,123,39,123,39,44"/>
+</map>

@@ -1,0 +1,35 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,327,60,352"/>
+<area shape="rect" id="Node000002" href="$backprojector_8c.html#a695176076b7a7e5eff55b510ca9293f7" title="Computes the backprojection of the projection." alt="" coords="108,252,284,277"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="48,324,75,305,107,286,124,279,126,284,109,291,77,309,51,329"/>
+<area shape="rect" id="Node000015" href="$backprojector_8c.html#a6a3745a608949257cc9c8dcd35bb6e72" title="Initializes the sine and cosine tables, as well as the firstPlane and lastPlane arrays." alt="" coords="154,301,238,327"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="60,333,140,320,141,325,61,338"/>
+<area shape="rect" id="Node000016" href="$fileReader_8h.html#a48badc2c00f56ae85dc9111f0d12b581" title="Read a PGM file containing CT projections." alt="" coords="155,351,237,376"/>
+<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="61,341,142,353,141,358,60,346"/>
+<area shape="rect" id="Node000017" href="$fileWriter_8h.html#aa55291cd635a2a4e7c58d4a256c014d6" title="Write a 3D volume of voxels to a file." alt="" coords="144,400,248,425"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="52,350,78,368,109,385,132,394,130,399,107,390,76,372,49,354"/>
+<area shape="rect" id="Node000003" href="$backprojector_8c.html#a0dff3e6286ee3ee9b7e74f9a9ad4f2ec" title="Computes the absorption value of the voxels intersected by the ray." alt="" coords="339,5,488,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="199,251,214,210,241,153,279,92,303,64,330,40,338,35,341,39,334,44,307,68,284,96,246,156,219,212,204,253"/>
+<area shape="rect" id="Node000004" href="$backprojector_8c.html#ae6ca17545d3e55eadcfdfe51b4b5e11c" title="Calculates all the intersection points of the ray with the planes." alt="" coords="341,55,485,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="201,250,220,218,248,174,285,129,330,89,340,83,343,88,334,93,289,132,252,177,224,220,206,253"/>
+<area shape="rect" id="Node000006" href="$backprojector_8c.html#a5dad3fd7c1d04e6eeca36364d14c1245" title="Finds the maximum intersection point along the given axis." alt="" coords="373,104,453,129"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="206,250,256,196,291,165,331,138,359,126,361,131,333,143,295,169,260,200,210,254"/>
+<area shape="rect" id="Node000007" href="$backprojector_8c.html#a0e38a3847dec2b2e3c40870d8b938e19" title="Finds the minimum intersection point along the given axis." alt="" coords="375,153,451,179"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="216,250,267,219,331,188,361,177,363,182,333,192,270,224,219,254"/>
+<area shape="rect" id="Node000008" href="$backprojector_8c.html#a96c75e5ea7fdb7390df28cf46090b065" title="Finds which axis is parallel to the ray." alt="" coords="354,203,473,228"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="252,249,343,228,344,234,253,255"/>
+<area shape="rect" id="Node000009" href="$backprojector_8c.html#a44ba7f13100e9b59778aaa69cf1b6237" title="Calculates the 3D coordinates of a pixel of the detector." alt="" coords="350,252,477,277"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="284,262,336,262,336,267,284,267"/>
+<area shape="rect" id="Node000010" href="$backprojector_8c.html#abb728284497ed8524b8acc57996e6f0d" title="Calculates the ranges of planes that the ray intersects." alt="" coords="346,301,481,327"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="253,275,344,296,343,301,252,280"/>
+<area shape="rect" id="Node000011" href="$backprojector_8c.html#ae8384b3bc5b85feb8e1c1a498bbff052" title="Calculates the intersection points of the ray with the planes." alt="" coords="332,351,495,376"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="260,275,285,286,301,299,310,312,319,324,333,336,347,343,345,348,331,340,315,328,306,315,297,303,283,291,258,280"/>
+<area shape="rect" id="Node000012" href="$backprojector_8c.html#a081dea4548f6635b8bcf377386c33226" title="Calculates the 3D coordinates of the source of the ray given the index of the projection." alt="" coords="344,400,483,425"/>
+<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="267,275,286,287,297,299,305,312,311,337,317,362,323,374,334,385,342,391,339,396,330,389,319,377,312,364,306,338,300,314,293,302,282,291,264,280"/>
+<area shape="rect" id="Node000013" href="$backprojector_8c.html#a973af40d863ad969ee5362184f7656a8" title="Checks if the array is sorted in ascending order." alt="" coords="358,449,469,475"/>
+<area shape="poly" id="edge12_Node000002_Node000013" title=" " alt="" coords="269,275,286,287,301,305,308,325,311,362,313,399,320,417,334,435,347,445,344,449,330,439,316,420,308,400,306,363,303,326,296,308,282,291,266,280"/>
+<area shape="rect" id="Node000014" href="$backprojector_8c.html#a6616c0957bffb44f16fb54c48f3f3f05" title="Merges the intersection points of the ray with the planes." alt="" coords="339,499,487,524"/>
+<area shape="poly" id="edge13_Node000002_Node000014" title=" " alt="" coords="271,275,286,287,304,312,312,337,313,362,311,387,309,412,310,436,317,460,334,484,340,489,336,493,330,488,312,462,305,437,304,412,306,387,308,362,307,338,299,314,282,291,267,280"/>
+<area shape="rect" id="Node000005" href="$backprojector_8c.html#aff0f271395d320a9c9856d4c12e4febb" title="Calculates the position of the plane parallel to the given axis and at the given index." alt="" coords="543,55,673,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="486,65,529,65,529,70,486,70"/>
+</map>

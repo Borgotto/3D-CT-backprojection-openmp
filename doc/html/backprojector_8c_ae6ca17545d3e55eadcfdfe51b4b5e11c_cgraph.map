@@ -1,0 +1,5 @@
+<map id="getAllIntersections" name="getAllIntersections">
+<area shape="rect" id="Node000001" title="Calculates all the intersection points of the ray with the planes." alt="" coords="5,5,149,31"/>
+<area shape="rect" id="Node000002" href="$backprojector_8c.html#aff0f271395d320a9c9856d4c12e4febb" title="Calculates the position of the plane parallel to the given axis and at the given index." alt="" coords="197,5,328,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,15,184,15,184,21,150,21"/>
+</map>

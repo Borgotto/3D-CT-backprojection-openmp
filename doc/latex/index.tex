@@ -1,0 +1,54 @@
+\chapter{3D-\/\+CT-\/backprojection-\/openmp}
+\hypertarget{index}{}\label{index}\index{3D-\/CT-\/backprojection-\/openmp@{3D-\/CT-\/backprojection-\/openmp}}
+\label{index_md__2home_2borgo_23D-CT-backprojection-openmp_2readme}%
+\Hypertarget{index_md__2home_2borgo_23D-CT-backprojection-openmp_2readme}%
+\hypertarget{index_compile}{}\doxysection{\texorpdfstring{Compile}{Compile}}\label{index_compile}
+Compile using gcc\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{gcc\ -\/std=c11\ -\/Wall\ -\/Wpedantic\ -\/fopenmp\ backprojector.c\ -\/lm\ -\/o\ backprojector}
+
+\end{DoxyCode}
+ or simply use the provided Makefile\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ backprojector}
+
+\end{DoxyCode}
+\hypertarget{index_run}{}\doxysection{\texorpdfstring{Run}{Run}}\label{index_run}
+Run the program with the following command\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{./backprojector\ <input\_file>\ <output\_file>}
+
+\end{DoxyCode}
+ where {\ttfamily \texorpdfstring{$<$}{<}input\+\_\+file\texorpdfstring{$>$}{>}} is the path to the input {\ttfamily .PGM} file and {\ttfamily \texorpdfstring{$<$}{<}output\+\_\+file\texorpdfstring{$>$}{>}} is the path to the output {\ttfamily .txt} file.\hypertarget{index_profiling}{}\doxysection{\texorpdfstring{Profiling}{Profiling}}\label{index_profiling}
+First, compile the program with the {\ttfamily -\/pg} flag then run it as usual\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{gcc\ -\/std=c11\ -\/Wall\ -\/Wpedantic\ -\/fopenmp\ backprojector.c\ -\/lm\ -\/o\ backprojector\ -\/pg}
+\DoxyCodeLine{./backprojector\ <input\_file>\ <output\_file>}
+
+\end{DoxyCode}
+ convert the {\ttfamily gmon.\+out} file to a human-\/readable format using the following command\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{gprof\ backprojector\ |\ gprof2dot\ -\/n0\ -\/e0\ |\ dot\ -\/Tsvg\ -\/Gbgcolor=transparent\ -\/o\ profiling/snapshots/"{}\$(ls\ -\/l\ ./profiling/snapshots/\ |\ wc\ -\/l)\ -\/\ \$(date\ '+\%Y-\/\%m-\/\%d\ \%H.\%M.\%S')"{}.svg}
+
+\end{DoxyCode}
+ you can then convert them to {\ttfamily png}\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{convert\ -\/background\ white\ -\/alpha\ remove\ -\/alpha\ off\ profiling/snapshots/<snapshot>.svg\ profiling/snapshots/<snapshot>.png}
+
+\end{DoxyCode}
+
+
+The profiling snapshots found in the \href{profiling/snapshots}{\texttt{ profiling/snapshots}} directory were generated using \href{/profiling/runProfiler.sh}{\texttt{ this}} script\hypertarget{index_documentation}{}\doxysection{\texorpdfstring{Documentation}{Documentation}}\label{index_documentation}
+To view the documentation, visit \mbox{[}\mbox{]}() or open the \href{doc/index.html}{\texttt{ doc/index.\+html}} file in your browser.
+
+The documentation was generated using \href{https://www.doxygen.nl/}{\texttt{ Doxygen 1.\+12.\+0}} and this \href{/doc/Doxyfile}{\texttt{ Doxyfile}}. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{doxygen\ Doxyfile}
+
+\end{DoxyCode}
+ there\textquotesingle{}s also a Makefile target for it\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make\ doc}
+
+\end{DoxyCode}
+ the generated documentation can be found in the \mbox{[}doc\mbox{]}(doc) directory. 

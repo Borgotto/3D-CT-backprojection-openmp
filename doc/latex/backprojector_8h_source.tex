@@ -1,0 +1,135 @@
+\doxysection{backprojector.\+h}
+\hypertarget{backprojector_8h_source}{}\label{backprojector_8h_source}\index{backprojector.h@{backprojector.h}}
+\mbox{\hyperlink{backprojector_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00009}00009\ \textcolor{preprocessor}{\#ifndef\ BACKPROJECTOR\_H}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00010}00010\ \textcolor{preprocessor}{\ \ \ \ \#define\ BACKPROJECTOR\_H}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00011}00011\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00013}00013\ \textcolor{preprocessor}{\#ifndef\ M\_PI}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00015}\mbox{\hyperlink{backprojector_8h_ae71449b1cc6e6250b91f539153a7a0d3}{00015}}\ \textcolor{preprocessor}{\ \ \ \ \#define\ M\_PI\ (3.14159265358979323846)}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00016}00016\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00019}\mbox{\hyperlink{backprojector_8h_a6f3d6d47811941eb602bf29ca41a2748}{00019}}\ \textcolor{preprocessor}{\#define\ VOXEL\_SIZE\_X\ 100}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00021}\mbox{\hyperlink{backprojector_8h_a37617f106adc807eed8d0b793293e736}{00021}}\ \textcolor{preprocessor}{\#define\ VOXEL\_SIZE\_Y\ 100}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00023}\mbox{\hyperlink{backprojector_8h_a639cffe85bb2cb95d55e5fe6dedc368d}{00023}}\ \textcolor{preprocessor}{\#define\ VOXEL\_SIZE\_Z\ 100}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00025}\mbox{\hyperlink{backprojector_8h_a139400013c795fbea5304c0bdbe51591}{00025}}\ \textcolor{preprocessor}{\#define\ PIXEL\_SIZE\ \ \ 85}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00028}\mbox{\hyperlink{backprojector_8h_a8300bbcd56f47545962fcf22d934e24b}{00028}}\ \textcolor{preprocessor}{\#define\ AP\ 90}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00030}\mbox{\hyperlink{backprojector_8h_a16e0a6585d892aa03b6c0102ddfd0b75}{00030}}\ \textcolor{preprocessor}{\#define\ STEP\_ANGLE\ 15}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00032}00032\ \textcolor{preprocessor}{\#ifdef\ \_WORK\_UNITS}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00033}00033\ \ \ \ \ \textcolor{comment}{//\ These\ values\ will\ be\ used\ when\ running\ benchmarks\ for\ scalability}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00034}00034\ \textcolor{preprocessor}{\ \ \ \ \#define\ VOXEL\_MATRIX\_SIZE\ ((int)((\_WORK\_UNITS)\ *\ (VOXEL\_SIZE\_X)\ *\ 125\ /\ 294))}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00035}00035\ \textcolor{preprocessor}{\ \ \ \ \#define\ DOD\ ((int)(1.5\ *\ (VOXEL\_MATRIX\_SIZE)))}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00036}00036\ \textcolor{preprocessor}{\ \ \ \ \#define\ DOS\ ((int)(6\ *\ (VOXEL\_MATRIX\_SIZE)))}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00037}00037\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00038}00038\ \ \ \ \ \textcolor{comment}{//\ These\ values\ can\ be\ modified\ based\ on\ the\ machine's\ capabilities}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00041}\mbox{\hyperlink{backprojector_8h_a7cd66512d32043f2b9475a4a23b21f54}{00041}}\ \textcolor{preprocessor}{\ \ \ \ \#define\ VOXEL\_MATRIX\_SIZE\ 100000}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00043}\mbox{\hyperlink{backprojector_8h_aa7e4d96037f891910b5dcf661c5fa8e6}{00043}}\ \textcolor{preprocessor}{\ \ \ \ \#define\ DOD\ 150000}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00045}\mbox{\hyperlink{backprojector_8h_a539f7700c3182a8cfba81550da7410a3}{00045}}\ \textcolor{preprocessor}{\ \ \ \ \#define\ DOS\ 600000}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00046}00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00048}00048\ \textcolor{comment}{//\ !\ These\ two\ values\ depend\ on\ the\ input\ data\ and\ are\ calculated\ at\ runtime}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00049}00049\ \textcolor{comment}{//\#define\ DETECTOR\_SIZE\ \ \ \ \ 200000\ //\ side\ length\ of\ the\ detector\ (square)}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00050}00050\ \textcolor{comment}{//\#define\ NPIXELS\ \ \ ((int)((DETECTOR\_SIZE)\ /\ (PIXEL\_SIZE)))\ \ \ //\ number\ of\ pixels\ in\ the\ detector}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00052}00052\ \textcolor{comment}{//\ Macros\ for\ derived\ constants}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00055}\mbox{\hyperlink{backprojector_8h_a4735bdd812464f6a3cd734e0cfda1fb1}{00055}}\ \textcolor{preprocessor}{\#define\ N\_VOXELS\_X\ ((int)(VOXEL\_MATRIX\_SIZE\ /\ VOXEL\_SIZE\_X))}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00057}\mbox{\hyperlink{backprojector_8h_ae9d65f60533a93f52d6433c7217e7890}{00057}}\ \textcolor{preprocessor}{\#define\ N\_VOXELS\_Y\ ((int)(VOXEL\_MATRIX\_SIZE\ /\ VOXEL\_SIZE\_Y))}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00059}\mbox{\hyperlink{backprojector_8h_a30ddf7294bb91a0b16a37edc3fbd6fe6}{00059}}\ \textcolor{preprocessor}{\#define\ N\_VOXELS\_Z\ ((int)(VOXEL\_MATRIX\_SIZE\ /\ VOXEL\_SIZE\_Z))}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00062}\mbox{\hyperlink{backprojector_8h_a31fa1e7b37667299703791619e8192c7}{00062}}\ \textcolor{preprocessor}{\#define\ N\_PLANES\_X\ ((N\_VOXELS\_X)\ +\ 1)}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00064}\mbox{\hyperlink{backprojector_8h_a9d8870ca5a668dc86dec40cb7e4a1626}{00064}}\ \textcolor{preprocessor}{\#define\ N\_PLANES\_Y\ ((N\_VOXELS\_Y)\ +\ 1)}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00066}\mbox{\hyperlink{backprojector_8h_a70b79c1e11466ce6e40be89f54e1f02b}{00066}}\ \textcolor{preprocessor}{\#define\ N\_PLANES\_Z\ ((N\_VOXELS\_Z)\ +\ 1)}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00069}\mbox{\hyperlink{backprojector_8h_a5d8f246b13887f17dd67a8ce2cbdaea3}{00069}}\ \textcolor{preprocessor}{\#define\ N\_THETA\ \ \ \ ((int)((AP)\ /\ (STEP\_ANGLE))\ +\ 1)}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00071}00071\ \textcolor{comment}{//\ Convenience\ variable\ accessible\ by\ indexing\ using\ the\ axis\ enum}}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00072}\mbox{\hyperlink{backprojector_8h_add180005148d2dcd6ce86521114a9bf4}{00072}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{backprojector_8h_add180005148d2dcd6ce86521114a9bf4}{VOXEL\_SIZE}}[3]\ =\ \{\mbox{\hyperlink{backprojector_8h_a6f3d6d47811941eb602bf29ca41a2748}{VOXEL\_SIZE\_X}},\ \mbox{\hyperlink{backprojector_8h_a37617f106adc807eed8d0b793293e736}{VOXEL\_SIZE\_Y}},\ \mbox{\hyperlink{backprojector_8h_a639cffe85bb2cb95d55e5fe6dedc368d}{VOXEL\_SIZE\_Z}}\};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00073}\mbox{\hyperlink{backprojector_8h_a6b57404d7c782a229aa58d85bb420765}{00073}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{backprojector_8h_a6b57404d7c782a229aa58d85bb420765}{N\_VOXELS}}[3]\ =\ \{\mbox{\hyperlink{backprojector_8h_a4735bdd812464f6a3cd734e0cfda1fb1}{N\_VOXELS\_X}},\ \mbox{\hyperlink{backprojector_8h_ae9d65f60533a93f52d6433c7217e7890}{N\_VOXELS\_Y}},\ \mbox{\hyperlink{backprojector_8h_a30ddf7294bb91a0b16a37edc3fbd6fe6}{N\_VOXELS\_Z}}\};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00074}\mbox{\hyperlink{backprojector_8h_ae9e413a79eae2da136d9f7c30775fac3}{00074}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{backprojector_8h_ae9e413a79eae2da136d9f7c30775fac3}{N\_PLANES}}[3]\ =\ \{\mbox{\hyperlink{backprojector_8h_a31fa1e7b37667299703791619e8192c7}{N\_PLANES\_X}},\ \mbox{\hyperlink{backprojector_8h_a9d8870ca5a668dc86dec40cb7e4a1626}{N\_PLANES\_Y}},\ \mbox{\hyperlink{backprojector_8h_a70b79c1e11466ce6e40be89f54e1f02b}{N\_PLANES\_Z}}\};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00079}\mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21}{00079}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21}{axis}}\ \{}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00081}\mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21ac157bdf0b85a40d2619cbc8bc1ae5fe2}{00081}}\ \ \ \ \ \mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21ac157bdf0b85a40d2619cbc8bc1ae5fe2}{NONE}}\ =\ -\/1,}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00083}\mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21a58833a3110c570fb05130d40c365d1e4}{00083}}\ \ \ \ \ \mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21a58833a3110c570fb05130d40c365d1e4}{X}}\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00085}\mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21a5596231eabd6cf29050967d5ac83ad84}{00085}}\ \ \ \ \ \mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21a5596231eabd6cf29050967d5ac83ad84}{Y}}\ =\ 1,}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00087}00087\ \ \ \ \ \mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21aa70478ce277ffc322f8e1e3418e07355}{Z}}\ =\ 2}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00088}\mbox{\hyperlink{backprojector_8h_aeaa76270fca30a177737d2f324daafc2}{00088}}\ \}\ \mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21}{axis}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00093}\mbox{\hyperlink{unionpoint3D}{00093}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\mbox{\hyperlink{unionpoint3D}{point3D}}\ \{}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00095}\mbox{\hyperlink{unionpoint3D_afd5d0c16099d1ab160ffc0b20ba2ea71}{00095}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{unionpoint3D_afd5d0c16099d1ab160ffc0b20ba2ea71}{coordinates}}[3];}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00096}00096\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00098}\mbox{\hyperlink{unionpoint3D_a4adcb38dc857422d2c3b2aff81e58251}{00098}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{unionpoint3D_a4adcb38dc857422d2c3b2aff81e58251}{x}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00100}\mbox{\hyperlink{unionpoint3D_a9b924ec7cf9675336e8785f8339aafde}{00100}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{unionpoint3D_a9b924ec7cf9675336e8785f8339aafde}{y}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00102}\mbox{\hyperlink{unionpoint3D_a10a5c678a54507b798c774c8cee1a0e0}{00102}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{unionpoint3D_a10a5c678a54507b798c774c8cee1a0e0}{z}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00103}00103\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00104}\mbox{\hyperlink{backprojector_8h_aac8decfd6be9692c16b8c44e83ab2183}{00104}}\ \}\ \mbox{\hyperlink{backprojector_8h_aac8decfd6be9692c16b8c44e83ab2183}{point3D}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00109}\mbox{\hyperlink{unionray}{00109}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\mbox{\hyperlink{unionray}{ray}}\ \{}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00111}\mbox{\hyperlink{unionray_a8af9b047401b0ca6eaa142a5e77267ab}{00111}}\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionpoint3D}{point3D}}\ \mbox{\hyperlink{unionray_a8af9b047401b0ca6eaa142a5e77267ab}{points}}[2];}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00112}00112\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00114}\mbox{\hyperlink{unionray_abc22f3064aafb24fe6835d6058e7b9ba}{00114}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionpoint3D}{point3D}}\ \mbox{\hyperlink{unionray_abc22f3064aafb24fe6835d6058e7b9ba}{source}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00116}\mbox{\hyperlink{unionray_a766cff5c6d0927c7d775141d6d1806c0}{00116}}\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionpoint3D}{point3D}}\ \mbox{\hyperlink{unionray_a766cff5c6d0927c7d775141d6d1806c0}{pixel}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00117}00117\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00118}\mbox{\hyperlink{backprojector_8h_a44b45d6036b4ddd0f396e719e7c50ade}{00118}}\ \}\ \mbox{\hyperlink{backprojector_8h_a44b45d6036b4ddd0f396e719e7c50ade}{ray}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00124}\mbox{\hyperlink{unionrange}{00124}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\mbox{\hyperlink{unionrange}{range}}\ \{}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00126}\mbox{\hyperlink{unionrange_adf9db262fea407b98fc2916ae7d95716}{00126}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{unionrange_adf9db262fea407b98fc2916ae7d95716}{bounds}}[2];}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00127}00127\ \ \ \ \ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00129}\mbox{\hyperlink{unionrange_ac44f344c608da635b1982be4e412ba01}{00129}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{unionrange_ac44f344c608da635b1982be4e412ba01}{min}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00131}\mbox{\hyperlink{unionrange_a4b9f4703bc318f6f7cd0f1cb50e113f1}{00131}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{unionrange_a4b9f4703bc318f6f7cd0f1cb50e113f1}{max}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00132}00132\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00133}\mbox{\hyperlink{backprojector_8h_a49a5be5971db30b47d2564ab77552eaa}{00133}}\ \}\ \mbox{\hyperlink{backprojector_8h_a49a5be5971db30b47d2564ab77552eaa}{range}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00138}\mbox{\hyperlink{structprojection}{00138}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structprojection}{projection}}\ \{}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00140}\mbox{\hyperlink{structprojection_a3a6f422df5e5f4fa0b268f6530a1f091}{00140}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structprojection_a3a6f422df5e5f4fa0b268f6530a1f091}{index}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00142}\mbox{\hyperlink{structprojection_a6ee291ff37e62ed4f7e0c5117a2a1a62}{00142}}\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structprojection_a6ee291ff37e62ed4f7e0c5117a2a1a62}{angle}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00144}\mbox{\hyperlink{structprojection_a8d7770f7ed3f8b2e4600382e1b30dc54}{00144}}\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structprojection_a8d7770f7ed3f8b2e4600382e1b30dc54}{maxVal}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00146}\mbox{\hyperlink{structprojection_af86af3a77d3a5708622992a0873c4880}{00146}}\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structprojection_af86af3a77d3a5708622992a0873c4880}{nSidePixels}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00148}\mbox{\hyperlink{structprojection_a778b2f9756b7aba2546c33444f6f6958}{00148}}\ \ \ \ \ \textcolor{keywordtype}{double}*\ \mbox{\hyperlink{structprojection_a778b2f9756b7aba2546c33444f6f6958}{pixels}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00149}\mbox{\hyperlink{backprojector_8h_a3e83f6beae9344c4b2248e2b11c64df8}{00149}}\ \}\ \mbox{\hyperlink{backprojector_8h_a3e83f6beae9344c4b2248e2b11c64df8}{projection}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00154}\mbox{\hyperlink{structvolume}{00154}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structvolume}{volume}}\ \{}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00156}\mbox{\hyperlink{structvolume_ae173f58c13ce3ec7624e87a87209ccc1}{00156}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structvolume_ae173f58c13ce3ec7624e87a87209ccc1}{nVoxelsX}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00158}\mbox{\hyperlink{structvolume_a4e7a6d8240dd62a2e1ffb5c1f5d36874}{00158}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structvolume_a4e7a6d8240dd62a2e1ffb5c1f5d36874}{nVoxelsY}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00160}\mbox{\hyperlink{structvolume_af9c926521a6b62779faf2d992a479e47}{00160}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structvolume_af9c926521a6b62779faf2d992a479e47}{nVoxelsZ}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00162}\mbox{\hyperlink{structvolume_aac2f5e7622f62d43ed8e77597192d0a9}{00162}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structvolume_aac2f5e7622f62d43ed8e77597192d0a9}{nPlanesX}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00164}\mbox{\hyperlink{structvolume_ae7c2d51655c43cc67c415ff6a10d356d}{00164}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structvolume_ae7c2d51655c43cc67c415ff6a10d356d}{nPlanesY}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00166}\mbox{\hyperlink{structvolume_a6f19dc2bd44138b9a5b0837d194c68a7}{00166}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structvolume_a6f19dc2bd44138b9a5b0837d194c68a7}{nPlanesZ}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00168}\mbox{\hyperlink{structvolume_a8553556d086a75fc0e97218bafa95279}{00168}}\ \ \ \ \ \textcolor{keywordtype}{double}*\ \mbox{\hyperlink{structvolume_a8553556d086a75fc0e97218bafa95279}{coefficients}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00169}\mbox{\hyperlink{backprojector_8h_a8d58bee42bf93a193595267ce3e933c0}{00169}}\ \}\ \mbox{\hyperlink{backprojector_8h_a8d58bee42bf93a193595267ce3e933c0}{volume}};}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00178}00178\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{backprojector_8h_a6a3745a608949257cc9c8dcd35bb6e72}{initTables}}();}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00189}00189\ \mbox{\hyperlink{unionpoint3D}{point3D}}\ \mbox{\hyperlink{backprojector_8h_a081dea4548f6635b8bcf377386c33226}{getSourcePosition}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ projectionIndex);}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00201}00201\ \mbox{\hyperlink{unionpoint3D}{point3D}}\ \mbox{\hyperlink{backprojector_8h_a44ba7f13100e9b59778aaa69cf1b6237}{getPixelPosition}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structprojection}{projection}}*\ \mbox{\hyperlink{structprojection}{projection}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ row,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ col);}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00211}00211\ \mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21}{axis}}\ \mbox{\hyperlink{backprojector_8h_a96c75e5ea7fdb7390df28cf46090b065}{getParallelAxis}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{unionray}{ray}}\ \mbox{\hyperlink{unionray}{ray}});}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00222}00222\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{backprojector_8h_aff0f271395d320a9c9856d4c12e4febb}{getPlanePosition}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21}{axis}}\ \mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21}{axis}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ index);}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00234}00234\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{backprojector_8h_ae8384b3bc5b85feb8e1c1a498bbff052}{getSidesIntersections}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{unionray}{ray}}\ \mbox{\hyperlink{unionray}{ray}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21}{axis}}\ parallelTo,\ \textcolor{keywordtype}{double}\ intersections[3][2]);}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00243}00243\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{backprojector_8h_a0e38a3847dec2b2e3c40870d8b938e19}{getAMin}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21}{axis}}\ parallelTo,\ \textcolor{keywordtype}{double}\ intersections[3][2]);}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00252}00252\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{backprojector_8h_a5dad3fd7c1d04e6eeca36364d14c1245}{getAMax}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21}{axis}}\ parallelTo,\ \textcolor{keywordtype}{double}\ intersections[3][2]);}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00263}00263\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{backprojector_8h_abb728284497ed8524b8acc57996e6f0d}{getPlanesRanges}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{unionray}{ray}}\ \mbox{\hyperlink{unionray}{ray}},\ \mbox{\hyperlink{unionrange}{range}}\ planesIndexes[3],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ aMin,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ aMax,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{backprojector_8h_accc088009d44c521706aa98d6387ee21}{axis}}\ parallelTo);}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00274}00274\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{backprojector_8h_ae6ca17545d3e55eadcfdfe51b4b5e11c}{getAllIntersections}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{unionray}{ray}}\ \mbox{\hyperlink{unionray}{ray}},\ \textcolor{keyword}{const}\ \mbox{\hyperlink{unionrange}{range}}\ planesRanges[3],\ \textcolor{keywordtype}{double}*\ a[3]);}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00275}00275\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00289}00289\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{backprojector_8h_a6616c0957bffb44f16fb54c48f3f3f05}{mergeIntersections}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ aX[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ aY[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ aZ[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ aXSize,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ aYSize,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ aZSize,\ \textcolor{keywordtype}{double}\ aMerged[]);}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00298}00298\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{backprojector_8h_a973af40d863ad969ee5362184f7656a8}{isArraySorted}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ array[],\ \textcolor{keywordtype}{int}\ size);}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00299}00299\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00312}00312\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{backprojector_8h_a0dff3e6286ee3ee9b7e74f9a9ad4f2ec}{computeAbsorption}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{unionray}{ray}}\ \mbox{\hyperlink{unionray}{ray}},\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ a[],\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ lenA,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ pixelAbsorptionValue,\ \textcolor{keywordtype}{double}*\ coefficients);}
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00313}00313\ }
+\DoxyCodeLine{\Hypertarget{backprojector_8h_source_l00323}00323\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{backprojector_8h_a695176076b7a7e5eff55b510ca9293f7}{computeBackProjection}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structprojection}{projection}}*\ \mbox{\hyperlink{structprojection}{projection}},\ \mbox{\hyperlink{structvolume}{volume}}*\ \mbox{\hyperlink{structvolume}{volume}});}
+
+\end{DoxyCode}

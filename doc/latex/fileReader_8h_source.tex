@@ -1,0 +1,89 @@
+\doxysection{file\+Reader.\+h}
+\hypertarget{fileReader_8h_source}{}\label{fileReader_8h_source}\index{fileReader.h@{fileReader.h}}
+\mbox{\hyperlink{fileReader_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00009}00009\ \textcolor{preprocessor}{\#ifndef\ BACKPROJECTOR\_H}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00013}00013\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structprojection}{projection}}\ \{}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00015}00015\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structprojection_a3a6f422df5e5f4fa0b268f6530a1f091}{index}};}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00017}00017\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structprojection_a6ee291ff37e62ed4f7e0c5117a2a1a62}{angle}};}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00019}00019\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{structprojection_a8d7770f7ed3f8b2e4600382e1b30dc54}{maxVal}};}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00021}00021\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structprojection_af86af3a77d3a5708622992a0873c4880}{nSidePixels}};}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00023}00023\ \ \ \ \ \textcolor{keywordtype}{double}*\ \mbox{\hyperlink{structprojection_a778b2f9756b7aba2546c33444f6f6958}{pixels}};}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00024}\mbox{\hyperlink{fileReader_8h_a3e83f6beae9344c4b2248e2b11c64df8}{00024}}\ \}\ \mbox{\hyperlink{fileReader_8h_a3e83f6beae9344c4b2248e2b11c64df8}{projection}};}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00025}00025\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00038}\mbox{\hyperlink{fileReader_8h_a48badc2c00f56ae85dc9111f0d12b581}{00038}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{fileReader_8h_a48badc2c00f56ae85dc9111f0d12b581}{readPGM}}(FILE*\ file,\ \mbox{\hyperlink{structprojection}{projection}}*\ \mbox{\hyperlink{structprojection}{projection}},\ \textcolor{keywordtype}{int}*\ width,\ \textcolor{keywordtype}{int}*\ height,\ \textcolor{keywordtype}{double}*\ maxVal)\ \{}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00039}00039\ \ \ \ \ \textcolor{comment}{//\ If\ the\ read\ pointer\ is\ at\ the\ beginning\ of\ the\ file}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00040}00040\ \ \ \ \ \textcolor{keywordflow}{if}\ (ftell(file)\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ fileFormat[3];}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Make\ sure\ it's\ a\ PGM\ file\ and\ read\ its\ attributes}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(fscanf(file,\ \textcolor{stringliteral}{"{}\%2s"{}},\ fileFormat)\ ==\ EOF\ ||}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ fscanf(file,\ \textcolor{stringliteral}{"{}\%d\ \%d"{}},\ width,\ height)\ ==\ EOF\ ||}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ fscanf(file,\ \textcolor{stringliteral}{"{}\%lf"{}},\ maxVal)\ ==\ EOF)\ \{}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};\ \textcolor{comment}{//\ Error\ reading\ the\ file}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00048}00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00049}00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strcmp(fileFormat,\ \textcolor{stringliteral}{"{}P2"{}})\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Unsupported\ PGM\ format\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ fclose(file);}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ exit(1);}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00054}00054\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00056}00056\ \ \ \ \ \textcolor{comment}{//\ Initialize\ the\ projection\ struct}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00057}00057\ \ \ \ \ \mbox{\hyperlink{structprojection}{projection}}-\/>\mbox{\hyperlink{structprojection_af86af3a77d3a5708622992a0873c4880}{nSidePixels}}\ =\ *width;}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00058}00058\ \ \ \ \ \mbox{\hyperlink{structprojection}{projection}}-\/>\mbox{\hyperlink{structprojection_a8d7770f7ed3f8b2e4600382e1b30dc54}{maxVal}}\ =\ *maxVal;}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00059}00059\ \ \ \ \ \mbox{\hyperlink{structprojection}{projection}}-\/>\mbox{\hyperlink{structprojection_a778b2f9756b7aba2546c33444f6f6958}{pixels}}\ =\ (\textcolor{keywordtype}{double}*)malloc((*width)\ *\ (*width)\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00060}00060\ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ memory\ allocation\ was\ successful}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00061}00061\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structprojection}{projection}}-\/>\mbox{\hyperlink{structprojection_a778b2f9756b7aba2546c33444f6f6958}{pixels}}\ ==\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Error\ allocating\ memory\ for\ the\ projection\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ fclose(file);}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ exit(1);}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00067}00067\ \ \ \ \ \textcolor{comment}{//\ Skip\ lines\ until\ "{}\#\ angle:"{}\ is\ found}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00068}00068\ \ \ \ \ \textcolor{keywordtype}{char}\ line[200];}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{while}\ (fgets(line,\ \textcolor{keyword}{sizeof}(line),\ file)\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (line[0]\ !=\ \textcolor{charliteral}{'\#'})\ \{}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00072}00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (strstr(line,\ \textcolor{stringliteral}{"{}angle:"{}})\ !=\ NULL)\ \{}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00075}00075\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00076}00076\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00078}00078\ \ \ \ \ \textcolor{comment}{//\ If\ we've\ reached\ the\ end\ of\ the\ file}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00079}00079\ \ \ \ \ \textcolor{keywordflow}{if}\ (feof(file))\ \{}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00080}00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00081}00081\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00083}00083\ \ \ \ \ \textcolor{comment}{//\ Extract\ the\ value\ after\ "{}angle:"{}\ from\ the\ line\ and\ store\ it\ in\ the\ struct}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00084}00084\ \ \ \ \ sscanf(line,\ \textcolor{stringliteral}{"{}\%*s\ \%*s\ \%lf"{}},\ \&\mbox{\hyperlink{structprojection}{projection}}-\/>\mbox{\hyperlink{structprojection_a6ee291ff37e62ed4f7e0c5117a2a1a62}{angle}});}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00086}00086\ \ \ \ \ \textcolor{comment}{//\ Calculate\ the\ index\ of\ the\ projection\ based\ on\ the\ angle}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00087}00087\ \ \ \ \ \textcolor{comment}{//\ The\ first\ projection\ is\ at\ angle\ AP-\/AP/2,\ the\ last\ one\ is\ at\ AP+AP/2}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00088}00088\ \ \ \ \ \mbox{\hyperlink{structprojection}{projection}}-\/>\mbox{\hyperlink{structprojection_a3a6f422df5e5f4fa0b268f6530a1f091}{index}}\ =\ (int)((\mbox{\hyperlink{structprojection}{projection}}-\/>\mbox{\hyperlink{structprojection_a6ee291ff37e62ed4f7e0c5117a2a1a62}{angle}}\ -\/\ \mbox{\hyperlink{backprojector_8h_a8300bbcd56f47545962fcf22d934e24b}{AP}}\ /\ 2)\ /\ \mbox{\hyperlink{backprojector_8h_a16e0a6585d892aa03b6c0102ddfd0b75}{STEP\_ANGLE}});}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00090}00090\ \ \ \ \ \textcolor{comment}{//\ Make\ sure\ the\ angle\ is\ in\ the\ range\ [-\/360,\ 360]\ inclusive}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00091}00091\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structprojection}{projection}}-\/>\mbox{\hyperlink{structprojection_a6ee291ff37e62ed4f7e0c5117a2a1a62}{angle}}\ <\ -\/360\ ||\ \mbox{\hyperlink{structprojection}{projection}}-\/>\mbox{\hyperlink{structprojection_a6ee291ff37e62ed4f7e0c5117a2a1a62}{angle}}\ >\ 360)\ \{}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00092}00092\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Invalid\ angle\ value\ read:\ \%lf\(\backslash\)n"{}},\ \mbox{\hyperlink{structprojection}{projection}}-\/>\mbox{\hyperlink{structprojection_a6ee291ff37e62ed4f7e0c5117a2a1a62}{angle}});}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00093}00093\ \ \ \ \ \ \ \ \ fclose(file);}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00094}00094\ \ \ \ \ \ \ \ \ exit(1);}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00095}00095\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00097}00097\ \ \ \ \ \textcolor{comment}{//\ Read\ the\ pixel\ values\ and\ store\ them\ in\ the\ matrix}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00098}00098\ \ \ \ \ \textcolor{keywordtype}{double}\ pixelValue;}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ x\ =\ 0;\ x\ <\ \mbox{\hyperlink{structprojection}{projection}}-\/>\mbox{\hyperlink{structprojection_af86af3a77d3a5708622992a0873c4880}{nSidePixels}};\ x++)\ \{}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ y\ =\ 0;\ y\ <\ \mbox{\hyperlink{structprojection}{projection}}-\/>\mbox{\hyperlink{structprojection_af86af3a77d3a5708622992a0873c4880}{nSidePixels}};\ y++)\ \{}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (fscanf(file,\ \textcolor{stringliteral}{"{}\%lf"{}},\ \&pixelValue)\ ==\ EOF)\ \{}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structprojection}{projection}}-\/>\mbox{\hyperlink{structprojection_a778b2f9756b7aba2546c33444f6f6958}{pixels}}[x\ *\ \mbox{\hyperlink{structprojection}{projection}}-\/>\mbox{\hyperlink{structprojection_af86af3a77d3a5708622992a0873c4880}{nSidePixels}}\ +\ y]\ =\ pixelValue;}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00105}00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00106}00106\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00108}00108\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{fileReader_8h_source_l00109}00109\ \}}
+
+\end{DoxyCode}
