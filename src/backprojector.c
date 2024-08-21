@@ -235,13 +235,15 @@ bool isArraySorted(const double array[], int size) {
     return true;
 }
 
-void computeAbsorption(const ray ray, const double a[], const int lenA, const double pixelAbsorptionValue, volume* volume) {
+void computeAbsorption(const ray ray, const double a[], const int lenA, const double pixelAbsorptionValue, double* coefficients) {
     const point3D source = ray.source;
     const point3D pixel = ray.pixel;
 
-    // distance between the source(1) and the pixel(2)
-    // Siddon's algorithm, equation (11)
-    const double d12 = sqrt(pow(pixel.x - source.x, 2) + pow(pixel.y - source.y, 2) + pow(pixel.z - source.z, 2));
+    // distance between the source(1) and the pixel(2), Siddon's algorithm, equation (11)
+    const double dx = pixel.x - source.x;
+    const double dy = pixel.y - source.y;
+    const double dz = pixel.z - source.z;
+    const double d12 = sqrt(dx * dx + dy * dy + dz * dz);
 
     for(int i = 1; i < lenA; i ++){
         // Siddon's algorithm, equation (10)
@@ -266,7 +268,7 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
 
         // TODO: find a way to avoid using atomic operations, this is a bottleneck
         #pragma omp atomic update
-        volume->coefficients[voxelIndex] += voxelAbsorptionValue;
+        coefficients[voxelIndex] += voxelAbsorptionValue;
     }
 }
 
@@ -334,7 +336,7 @@ void computeBackProjection(volume* volume, const projection* projection) {
             // Calculate the coefficients of the voxels that the ray intersects
             // TODO: finish implementing this properly
             const double pixelAbsorptionValue = projection->pixels[row * projection->nSidePixels + col];
-            computeAbsorption(ray, aMerged, mergedSize, pixelAbsorptionValue, volume);
+            computeAbsorption(ray, aMerged, mergedSize, pixelAbsorptionValue, volume->coefficients);
         }
     }
 }
