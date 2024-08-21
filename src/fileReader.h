@@ -1,21 +1,40 @@
+/**
+ * @file fileReader.h
+ * @author Emanuele Borghini (emanuele.borghini@studio.unibo.it)
+ * @brief `fileReader` module
+ * @date 2024-08-21
+ * @see fileWriter.h
+ */
+
 #ifndef BACKPROJECTOR_H
-    typedef struct projection {
-        int index;                   // index of the projection out of NTHETA
-        double angle;                // angle from which the projection was taken
-        double maxVal;               // maximum absorption value assumed by the pixels
-        unsigned int nSidePixels;    // numbers of pixels on one side of the detector (square)
-        double* pixels;              // 2D array of size nPixels * nPixels
-    } projection;
+/**
+ * @brief Struct for representing a CT projection.
+ */
+typedef struct projection {
+    /// Index of the projection out of N_THETA
+    int index;
+    /// Angle from which the projection was taken
+    double angle;
+    /// Maximum absorption value assumed by the pixels
+    double maxVal;
+    /// Number of pixels on one side of the detector (square)
+    unsigned int nSidePixels;
+    /// 2D array of size (nPixels*nPixels) containing the pixel values
+    double* pixels;
+} projection;
 #endif
 
-/*
-* Function to read a (part of) PGM file containing the projections of the 3D
-* object to reconstruct.
-*
-* filename: path to the PGM file
-* projection: the projection struct to store the read image and its attributes
-* return: true if the file was read successfully, false if the end of the file was reached
-*/
+/**
+ * @brief Read a PGM file containing CT projections.
+ *
+ * @param file handle to the file to read
+ * @param projection `projection` struct to store the read data into
+ * @param width pointer to the variable to store/read the width of the image
+ * @param height pointer to the variable to store/read the height of the image
+ * @param maxVal pointer to the variable to store/read the maximum value of the pixels
+ * @return `true` if the file was read successfully
+ * @return `false` if an error occurred while reading the file or during memory allocation
+ */
 bool readPGM(FILE* file, projection* projection, int* width, int* height, double* maxVal) {
     // If the read pointer is at the beginning of the file
     if (ftell(file) == 0) {

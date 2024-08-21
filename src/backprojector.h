@@ -1,21 +1,33 @@
+/**
+ * @file backprojector.h
+ * @author Emanuele Borghini (emanuele.borghini@studio.unibo.it)
+ * @brief Header file for the backprojector module.
+ * @date 2024-08-21
+ * @see backprojector.c
+ */
+
 #ifndef BACKPROJECTOR_H
     #define BACKPROJECTOR_H
 #endif
 
 #ifndef M_PI
+    /// Define 𝝅(PI) if not included in the math library
     #define M_PI (3.14159265358979323846)
 #endif
 
-//! All of these physical constants are measured in micrometers unless stated otherwise
-//! The origin of the 3D space is at the volumetric center of the object
+/// Size of a single voxel in the X axis (in micrometers)
+#define VOXEL_SIZE_X 100
+/// size of a single voxel in the y-axis (in micrometers)
+#define VOXEL_SIZE_Y 100
+/// size of a single voxel in the z-axis (in micrometers)
+#define VOXEL_SIZE_Z 100
+/// side lenght of a single square pixel (in micrometers)
+#define PIXEL_SIZE   85
 
-#define VOXEL_SIZE_X 100         // size of a single voxel in the x-axis in
-#define VOXEL_SIZE_Y 100         // size of a single voxel in the y-axis in
-#define VOXEL_SIZE_Z 100         // size of a single voxel in the z-axis in
-#define PIXEL_SIZE   85          // side lenght of a single square pixel
-
-#define AP 90                    // rays source initial angle (in degrees)
-#define STEP_ANGLE 15            // distance between rays sources (in degrees)
+/// rays source initial angle (in degrees)
+#define AP 90
+/// distance between rays sources (in degrees)
+#define STEP_ANGLE 15
 
 #ifdef _WORK_UNITS
     // These values will be used when running benchmarks for scalability
@@ -24,64 +36,288 @@
     #define DOS ((int)(6 * (VOXEL_MATRIX_SIZE)))
 #else
     // These values can be modified based on the machine's capabilities
-    #define VOXEL_MATRIX_SIZE 100000 // side length of the volumetric object (cube)
-    #define DOD 150000               // distance from the volumetric center of object to the detector
-    #define DOS 600000               // distance from the volumetric center of object to the source
+
+    /// side length of the volumetric object (cube)
+    #define VOXEL_MATRIX_SIZE 100000
+    /// distance from the volumetric center of object to the detector
+    #define DOD 150000
+    /// distance from the volumetric center of object to the source
+    #define DOS 600000
 #endif
 
-//! These two values depend on the input data and are calculated at runtime
+// ! These two values depend on the input data and are calculated at runtime
 //#define DETECTOR_SIZE     200000 // side length of the detector (square)
 //#define NPIXELS   ((int)((DETECTOR_SIZE) / (PIXEL_SIZE)))   // number of pixels in the detector
 
 // Macros for derived constants
-#define NVOXELS_X ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_X)) // number of voxels in the x-axis
-#define NVOXELS_Y ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_Y)) // number of voxels in the y-axis
-#define NVOXELS_Z ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_Z)) // number of voxels in the z-axis
 
-#define NPLANES_X ((NVOXELS_X) + 1)                         // number of planes in the x-axis
-#define NPLANES_Y ((NVOXELS_Y) + 1)                         // number of planes in the y-axis
-#define NPLANES_Z ((NVOXELS_Z) + 1)                         // number of planes in the z-axis
+/// number of voxels in the x-axis
+#define N_VOXELS_X ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_X))
+/// number of voxels in the y-axis
+#define N_VOXELS_Y ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_Y))
+/// number of voxels in the z-axis
+#define N_VOXELS_Z ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_Z))
 
-#define NTHETA    ((int)((AP) / (STEP_ANGLE)) + 1)          // number of rays sources
+/// number of planes in the x-axis
+#define N_PLANES_X ((N_VOXELS_X) + 1)
+/// number of planes in the y-axis
+#define N_PLANES_Y ((N_VOXELS_Y) + 1)
+/// number of planes in the z-axis
+#define N_PLANES_Z ((N_VOXELS_Z) + 1)
 
+/// number of rays sources
+#define N_THETA    ((int)((AP) / (STEP_ANGLE)) + 1)
+
+// Convenience variable accessible by indexing using the axis enum
+static const double VOXEL_SIZE[3] = {VOXEL_SIZE_X, VOXEL_SIZE_Y, VOXEL_SIZE_Z};
+static const int N_VOXELS[3] = {N_VOXELS_X, N_VOXELS_Y, N_VOXELS_Z};
+static const int N_PLANES[3] = {N_PLANES_X, N_PLANES_Y, N_PLANES_Z};
+
+/**
+ * @brief Enum for representing the axes of 3D space.
+ */
 typedef enum axis {
+    /// No axis
     NONE = -1,
+    /// X axis
     X = 0,
+    /// Y axis
     Y = 1,
+    /// Z axis
     Z = 2
 } axis;
 
+/**
+ * @brief Union of Struct/Array for representing a 3D point in space.
+ */
 typedef union point3D {
+    /// Array form of unnamed coordinates struct
     const double coordinates[3];
     struct {
-        const double x, y, z;
+        /// X coordinate
+        const double x;
+        /// Y coordinate
+        const double y;
+        /// Z coordinate
+        const double z;
     };
 } point3D;
 
+/**
+ * @brief Union of Struct/Array for representing a straight line in 3D space.
+ */
 typedef union ray {
+    /// Array form of unnamed points struct (source and pixel)
     const point3D points[2];
     struct {
-        const point3D source, pixel;
+        /// Source (starting) point of the ray
+        const point3D source;
+        /// Pixel (ending) point of the ray
+        const point3D pixel;
     };
 } ray;
 
+/**
+ * @brief Union of Struct/Array for representing a range of @c int
+ *        with minimum and maximum bounds.
+ */
 typedef union range {
+    /// Array form of unnamed bounds struct (min and max)
     int bounds[2];
     struct {
-        int min, max;
+        /// Minimum bound
+        int min;
+        /// Maximum bound
+        int max;
     };
 } range;
 
+/**
+ * @brief Struct for representing a CT projection.
+ */
 typedef struct projection {
-    int index;                   // index of the projection out of NTHETA
-    double angle;                // angle from which the projection was taken
-    double maxVal;               // maximum absorption value assumed by the pixels
-    unsigned int nSidePixels;    // numbers of pixels on one side of the detector (square)
-    double* pixels;              // 2D array of size nPixels * nPixels
+    /// Index of the projection out of N_THETA
+    int index;
+    /// Angle from which the projection was taken
+    double angle;
+    /// Maximum absorption value assumed by the pixels
+    double maxVal;
+    /// Number of pixels on one side of the detector (square)
+    unsigned int nSidePixels;
+    /// 2D array of size (nPixels*nPixels) containing the pixel values
+    double* pixels;
 } projection;
 
+/**
+ * @brief Struct for representing a 3D volume of voxels.
+ */
 typedef struct volume {
-    const unsigned int nVoxelsX, nVoxelsY, nVoxelsZ; // equal to NVOXELS_X, NVOXELS_Y, NVOXELS_Z
-    const unsigned int nPlanesX, nPlanesY, nPlanesZ; // equal to NPLANES_X, NPLANES_Y, NPLANES_Z
-    double* coefficients;        // 3D array of size nVoxelsX * nVoxelsY * nVoxelsZ
+    /// Number of voxels in the x-axis
+    const unsigned int nVoxelsX;
+    /// Number of voxels in the y-axis
+    const unsigned int nVoxelsY;
+    /// Number of voxels in the z-axis
+    const unsigned int nVoxelsZ;
+    /// Number of planes in the x-axis
+    const unsigned int nPlanesX;
+    /// Number of planes in the y-axis
+    const unsigned int nPlanesY;
+    /// Number of planes in the z-axis
+    const unsigned int nPlanesZ;
+    /// 3D array of size (nVoxelsX*nVoxelsY*nVoxelsZ) containing the absorption coefficients
+    double* coefficients;
 } volume;
+
+
+/**
+ * @brief Initializes the sine and cosine tables, as well as the firstPlane and lastPlane arrays.
+ *
+ * These values are complex to calculate each time, so they are precomputed and
+ * cached to optimize performance during backprojection operations.
+ */
+void initTables();
+
+/**
+ * @brief Calculates the 3D coordinates of the source of the ray given the index of the projection.
+ *
+ * The source is located at a distance of DOS from the volumetric center of the object.
+ * The angle is derived from the index and the step angle.
+ *
+ * @param projectionIndex The index of the projection.
+ * @return The 3D coordinates of the source.
+ */
+point3D getSourcePosition(const int projectionIndex);
+
+/**
+ * @brief Calculates the 3D coordinates of a pixel of the detector.
+ *
+ * The pixel is located at a distance of DOD from the volumetric center of the object.
+ *
+ * @param projection The projection data.
+ * @param row The row index of the pixel.
+ * @param col The column index of the pixel.
+ * @return The 3D coordinates of the pixel.
+ */
+point3D getPixelPosition(const projection* projection, const int row, const int col);
+
+/**
+ * @brief Finds which axis is parallel to the ray.
+ *
+ * If the ray is not parallel to any axis, it returns axis::NONE.
+ *
+ * @param ray The ray to check.
+ * @return The axis that is parallel to the ray, or axis::NONE if none.
+ */
+axis getParallelAxis(const ray ray);
+
+/**
+ * @brief Calculates the position of the plane parallel to the given axis and at the given index.
+ *
+ * The position is calculated out of the total number of planes in that axis `N_PLANES[axis]`.
+ *
+ * @param axis The axis parallel to the plane.
+ * @param index The index of the plane.
+ * @return The position of the plane.
+ */
+double getPlanePosition(const axis axis, const int index);
+
+/**
+ * @brief Calculates the intersection points of the ray with the planes.
+ *
+ * For each axis, the first element is the entry point of the ray into the first plane of that axis,
+ * and the second element is the exit point of the ray from the last plane of that axis.
+ *
+ * @param ray The ray to calculate intersections for.
+ * @param parallelTo The axis parallel to the ray.
+ * @param intersections The array to store the intersection points.
+ */
+void getSidesIntersections(const ray ray, const axis parallelTo, double intersections[3][2]);
+
+/**
+ * @brief Finds the minimum intersection point along the given axis.
+ *
+ * @param parallelTo The axis parallel to the ray.
+ * @param intersections The array of intersection points.
+ * @return The minimum intersection point.
+ */
+double getAMin(const axis parallelTo, double intersections[3][2]);
+
+/**
+ * @brief Finds the maximum intersection point along the given axis.
+ *
+ * @param parallelTo The axis parallel to the ray.
+ * @param intersections The array of intersection points.
+ * @return The maximum intersection point.
+ */
+double getAMax(const axis parallelTo, double intersections[3][2]);
+
+/**
+ * @brief Calculates the ranges of planes that the ray intersects.
+ *
+ * @param ray The ray to calculate ranges for.
+ * @param planesIndexes The array to store the ranges of planes.
+ * @param aMin The minimum intersection point.
+ * @param aMax The maximum intersection point.
+ * @param parallelTo The axis parallel to the ray.
+ */
+void getPlanesRanges(const ray ray, range planesIndexes[3], const double aMin, const double aMax, const axis parallelTo);
+
+/**
+ * @brief Calculates *all* the intersection points of the ray with the planes.
+ *
+ * For each axis, the array contains the intersection points of the ray with the planes of that axis.
+ *
+ * @param ray The ray to calculate intersections for.
+ * @param planesRanges The ranges of planes that the ray intersects.
+ * @param a The array to store the intersection points.
+ */
+void getAllIntersections(const ray ray, const range planesRanges[3], double* a[3]);
+
+/**
+ * @brief Merges the intersection points of the ray with the planes.
+ *
+ * The merged array contains the intersection points of the ray with all the planes.
+ *
+ * @param aX The intersection points of the ray with the planes of the x-axis.
+ * @param aY The intersection points of the ray with the planes of the y-axis.
+ * @param aZ The intersection points of the ray with the planes of the z-axis.
+ * @param aXSize The size of the aX array.
+ * @param aYSize The size of the aY array.
+ * @param aZSize The size of the aZ array.
+ * @param aMerged The array to store the merged intersection points.
+ */
+void mergeIntersections(const double aX[], const double aY[], const double aZ[], const int aXSize, const int aYSize, const int aZSize, double aMerged[]);
+
+/**
+ * @brief Checks if the array is sorted in ascending order.
+ *
+ * @param array The array to check.
+ * @param size The size of the array.
+ * @return true if the array is sorted, false otherwise.
+ */
+bool isArraySorted(const double array[], int size);
+
+/**
+ * @brief Computes the absorption value of the voxels intersected by the ray.
+ *
+ * The absorption value is computed using the value that is assumed by the pixels
+ * and the length of the intersection of the ray with the voxels.
+ *
+ * @param ray The ray to compute the absorption for.
+ * @param a The absorption coefficients array.
+ * @param lenA The size of the absorption coefficients array.
+ * @param pixelAbsorptionValue The absorption value of the pixel.
+ * @param coefficients The array to store the absorption values.
+ */
+void computeAbsorption(const ray ray, const double a[], const int lenA, const double pixelAbsorptionValue, double* coefficients);
+
+/**
+ * @brief Computes the backprojection of the projection.
+ *
+ * The backprojection is computed by iterating over all the rays and computing
+ * the absorption of the voxels intersected by the ray.
+ *
+ * @param projection The projection containing the projection pixels values.
+ * @param volume The volume structure containing the absorption coefficients.
+ */
+void computeBackProjection(const projection* projection, volume* volume);

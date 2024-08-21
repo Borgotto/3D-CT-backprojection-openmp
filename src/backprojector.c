@@ -1,9 +1,24 @@
 /**
-* Usage:
-*  compile:  gcc -std=c11 -Wall -Wpedantic -fopenmp backprojector.c -lm -o backprojector
-*  run:      ./backprojector < CubeWithSphere.pgm
-*  convert:  TODO: convert the outputted 3-dimentional array to a 3D image
-*/
+ * @file backprojector.c
+ * @author Emanuele Borghini (emanuele.borghini@studio.unibo.it)
+ * @date 2024
+ *
+ * @brief Implementation of the backprojection algorithm for CT reconstruction.
+ *
+ * @see backprojector.h
+ *
+ * @details
+ * This file contains the implementation of the backprojection algorithm for
+ * reconstructing a 3D object from its 2D projections. The algorithm is based
+ * on Siddon's algorithm and is parallelized using OpenMP.
+ * The algorithm reads the projection images from a file and writes the
+ * reconstructed 3D object to another file.
+ *
+ * The algorithm is divided into several functions, each of which implements
+ * an equation from Siddon's algorithm. The main function reads the projection
+ * images from the file and computes the backprojection for each of them.
+ *
+ */
 
 #include <stdio.h>      // printf, perror
 #include <stdlib.h>     // malloc, calloc, free
@@ -20,21 +35,15 @@
 #include "fileWriter.h"    // Functions to write the reconstructed 3D object to a file
 
 
-// Convenient variables accessible by indexing using the axis enum
-static const double voxelSize[3] = {VOXEL_SIZE_X, VOXEL_SIZE_Y, VOXEL_SIZE_Z};
-static const int nVoxels[3] = {NVOXELS_X, NVOXELS_Y, NVOXELS_Z};
-static const int nPlanes[3] = {NPLANES_X, NPLANES_Y, NPLANES_Z};
-
 // Cache the sin and cos values of the angles to avoid recalculating them
-long double sinTable[NTHETA], cosTable[NTHETA];
+long double sinTable[N_THETA], cosTable[N_THETA];
 
 // Cache the first and last plane positions for each axis
 double firstPlane[3], lastPlane[3];
 
-// Fills the cache tables
 void initTables() {
     // Calculate sin and cos values for the angle of this projection
-    for (int i = 0; i < NTHETA; i++) {
+    for (int i = 0; i < N_THETA; i++) {
         const long double angle = AP / 2 + i * STEP_ANGLE;
         const long double rad = angle * M_PI / 180;
         sinTable[i] = sinl(rad);
@@ -43,8 +52,8 @@ void initTables() {
 
     // Calculate the first and last plane positions for each axis
     for (axis axis = X; axis <= Z; axis++) {
-        firstPlane[axis] = -(voxelSize[axis] * nVoxels[axis]) / 2;
-        lastPlane[axis] = (voxelSize[axis] * nVoxels[axis]) / 2;
+        firstPlane[axis] = -(VOXEL_SIZE[axis] * N_VOXELS[axis]) / 2;
+        lastPlane[axis] = (VOXEL_SIZE[axis] * N_VOXELS[axis]) / 2;
     }
 }
 
@@ -53,17 +62,15 @@ void initTables() {
 * Functions to calculate 3D space positions
 ********************************************/
 
-// Calculate the source position in 3D space
-point3D getSourcePosition(int index) {
+point3D getSourcePosition(const int projectionIndex) {
     return (point3D) {
-        .x = -sinTable[index] * DOS,
-        .y = cosTable[index] * DOS,
+        .x = -sinTable[projectionIndex] * DOS,
+        .y = cosTable[projectionIndex] * DOS,
         .z = 0 // 0 because the source is perpendicular to the center of the detector
     };
 }
 
-// Calculate a pixel's position in 3D space
-point3D getPixelPosition(int row, int col, const projection* projection) {
+point3D getPixelPosition(const projection* projection, const int row, const int col) {
     // This is the distance from the center of the detector to the top-left pixel's center
     // it's used to calculate the center position of subsequent pixels
     const double dFirstPixel = projection->nSidePixels * PIXEL_SIZE / 2 - PIXEL_SIZE / 2;
@@ -77,10 +84,6 @@ point3D getPixelPosition(int row, int col, const projection* projection) {
     };
 }
 
-/*
-* Given a ray's source and the pixel's center, determine if the ray is parallel
-* to one of the 3D space axes then return said axis or NONE if not parallel to any.
-*/
 axis getParallelAxis(const ray ray) {
     const point3D source = ray.source;
     const point3D pixel = ray.pixel;
@@ -94,8 +97,8 @@ axis getParallelAxis(const ray ray) {
     return NONE;
 }
 
-double getPlanePosition(const int index, const axis axis) {
-    return -((voxelSize[axis] * nVoxels[axis]) / 2) + index * voxelSize[axis];
+double getPlanePosition(const axis axis, const int index) {
+    return -((VOXEL_SIZE[axis] * N_VOXELS[axis]) / 2) + index * VOXEL_SIZE[axis];
 }
 
 /*********************************************
@@ -150,12 +153,12 @@ void getPlanesRanges(const ray ray, range planesIndexes[3], const double aMin, c
         // Siddon's algorithm, equation (6)
         int minIndex, maxIndex;
         if (pixel.coordinates[axis] - source.coordinates[axis] >= 0) {
-            minIndex = nPlanes[axis] - ceil((lastPlane[axis] - aMin * (pixel.coordinates[axis] - source.coordinates[axis]) - source.coordinates[axis]) / voxelSize[axis]);
-            maxIndex = floor((source.coordinates[axis] + aMax * (pixel.coordinates[axis] - source.coordinates[axis]) - firstPlane[axis]) / voxelSize[axis]);
+            minIndex = N_PLANES[axis] - ceil((lastPlane[axis] - aMin * (pixel.coordinates[axis] - source.coordinates[axis]) - source.coordinates[axis]) / VOXEL_SIZE[axis]);
+            maxIndex = floor((source.coordinates[axis] + aMax * (pixel.coordinates[axis] - source.coordinates[axis]) - firstPlane[axis]) / VOXEL_SIZE[axis]);
         } else {
-            minIndex = nPlanes[axis] - ceil((lastPlane[axis] - aMax * (pixel.coordinates[axis] - source.coordinates[axis]) - source.coordinates[axis]) / voxelSize[axis]);
+            minIndex = N_PLANES[axis] - ceil((lastPlane[axis] - aMax * (pixel.coordinates[axis] - source.coordinates[axis]) - source.coordinates[axis]) / VOXEL_SIZE[axis]);
             // TODO: verify if '1 +' is needed at the beginning of the next line
-            maxIndex = floor((source.coordinates[axis] + aMin * (pixel.coordinates[axis] - source.coordinates[axis]) - firstPlane[axis]) / voxelSize[axis]);
+            maxIndex = floor((source.coordinates[axis] + aMin * (pixel.coordinates[axis] - source.coordinates[axis]) - firstPlane[axis]) / VOXEL_SIZE[axis]);
         }
         planesIndexes[axis] = (range){.min=minIndex, .max=maxIndex};
     }
@@ -176,13 +179,13 @@ void getAllIntersections(const ray ray, const range planesRanges[3], double* a[3
         if (pixel.coordinates[axis] - source.coordinates[axis] > 0) {
             a[axis][0] = (getPlanePosition(minIndex, axis) - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
             for (int i = 1; i < maxIndex - minIndex; i++) {
-                a[axis][i] = a[axis][i - 1] + voxelSize[axis] / (pixel.coordinates[axis] - source.coordinates[axis]);
+                a[axis][i] = a[axis][i - 1] + VOXEL_SIZE[axis] / (pixel.coordinates[axis] - source.coordinates[axis]);
             }
         } else if (pixel.coordinates[axis] - source.coordinates[axis] < 0) {
             a[axis][0] = (getPlanePosition(maxIndex, axis) - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
             for (int i = 1; i < maxIndex - minIndex; i++) {
                 // TODO: check if '+' or '-' is correct here (it's '+' in Siddon's algorithm, but '-' seems to be correct)
-                a[axis][i] = a[axis][i - 1] - voxelSize[axis] / (pixel.coordinates[axis] - source.coordinates[axis]);
+                a[axis][i] = a[axis][i - 1] - VOXEL_SIZE[axis] / (pixel.coordinates[axis] - source.coordinates[axis]);
             }
         }
     }
@@ -245,6 +248,7 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
     const double dz = pixel.z - source.z;
     const double d12 = sqrt(dx * dx + dy * dy + dz * dz);
 
+    // TODO: this needs to be optimized, see if it's possible to use SIMD instructions
     for(int i = 1; i < lenA; i ++){
         // Siddon's algorithm, equation (10)
         const double segmentLength = d12 * (a[i] - a[i-1]);
@@ -257,14 +261,14 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
         const int voxelY = ((source.y) + aMid * (pixel.y - source.y) - firstPlane[Y]) / VOXEL_SIZE_Y;
         const int voxelZ = ((source.z) + aMid * (pixel.z - source.z) - firstPlane[Z]) / VOXEL_SIZE_Z;
         assert(voxelX >= 0 && voxelY >= 0 && voxelZ >= 0);
-        assert(voxelX <= NVOXELS_X && voxelY <= NVOXELS_Y && voxelZ <= NVOXELS_Z);
+        assert(voxelX <= N_VOXELS_X && voxelY <= N_VOXELS_Y && voxelZ <= N_VOXELS_Z);
 
         // Update the value of the voxel given the value of the pixel and the
         // length of the segment that the ray intersects with the voxel
         const double voxelAbsorptionValue = pixelAbsorptionValue * segmentLength;
         assert(voxelAbsorptionValue >= 0);
-        const int voxelIndex = voxelX + voxelY * NVOXELS_Y + voxelZ * NVOXELS_Z;
-        assert(voxelIndex >= 0 && voxelIndex <= NVOXELS_X * NVOXELS_Y * NVOXELS_Z);
+        const int voxelIndex = voxelX + voxelY * N_VOXELS_Y + voxelZ * N_VOXELS_Z;
+        assert(voxelIndex >= 0 && voxelIndex <= N_VOXELS_X * N_VOXELS_Y * N_VOXELS_Z);
 
         // TODO: find a way to avoid using atomic operations, this is a bottleneck
         #pragma omp atomic update
@@ -272,7 +276,7 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
     }
 }
 
-void computeBackProjection(volume* volume, const projection* projection) {
+void computeBackProjection(const projection* projection, volume* volume) {
     // Check if the arguments are valid
     if (volume == NULL || projection == NULL) {
         printf("Invalid arguments\n");
@@ -285,9 +289,11 @@ void computeBackProjection(volume* volume, const projection* projection) {
     // Iterate through every pixel of the projection image and calculate the
     // coefficients of the voxels that contribute to the pixel.
     //#pragma omp parallel for collapse(2) schedule(dynamic) default(none) shared(volume, projection, source)
+    // TODO: to reduce the atomic operations, it may be possible to offset the pixel processing by a certain amount * thread_id
+    // TODO: so that each thread shoots rays at different pixels, this could reduce the intersecting voxels between threads
     for (int row = 0; row < projection->nSidePixels; row++) {
         for (int col = 0; col < projection->nSidePixels; col++) {
-            const point3D pixel = getPixelPosition(row, col, projection);
+            const point3D pixel = getPixelPosition(projection, row, col);
             const ray ray = {.source=source, .pixel=pixel};
 
             // Calculate if the ray is parallel to one of the 3D space axes,
@@ -369,16 +375,16 @@ int main(int argc, char* argv[]) {
     * using the backprojection algorithm starting from the projection images
     */
     volume volume = {
-        .nVoxelsX = NVOXELS_X,
-        .nVoxelsY = NVOXELS_Y,
-        .nVoxelsZ = NVOXELS_Z,
-        .nPlanesX = NPLANES_X,
-        .nPlanesY = NPLANES_Y,
-        .nPlanesZ = NPLANES_Z,
+        .nVoxelsX = N_VOXELS_X,
+        .nVoxelsY = N_VOXELS_Y,
+        .nVoxelsZ = N_VOXELS_Z,
+        .nPlanesX = N_PLANES_X,
+        .nPlanesY = N_PLANES_Y,
+        .nPlanesZ = N_PLANES_Z,
         // TODO: find a way to split this array into multiple parts because it's too big (1000^3)*8 bytes = 8GB
         // TODO: a possible solution is to split the volume into chunks and process them serially, this reduces the memory usage but increases the runtime
         // TODO: or sacrifice accuracy for memory by using float instead of double
-        .coefficients = (double*)calloc(NVOXELS_X * NVOXELS_Y * NVOXELS_Z, sizeof(double))
+        .coefficients = (double*)calloc(N_VOXELS_X * N_VOXELS_Y * N_VOXELS_Z, sizeof(double))
     };
     // Check if the memory was allocated successfully
     if (volume.coefficients == NULL) {
@@ -396,7 +402,7 @@ int main(int argc, char* argv[]) {
 
     // Read the projection images from the file and compute the backprojection
     #pragma omp parallel for default(none) shared(inputFile, volume, width, height, maxVal, stderr)
-    for (int i = 0; i < NTHETA; i++) {
+    for (int i = 0; i < N_THETA; i++) {
         projection projection;
         bool read;
 
@@ -406,16 +412,16 @@ int main(int argc, char* argv[]) {
 
         // if read is false, it means that the end of the file was reached
         if (read) {
-            fprintf(stderr, "Processing projection %d/%d\n", projection.index + 1, NTHETA);
-            computeBackProjection(&volume, &projection);
+            fprintf(stderr, "Processing projection %d/%d\n", projection.index + 1, N_THETA);
+            computeBackProjection(&projection, &volume);
         }
 
         free(projection.pixels);
     }
 
     double finalTime = omp_get_wtime();
-    fprintf(stderr, "Average time per projection: %.3lf seconds\n", (finalTime - initialTime) / NTHETA);
-    fprintf(stderr, "Total time for %d projections: %.3lf seconds\n", NTHETA, finalTime - initialTime);
+    fprintf(stderr, "Average time per projection: %.3lf seconds\n", (finalTime - initialTime) / N_THETA);
+    fprintf(stderr, "Total time for %d projections: %.3lf seconds\n", N_THETA, finalTime - initialTime);
 
     writeVolume(outputFile, &volume);
 
