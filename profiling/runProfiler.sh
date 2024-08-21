@@ -7,7 +7,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$DIR"/.. || exit
 
 # compile program
-make
+make backprojector
 
 # run program
 ./backprojector "$@"
