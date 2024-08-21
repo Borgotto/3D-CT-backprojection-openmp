@@ -16,17 +16,15 @@
 * projection: the projection struct to store the read image and its attributes
 * return: true if the file was read successfully, false if the end of the file was reached
 */
-bool readPGM(FILE* file, projection* projection) {
+bool readPGM(FILE* file, projection* projection, int* width, int* height, double* maxVal) {
     // If the read pointer is at the beginning of the file
     if (ftell(file) == 0) {
         char fileFormat[3];
-        int width, height;
-        double maxVal;
 
         // Make sure it's a PGM file and read its attributes
         if(fscanf(file, "%2s", fileFormat) == EOF ||
-           fscanf(file, "%d %d", &width, &height) == EOF ||
-           fscanf(file, "%lf", &maxVal) == EOF) {
+           fscanf(file, "%d %d", width, height) == EOF ||
+           fscanf(file, "%lf", maxVal) == EOF) {
             return false; // Error reading the file
         }
         if (strcmp(fileFormat, "P2") != 0) {
@@ -34,16 +32,17 @@ bool readPGM(FILE* file, projection* projection) {
             fclose(file);
             exit(1);
         }
-        // Initialize the projection struct
-        projection->nSidePixels = width;
-        projection->maxVal = maxVal;
-        projection->pixels = (double*)malloc(width * width * sizeof(double));
-        // Check if the memory allocation was successful
-        if (projection->pixels == NULL) {
-            fprintf(stderr, "Error allocating memory for the projection\n");
-            fclose(file);
-            exit(1);
-        }
+    }
+
+    // Initialize the projection struct
+    projection->nSidePixels = *width;
+    projection->maxVal = *maxVal;
+    projection->pixels = (double*)malloc((*width) * (*width) * sizeof(double));
+    // Check if the memory allocation was successful
+    if (projection->pixels == NULL) {
+        fprintf(stderr, "Error allocating memory for the projection\n");
+        fclose(file);
+        exit(1);
     }
 
     // Skip lines until "# angle:" is found

@@ -284,7 +284,7 @@ void computeBackProjection(volume* volume, const projection* projection) {
 
     // Iterate through every pixel of the projection image and calculate the
     // coefficients of the voxels that contribute to the pixel.
-    #pragma omp parallel for collapse(2) schedule(dynamic) default(none) shared(volume, projection, source)
+    //#pragma omp parallel for collapse(2) schedule(dynamic) default(none) shared(volume, projection, source)
     for (int row = 0; row < projection->nSidePixels; row++) {
         for (int col = 0; col < projection->nSidePixels; col++) {
             const point3D pixel = getPixelPosition(row, col, projection);
@@ -388,30 +388,29 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-
-    /*
-    * This struct is used to store the projection image read from the file
-    * its values are overwritten each iteration of the loop below to save memory.
-    */
-    projection projection;
-
     initTables();
 
     double initialTime = omp_get_wtime();
-    double projectionTimes[NTHETA];
+    int width, height;
+    double maxVal;
 
     // Read the projection images from the file and compute the backprojection
-    while (readPGM(inputFile, &projection)) {
-        fprintf(stderr, "Processing projection %d/%d\n", projection.index + 1, NTHETA);
+    #pragma omp parallel for default(none) shared(inputFile, volume, width, height, maxVal, stderr)
+    for (int i = 0; i < NTHETA; i++) {
+        projection projection;
+        bool read;
 
-        double projectionTime = omp_get_wtime();
+        // File reading has to be done sequentially
+        #pragma omp critical
+        read = readPGM(inputFile, &projection, &width, &height, &maxVal);
 
-        computeBackProjection(&volume, &projection);
+        // if read is false, it means that the end of the file was reached
+        if (read) {
+            fprintf(stderr, "Processing projection %d/%d\n", projection.index + 1, NTHETA);
+            computeBackProjection(&volume, &projection);
+        }
 
-        projectionTimes[projection.index] = omp_get_wtime() - projectionTime;
-
-        fprintf(stderr, "previous took %.3lf seconds\n", projectionTimes[projection.index]);
-        fprintf(stderr, "\033[2A");
+        free(projection.pixels);
     }
 
     double finalTime = omp_get_wtime();
@@ -423,6 +422,5 @@ int main(int argc, char* argv[]) {
     fclose(inputFile);
     fclose(outputFile);
     free(volume.coefficients);
-    free(projection.pixels);
     return 0;
 }
