@@ -33,12 +33,12 @@ you can then convert them to `png`:
 convert -background white -alpha remove -alpha off profiling/snapshots/<snapshot>.svg profiling/snapshots/<snapshot>.png
 ```
 
-The profiling snapshots found in the [profiling/snapshots](profiling/snapshots) directory were generated using [this](/profiling/runProfiler.sh) script
+The profiling snapshots found in the [profiling/snapshots](profiling/snapshots) directory were generated using [this](profiling/runProfiler.sh) script
 
 ## Documentation
-To view the documentation, visit []() or open the [index.html](doc/html/index.html) file in your browser.
+To view the documentation, visit the [GitHub pages](https://borgotto.github.io/3D-CT-backprojection-openmp/) or open the [index.html](docs/index.html) file in your browser.
 
-The documentation was generated using [Doxygen 1.12.0](https://www.doxygen.nl/) and this [Doxyfile](/doc/Doxyfile).
+The documentation was generated using [Doxygen 1.12.0](https://www.doxygen.nl/) and this [Doxyfile](docs/build/Doxyfile).
 ```bash
 doxygen Doxyfile
 ```
@@ -46,6 +46,6 @@ there's also a Makefile target for it:
 ```bash
 make doc
 ```
-the generated documentation can be found in the [doc](doc) directory.
+the generated documentation can be found in the [docs](docs) directory.
 
 

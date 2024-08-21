@@ -11,7 +11,7 @@ gmon.out
 tests/2352x16464.pgm
 
 # Doxygen binaries
-doc/doxy*
+docs/build/doxy*
 
 # Backup files
 *.bak

@@ -12,9 +12,12 @@ $(TARGET):
 	$(CC) $(CFLAGS) -o $(TARGET) $(SRC) $(LFLAGS) $(DEBUGFLAGS)
 
 doc:
-	cd ./doc && ./doxygen -q Doxyfile
+	cd ./docs/build && ./doxygen -q Doxyfile
 
 clean:
-	rm -rf $(TARGET) gmon.out doc/html/ doc/latex/
+	# binary and profiling data
+	rm -f $(TARGET) gmon.out
+	# delete documentation files while keeping the directories
+	find docs/ -maxdepth 1 -type f -delete
 
 .PHONY: all $(TARGET) doc
