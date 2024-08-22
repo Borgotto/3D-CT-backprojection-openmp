@@ -169,12 +169,12 @@ void getAllIntersections(const ray ray, const range planesRanges[3], double* a[3
 
         // Siddon's algorithm, equation (7)
         if (pixel.coordinates[axis] - source.coordinates[axis] > 0) {
-            a[axis][0] = (getPlanePosition(minIndex, axis) - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
+            a[axis][0] = (getPlanePosition(axis, minIndex) - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
             for (int i = 1; i < maxIndex - minIndex; i++) {
                 a[axis][i] = a[axis][i - 1] + VOXEL_SIZE[axis] / (pixel.coordinates[axis] - source.coordinates[axis]);
             }
         } else if (pixel.coordinates[axis] - source.coordinates[axis] < 0) {
-            a[axis][0] = (getPlanePosition(maxIndex, axis) - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
+            a[axis][0] = (getPlanePosition(axis, minIndex) - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
             for (int i = 1; i < maxIndex - minIndex; i++) {
                 // TODO: check if '+' or '-' is correct here (it's '+' in Siddon's algorithm, but '-' seems to be correct)
                 a[axis][i] = a[axis][i - 1] - VOXEL_SIZE[axis] / (pixel.coordinates[axis] - source.coordinates[axis]);
