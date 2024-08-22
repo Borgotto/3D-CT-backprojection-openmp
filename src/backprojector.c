@@ -184,7 +184,7 @@ void getAllIntersections(const ray ray, const range planesRanges[3], double* a[3
 }
 
 void mergeIntersections(const double aX[], const double aY[], const double aZ[], const int aXSize, const int aYSize, const int aZSize, double aMerged[]) {
-    unsigned int i = 0, j = 0, k = 0, l = 0;
+    int i = 0, j = 0, k = 0, l = 0;
 
     while (i < aXSize && j < aYSize && k < aZSize) {
         if (aX[i] <= aY[j] && aX[i] <= aZ[k]) {

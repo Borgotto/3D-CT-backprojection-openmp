@@ -143,7 +143,7 @@ typedef struct projection {
     /// Maximum absorption value assumed by the pixels
     double maxVal;
     /// Number of pixels on one side of the detector (square)
-    unsigned int nSidePixels;
+    int nSidePixels;
     /// 2D array of size (nPixels*nPixels) containing the pixel values
     double* pixels;
 } projection;
@@ -153,17 +153,17 @@ typedef struct projection {
  */
 typedef struct volume {
     /// Number of voxels in the x-axis
-    const unsigned int nVoxelsX;
+    const int nVoxelsX;
     /// Number of voxels in the y-axis
-    const unsigned int nVoxelsY;
+    const int nVoxelsY;
     /// Number of voxels in the z-axis
-    const unsigned int nVoxelsZ;
+    const int nVoxelsZ;
     /// Number of planes in the x-axis
-    const unsigned int nPlanesX;
+    const int nPlanesX;
     /// Number of planes in the y-axis
-    const unsigned int nPlanesY;
+    const int nPlanesY;
     /// Number of planes in the z-axis
-    const unsigned int nPlanesZ;
+    const int nPlanesZ;
     /// 3D array of size (nVoxelsX*nVoxelsY*nVoxelsZ) containing the absorption coefficients
     double* coefficients;
 } volume;
