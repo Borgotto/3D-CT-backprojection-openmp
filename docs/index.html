@@ -92,13 +92,13 @@ Profiling</h1>
 <div class="line">./backprojector &lt;input_file&gt; &lt;output_file&gt;</div>
 </div><!-- fragment --><p> convert the <code>gmon.out</code> file to a human-readable format using the following command: </p><div class="fragment"><div class="line">gprof backprojector | gprof2dot -n0 -e0 | dot -Tsvg -Gbgcolor=transparent -o profiling/snapshots/&quot;$(ls -l ./profiling/snapshots/ | wc -l) - $(date &#39;+%Y-%m-%d %H.%M.%S&#39;)&quot;.svg</div>
 </div><!-- fragment --><p> you can then convert them to <code>png</code>: </p><div class="fragment"><div class="line">convert -background white -alpha remove -alpha off profiling/snapshots/&lt;snapshot&gt;.svg profiling/snapshots/&lt;snapshot&gt;.png</div>
-</div><!-- fragment --><p>The profiling snapshots found in the <a href="profiling/snapshots">profiling/snapshots</a> directory were generated using <a href="/profiling/runProfiler.sh">this</a> script</p>
+</div><!-- fragment --><p>The profiling snapshots found in the <a href="profiling/snapshots">profiling/snapshots</a> directory were generated using <a href="profiling/runProfiler.sh">this</a> script</p>
 <h1><a class="anchor" id="documentation"></a>
 Documentation</h1>
-<p>To view the documentation, visit []() or open the <a href="doc/html/index.html">index.html</a> file in your browser.</p>
-<p>The documentation was generated using <a href="https://www.doxygen.nl/">Doxygen 1.12.0</a> and this <a href="/doc/Doxyfile">Doxyfile</a>. </p><div class="fragment"><div class="line">doxygen Doxyfile</div>
+<p>To view the documentation, visit the <a href="https://borgotto.github.io/3D-CT-backprojection-openmp/">GitHub pages</a> or open the <a href="docs/index.html">index.html</a> file in your browser.</p>
+<p>The documentation was generated using <a href="https://www.doxygen.nl/">Doxygen 1.12.0</a> and this <a href="docs/build/Doxyfile">Doxyfile</a>. </p><div class="fragment"><div class="line">doxygen Doxyfile</div>
 </div><!-- fragment --><p> there's also a Makefile target for it: </p><div class="fragment"><div class="line">make doc</div>
-</div><!-- fragment --><p> the generated documentation can be found in the [doc](doc) directory. </p>
+</div><!-- fragment --><p> the generated documentation can be found in the [docs](docs) directory. </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

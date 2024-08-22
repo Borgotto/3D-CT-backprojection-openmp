@@ -213,7 +213,13 @@ axis getParallelAxis(const ray ray);
 /**
  * @brief Calculates the position of the plane parallel to the given axis and at the given index.
  *
- * The position is calculated out of the total number of planes in that axis `N_PLANES[axis]`.
+ * @note Siddon's algorithm, equation 3
+ *
+ * \f$
+ * X_{plane}(i) = X_{plane}(0) + i * d_x \quad (i = 0, \ldots, N_x) \\
+ * Y_{plane}(j) = Y_{plane}(0) + j * d_y \quad (j = 0, \ldots, N_y) \\
+ * Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
+ * \f$
  *
  * @param axis The axis parallel to the plane.
  * @param index The index of the plane.
@@ -224,8 +230,20 @@ double getPlanePosition(const axis axis, const int index);
 /**
  * @brief Calculates the intersection points of the ray with the planes.
  *
+ * @note Siddon's algorithm, equation 4
+ *
  * For each axis, the first element is the entry point of the ray into the first plane of that axis,
  * and the second element is the exit point of the ray from the last plane of that axis.
+ *
+ * \f$
+ * \text{If}(X_2-X_1) \neq 0: \\
+ * \quad\alpha_x(0) = (X_{plane}(0) - X_1) / (X_2 - X_1) \\
+ * \quad\alpha_x(N_x) = (X_{plane}(N_x) - X_1) / (X_2 - X_1)
+ * \f$
+ *
+ * If the ray is parallel to the axis, the intersection points are undefined.
+ *
+ * Similar equations are used for the Y and Z axes.
  *
  * @param ray The ray to calculate intersections for.
  * @param parallelTo The axis parallel to the ray.
@@ -236,6 +254,12 @@ void getSidesIntersections(const ray ray, const axis parallelTo, double intersec
 /**
  * @brief Finds the minimum intersection point along the given axis.
  *
+ * @note Siddon's algorithm, equation 5
+ *
+ * \f$
+ * \alpha_{min} = \max\{0, \min\{\alpha_x(0), \alpha_x(N_x)\}, \min\{\alpha_y(0), \alpha_y(N_y)\}, \min\{\alpha_z(0), \alpha_z(N_z)\}\}
+ * \f$
+ *
  * @param parallelTo The axis parallel to the ray.
  * @param intersections The array of intersection points.
  * @return The minimum intersection point.
@@ -245,6 +269,14 @@ double getAMin(const axis parallelTo, double intersections[3][2]);
 /**
  * @brief Finds the maximum intersection point along the given axis.
  *
+ * @note Siddon's algorithm, equation 5
+ *
+ * \f$
+ * \alpha_{max} = \min\{1, \max\{\alpha_x(0), \alpha_x(N_x)\}, \max\{\alpha_y(0), \alpha_y(N_y)\}, \max\{\alpha_z(0), \alpha_z(N_z)\}\}
+ * \f$
+ *
+ * Similar equations are used for the Y and Z axes.
+ *
  * @param parallelTo The axis parallel to the ray.
  * @param intersections The array of intersection points.
  * @return The maximum intersection point.
@@ -253,6 +285,19 @@ double getAMax(const axis parallelTo, double intersections[3][2]);
 
 /**
  * @brief Calculates the ranges of planes that the ray intersects.
+ *
+ * @note Siddon's algorithm, equation 6
+ *
+ * \f$
+ * \text{If}(X_2-X_1) \geq 0: \\
+ * \quad i_{min} = N_x - (X_{plane}(N_x) - \alpha_{min} * (X_2 - X_1) - X_1) / d_x \\
+ * \quad i_{max} = 1 + (X_1 + \alpha_{max} * (X_2 - X_1) - X_{plane}(0)) / d_x \\
+ * \text{If}(X_2-X_1) \leq 0: \\
+ * \quad i_{min} = N_x - (X_{plane}(N_x) - \alpha_{max} * (X_2 - X_1) - X_1) / d_x \\
+ * \quad i_{max} = 1 + (X_1 + \alpha_{min} * (X_2 - X_1) - X_{plane}(0)) / d_x
+ * \f$
+ *
+ * Similar equations are used for j and k indexes.
  *
  * @param ray The ray to calculate ranges for.
  * @param planesIndexes The array to store the ranges of planes.
@@ -265,6 +310,23 @@ void getPlanesRanges(const ray ray, range planesIndexes[3], const double aMin, c
 /**
  * @brief Calculates *all* the intersection points of the ray with the planes.
  *
+ * @note Siddon's algorithm, equation 7
+ *
+ * \f$
+ * \text{If}(X_2-X_1) \gt 0: \\
+ * \quad \{\alpha_x\} = \{\alpha_x(i_{min}), \ldots, \alpha_x(i_{max})\} \\
+ * \text{If}(X_2-X_1) \lt 0: \\
+ * \quad \{\alpha_x\} = \{\alpha_x(i_{max}), \ldots, \alpha_x(i_{min})\} \\
+ *
+ * \text{where:} \\
+ * \alpha_x(i) = (X_{plane}(i) - X_1) / (X_2 - X_1) \\
+ *
+ * \text{or recursively:} \\
+ * \alpha_x(i) = \alpha_x(i-1) + d_x / (X_2 - X_1) \\
+ * \f$
+ *
+ * Similar equations are used for the Y and Z axes.
+ *
  * For each axis, the array contains the intersection points of the ray with the planes of that axis.
  *
  * @param ray The ray to calculate intersections for.
@@ -276,7 +338,16 @@ void getAllIntersections(const ray ray, const range planesRanges[3], double* a[3
 /**
  * @brief Merges the intersection points of the ray with the planes.
  *
- * The merged array contains the intersection points of the ray with all the planes.
+ * @note Siddon's algorithm, equation 8
+ *
+ * \f$
+ * \{\alpha\} = \{\alpha_{min}, \text{merge}(\alpha_x, \alpha_y, \alpha_z), \alpha_{max}\} \\
+ * \qquad = \{\alpha(0), \ldots, \alpha(N)\} \\
+ * \text{where:} \\
+ * N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
+ * \f$
+ *
+ * The merged array contains the intersection points of the ray with all the planes, sorted in ascending order.
  *
  * @param aX The intersection points of the ray with the planes of the x-axis.
  * @param aY The intersection points of the ray with the planes of the y-axis.
@@ -291,6 +362,8 @@ void mergeIntersections(const double aX[], const double aY[], const double aZ[],
 /**
  * @brief Checks if the array is sorted in ascending order.
  *
+ * @note this function is used for debugging purposes only.
+ *
  * @param array The array to check.
  * @param size The size of the array.
  * @return true if the array is sorted, false otherwise.
@@ -299,6 +372,32 @@ bool isArraySorted(const double array[], int size);
 
 /**
  * @brief Computes the absorption value of the voxels intersected by the ray.
+ *
+ * @note Siddon's algorithm, equation 10
+ *
+ * \f$
+ * l(m) = d_{12} * (\alpha(m) - \alpha(m-1)) \quad (m = 1, \ldots, N)
+ * \f$
+ *
+ * @note Siddon's algorithm, equation 11
+ *
+ * \f$
+ * d_{12} = \sqrt{(X_2 - X_1)^2 + (Y_2 - Y_1)^2 + (Z_2 - Z_1)^2}
+ * \f$
+ *
+ * @note Siddon's algorithm, equation 12
+ *
+ * \f$
+ * i(m) = 1 + (X_1 + \alpha_{mid} * (X_2 - X_1) - X_{plane}(0)) / d_x \\
+ * j(m) = 1 + (Y_1 + \alpha_{mid} * (Y_2 - Y_1) - Y_{plane}(0)) / d_y \\
+ * k(m) = 1 + (Z_1 + \alpha_{mid} * (Z_2 - Z_1) - Z_{plane}(0)) / d_z
+ * \f$
+ *
+ * @note Siddon's algorithm, equation 13
+ *
+ * \f$
+ * \alpha_{mid} = (\alpha(m) + \alpha(m-1)) / 2
+ * \f$
  *
  * The absorption value is computed using the value that is assumed by the pixels
  * and the length of the intersection of the ray with the voxels.
@@ -313,6 +412,19 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
 
 /**
  * @brief Computes the backprojection of the projection.
+ *
+ * @note Siddon's algorithm, equation 9
+ *
+ * \f$
+ * N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
+ * \f$
+ *
+ * @note Siddon's algorithm, equation 8
+ *
+ * \f$
+ * \{\alpha\} = \{\alpha_{min}, \text{merge}(\alpha_x, \alpha_y, \alpha_z), \alpha_{max}\} \\
+ * \qquad = \{\alpha(0), \ldots, \alpha(N)\}
+ * \f$
  *
  * The backprojection is computed by iterating over all the rays and computing
  * the absorption of the voxels intersected by the ray.

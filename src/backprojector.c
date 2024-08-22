@@ -57,11 +57,6 @@ void initTables() {
     }
 }
 
-
-/*******************************************
-* Functions to calculate 3D space positions
-********************************************/
-
 point3D getSourcePosition(const int projectionIndex) {
     return (point3D) {
         .x = -sinTable[projectionIndex] * DOS,
@@ -98,12 +93,9 @@ axis getParallelAxis(const ray ray) {
 }
 
 double getPlanePosition(const axis axis, const int index) {
-    return -((VOXEL_SIZE[axis] * N_VOXELS[axis]) / 2) + index * VOXEL_SIZE[axis];
+    // Siddon's algorithm, equation (3)
+    return firstPlane[axis] + index * VOXEL_SIZE[axis];
 }
-
-/*********************************************
-* Functions defined in the Siddon's algorithm
-**********************************************/
 
 void getSidesIntersections(const ray ray, const axis parallelTo, double intersections[3][2]) {
     const point3D source = ray.source;
@@ -242,7 +234,8 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
     const point3D source = ray.source;
     const point3D pixel = ray.pixel;
 
-    // distance between the source(1) and the pixel(2), Siddon's algorithm, equation (11)
+    // distance between the source and the pixel
+    // Siddon's algorithm, equation (11)
     const double dx = pixel.x - source.x;
     const double dy = pixel.y - source.y;
     const double dz = pixel.z - source.z;
@@ -271,6 +264,7 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
         assert(voxelIndex >= 0 && voxelIndex <= N_VOXELS_X * N_VOXELS_Y * N_VOXELS_Z);
 
         // TODO: find a way to avoid using atomic operations, this is a bottleneck
+        // Siddon's algorithm, equation (14)
         #pragma omp atomic update
         coefficients[voxelIndex] += voxelAbsorptionValue;
     }
@@ -295,9 +289,6 @@ void computeBackProjection(const projection* projection, volume* volume) {
         for (int col = 0; col < projection->nSidePixels; col++) {
             const point3D pixel = getPixelPosition(projection, row, col);
             const ray ray = {.source=source, .pixel=pixel};
-
-            // Calculate if the ray is parallel to one of the 3D space axes,
-            // this will be useful for checks later in the Siddon's algorithm
             const axis parallelTo = getParallelAxis(ray);
 
             // This array will contain the intersection points of the ray with
@@ -333,9 +324,12 @@ void computeBackProjection(const projection* projection, volume* volume) {
             double aX[aXSize], aY[aYSize], aZ[aZSize];
             getAllIntersections(ray, planesRanges, (double*[]){aX, aY, aZ});
 
-            // Merge all of the intersections into a single sorted array
+            // Calculate the size of the merged array
+            // Siddon's algorithm, equation (9)
             const int mergedSize = aXSize + aYSize + aZSize;
             double aMerged[mergedSize];
+            // Merge all of the intersections into a single sorted array
+            // Siddon's algorithm, equation (8)
             mergeIntersections(aX, aY, aZ, aXSize, aYSize, aZSize, aMerged);
             assert(isArraySorted(aMerged, mergedSize));
 

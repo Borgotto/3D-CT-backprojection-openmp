@@ -733,6 +733,24 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Computes the absorption value of the voxels intersected by the ray. </p>
+<dl class="section note"><dt>Note</dt><dd>Siddon's algorithm, equation 10</dd></dl>
+<p>\(
+l(m) = d_{12} * (\alpha(m) - \alpha(m-1)) \quad (m = 1, \ldots, N)
+\)</p>
+<dl class="section note"><dt>Note</dt><dd>Siddon's algorithm, equation 11</dd></dl>
+<p>\(
+d_{12} = \sqrt{(X_2 - X_1)^2 + (Y_2 - Y_1)^2 + (Z_2 - Z_1)^2}
+\)</p>
+<dl class="section note"><dt>Note</dt><dd>Siddon's algorithm, equation 12</dd></dl>
+<p>\(
+i(m) = 1 + (X_1 + \alpha_{mid} * (X_2 - X_1) - X_{plane}(0)) / d_x \\
+j(m) = 1 + (Y_1 + \alpha_{mid} * (Y_2 - Y_1) - Y_{plane}(0)) / d_y \\
+k(m) = 1 + (Z_1 + \alpha_{mid} * (Z_2 - Z_1) - Z_{plane}(0)) / d_z
+\)</p>
+<dl class="section note"><dt>Note</dt><dd>Siddon's algorithm, equation 13</dd></dl>
+<p>\(
+\alpha_{mid} = (\alpha(m) + \alpha(m-1)) / 2
+\)</p>
 <p>The absorption value is computed using the value that is assumed by the pixels and the length of the intersection of the ray with the voxels.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -745,7 +763,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00241">241</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00233">233</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -769,6 +787,15 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Computes the backprojection of the projection. </p>
+<dl class="section note"><dt>Note</dt><dd>Siddon's algorithm, equation 9</dd></dl>
+<p>\(
+N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
+\)</p>
+<dl class="section note"><dt>Note</dt><dd>Siddon's algorithm, equation 8</dd></dl>
+<p>\(
+\{\alpha\} = \{\alpha_{min}, \text{merge}(\alpha_x, \alpha_y, \alpha_z), \alpha_{max}\} \\
+\qquad = \{\alpha(0), \ldots, \alpha(N)\}
+\)</p>
 <p>The backprojection is computed by iterating over all the rays and computing the absorption of the voxels intersected by the ray.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -778,7 +805,7 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00279">279</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00273">273</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -839,6 +866,20 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Calculates <em>all</em> the intersection points of the ray with the planes. </p>
+<dl class="section note"><dt>Note</dt><dd>Siddon's algorithm, equation 7</dd></dl>
+<p>\(
+\text{If}(X_2-X_1) \gt 0: \\
+\quad \{\alpha_x\} = \{\alpha_x(i_{min}), \ldots, \alpha_x(i_{max})\} \\
+\text{If}(X_2-X_1) \lt 0: \\
+\quad \{\alpha_x\} = \{\alpha_x(i_{max}), \ldots, \alpha_x(i_{min})\} \\
+
+\text{where:} \\
+\alpha_x(i) = (X_{plane}(i) - X_1) / (X_2 - X_1) \\
+
+\text{or recursively:} \\
+\alpha_x(i) = \alpha_x(i-1) + d_x / (X_2 - X_1) \\
+\)</p>
+<p>Similar equations are used for the Y and Z axes.</p>
 <p>For each axis, the array contains the intersection points of the ray with the planes of that axis.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -849,7 +890,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00167">167</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00159">159</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -883,6 +924,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Finds the maximum intersection point along the given axis. </p>
+<dl class="section note"><dt>Note</dt><dd>Siddon's algorithm, equation 5</dd></dl>
+<p>\(
+\alpha_{max} = \min\{1, \max\{\alpha_x(0), \alpha_x(N_x)\}, \max\{\alpha_y(0), \alpha_y(N_y)\}, \max\{\alpha_z(0), \alpha_z(N_z)\}\}
+\)</p>
+<p>Similar equations are used for the Y and Z axes.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">parallelTo</td><td>The axis parallel to the ray. </td></tr>
@@ -892,7 +938,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The maximum intersection point. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00136">136</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00128">128</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -916,6 +962,10 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Finds the minimum intersection point along the given axis. </p>
+<dl class="section note"><dt>Note</dt><dd>Siddon's algorithm, equation 5</dd></dl>
+<p>\(
+\alpha_{min} = \max\{0, \min\{\alpha_x(0), \alpha_x(N_x)\}, \min\{\alpha_y(0), \alpha_y(N_y)\}, \min\{\alpha_z(0), \alpha_z(N_z)\}\}
+\)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">parallelTo</td><td>The axis parallel to the ray. </td></tr>
@@ -925,7 +975,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The minimum intersection point. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00123">123</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00115">115</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -954,7 +1004,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The axis that is parallel to the ray, or axis::NONE if none. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00087">87</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00082">82</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -994,7 +1044,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The 3D coordinates of the pixel. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00073">73</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00068">68</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1018,7 +1068,12 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Calculates the position of the plane parallel to the given axis and at the given index. </p>
-<p>The position is calculated out of the total number of planes in that axis <code>N_PLANES[axis]</code>.</p>
+<dl class="section note"><dt>Note</dt><dd>Siddon's algorithm, equation 3</dd></dl>
+<p>\(
+X_{plane}(i) = X_{plane}(0) + i * d_x \quad (i = 0, \ldots, N_x) \\
+Y_{plane}(j) = Y_{plane}(0) + j * d_y \quad (j = 0, \ldots, N_y) \\
+Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
+\)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">axis</td><td>The axis parallel to the plane. </td></tr>
@@ -1028,7 +1083,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The position of the plane. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00100">100</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00095">95</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1067,6 +1122,16 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Calculates the ranges of planes that the ray intersects. </p>
+<dl class="section note"><dt>Note</dt><dd>Siddon's algorithm, equation 6</dd></dl>
+<p>\(
+\text{If}(X_2-X_1) \geq 0: \\
+\quad i_{min} = N_x - (X_{plane}(N_x) - \alpha_{min} * (X_2 - X_1) - X_1) / d_x \\
+\quad i_{max} = 1 + (X_1 + \alpha_{max} * (X_2 - X_1) - X_{plane}(0)) / d_x \\
+\text{If}(X_2-X_1) \leq 0: \\
+\quad i_{min} = N_x - (X_{plane}(N_x) - \alpha_{max} * (X_2 - X_1) - X_1) / d_x \\
+\quad i_{max} = 1 + (X_1 + \alpha_{min} * (X_2 - X_1) - X_{plane}(0)) / d_x
+\)</p>
+<p>Similar equations are used for j and k indexes.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ray</td><td>The ray to calculate ranges for. </td></tr>
@@ -1078,7 +1143,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00149">149</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00141">141</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1107,7 +1172,15 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Calculates the intersection points of the ray with the planes. </p>
+<dl class="section note"><dt>Note</dt><dd>Siddon's algorithm, equation 4</dd></dl>
 <p>For each axis, the first element is the entry point of the ray into the first plane of that axis, and the second element is the exit point of the ray from the last plane of that axis.</p>
+<p>\(
+\text{If}(X_2-X_1) \neq 0: \\
+\quad\alpha_x(0) = (X_{plane}(0) - X_1) / (X_2 - X_1) \\
+\quad\alpha_x(N_x) = (X_{plane}(N_x) - X_1) / (X_2 - X_1)
+\)</p>
+<p>If the ray is parallel to the axis, the intersection points are undefined.</p>
+<p>Similar equations are used for the Y and Z axes.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ray</td><td>The ray to calculate intersections for. </td></tr>
@@ -1117,7 +1190,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00108">108</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00100">100</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1146,7 +1219,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The 3D coordinates of the source. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00065">65</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00060">60</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1192,6 +1265,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Checks if the array is sorted in ascending order. </p>
+<dl class="section note"><dt>Note</dt><dd>this function is used for debugging purposes only.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">array</td><td>The array to check. </td></tr>
@@ -1201,7 +1275,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the array is sorted, false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00232">232</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00224">224</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1250,7 +1324,14 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Merges the intersection points of the ray with the planes. </p>
-<p>The merged array contains the intersection points of the ray with all the planes.</p>
+<dl class="section note"><dt>Note</dt><dd>Siddon's algorithm, equation 8</dd></dl>
+<p>\(
+\{\alpha\} = \{\alpha_{min}, \text{merge}(\alpha_x, \alpha_y, \alpha_z), \alpha_{max}\} \\
+\qquad = \{\alpha(0), \ldots, \alpha(N)\} \\
+\text{where:} \\
+N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
+\)</p>
+<p>The merged array contains the intersection points of the ray with all the planes, sorted in ascending order.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">aX</td><td>The intersection points of the ray with the planes of the x-axis. </td></tr>
@@ -1264,7 +1345,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00194">194</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00186">186</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
