@@ -303,9 +303,8 @@ double getAMax(const axis parallelTo, double intersections[3][2]);
  * @param planesIndexes The array to store the ranges of planes.
  * @param aMin The minimum intersection point.
  * @param aMax The maximum intersection point.
- * @param parallelTo The axis parallel to the ray.
  */
-void getPlanesRanges(const ray ray, range planesIndexes[3], const double aMin, const double aMax, const axis parallelTo);
+void getPlanesRanges(const ray ray, range planesIndexes[3], const double aMin, const double aMax);
 
 /**
  * @brief Calculates *all* the intersection points of the ray with the planes.

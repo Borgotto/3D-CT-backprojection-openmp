@@ -138,7 +138,7 @@ double getAMax(const axis parallelTo, double intersections[3][2]) {
     return aMax;
 }
 
-void getPlanesRanges(const ray ray, range planesIndexes[3], const double aMin, const double aMax, const axis parallelTo) {
+void getPlanesRanges(const ray ray, range planesRanges[3], const double aMin, const double aMax) {
     const point3D source = ray.source;
     const point3D pixel = ray.pixel;
     for (axis axis = X; axis <= Z; axis++) {
@@ -152,7 +152,7 @@ void getPlanesRanges(const ray ray, range planesIndexes[3], const double aMin, c
             // TODO: verify if '1 +' is needed at the beginning of the next line
             maxIndex = floor((source.coordinates[axis] + aMin * (pixel.coordinates[axis] - source.coordinates[axis]) - firstPlane[axis]) / VOXEL_SIZE[axis]);
         }
-        planesIndexes[axis] = (range){.min=minIndex, .max=maxIndex};
+        planesRanges[axis] = (range){.min=minIndex, .max=maxIndex};
     }
 }
 
@@ -321,7 +321,7 @@ void computeBackProjection(const projection* projection, volume* volume) {
             * coefficients of the voxels that the ray intersects.
             */
             range planesRanges[3];
-            getPlanesRanges(ray, planesRanges, aMin, aMax, parallelTo);
+            getPlanesRanges(ray, planesRanges, aMin, aMax);
 
             #ifdef _DEBUG
             assert(planesRanges[X].min >= 0 && planesRanges[Y].min >= 0 && planesRanges[Z].min >= 0);
