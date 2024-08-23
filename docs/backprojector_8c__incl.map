@@ -1,27 +1,23 @@
 <map id="backprojector.c" name="backprojector.c">
-<area shape="rect" id="Node000001" title="Implementation of the backprojection algorithm for CT reconstruction." alt="" coords="503,5,625,31"/>
+<area shape="rect" id="Node000001" title="Implementation of the backprojection algorithm for CT reconstruction." alt="" coords="415,5,537,31"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,79,72,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="503,27,320,46,86,81,85,76,320,41,503,22"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="416,29,269,50,86,81,85,76,269,44,415,24"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="97,79,167,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="504,30,361,50,181,81,180,76,360,45,503,25"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="417,33,181,81,180,76,416,28"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="192,79,275,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="511,33,289,81,288,76,510,28"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="438,33,286,77,285,72,436,28"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="299,79,370,104"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="528,33,384,77,383,72,526,28"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="454,33,371,75,369,70,452,28"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="394,79,462,104"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="543,33,463,75,461,70,541,28"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="486,79,549,104"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="559,32,535,69,530,66,554,30"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="573,79,648,104"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="574,30,598,66,593,69,569,32"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="672,79,747,104"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="589,28,675,70,672,75,586,33"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="771,79,834,104"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="603,28,759,74,757,79,602,33"/>
-<area shape="rect" id="Node000011" href="$backprojector_8h.html" title="Header file for the backprojector module." alt="" coords="859,79,981,104"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="622,28,850,73,848,79,621,33"/>
-<area shape="rect" id="Node000012" href="$fileReader_8h.html" title="fileReader module" alt="" coords="1005,79,1104,104"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="625,24,992,76,991,81,625,30"/>
-<area shape="rect" id="Node000013" href="$fileWriter_8h.html" title="fileWriter module" alt="" coords="1128,79,1221,104"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="625,22,838,42,1115,76,1114,81,837,47,625,27"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="470,33,446,69,441,66,466,30"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="487,79,561,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="486,30,511,66,506,69,482,33"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="586,79,649,104"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="500,28,583,70,581,75,498,33"/>
+<area shape="rect" id="Node000009" href="$backprojector_8h.html" title="Header file for the backprojector module." alt="" coords="673,79,796,104"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="518,28,680,72,679,78,517,33"/>
+<area shape="rect" id="Node000010" href="$fileReader_8h.html" title="fileReader module" alt="" coords="820,79,919,104"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="538,28,807,76,806,81,537,33"/>
+<area shape="rect" id="Node000011" href="$fileWriter_8h.html" title="fileWriter module" alt="" coords="943,79,1036,104"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="537,23,709,44,930,76,929,81,709,50,537,29"/>
 </map>
