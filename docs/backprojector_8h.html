@@ -229,18 +229,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a5dad3fd7c1d04e6eeca36364d14c1245" id="r_a5dad3fd7c1d04e6eeca36364d14c1245"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5dad3fd7c1d04e6eeca36364d14c1245">getAMax</a> (const <a class="el" href="#accc088009d44c521706aa98d6387ee21">axis</a> parallelTo, double intersections[3][2])</td></tr>
 <tr class="memdesc:a5dad3fd7c1d04e6eeca36364d14c1245"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the maximum intersection point along the given axis.  <br /></td></tr>
 <tr class="separator:a5dad3fd7c1d04e6eeca36364d14c1245"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb728284497ed8524b8acc57996e6f0d" id="r_abb728284497ed8524b8acc57996e6f0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb728284497ed8524b8acc57996e6f0d">getPlanesRanges</a> (const <a class="el" href="unionray.html">ray</a> <a class="el" href="unionray.html">ray</a>, <a class="el" href="unionrange.html">range</a> planesIndexes[3], const double aMin, const double aMax, const <a class="el" href="#accc088009d44c521706aa98d6387ee21">axis</a> parallelTo)</td></tr>
-<tr class="memdesc:abb728284497ed8524b8acc57996e6f0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the ranges of planes that the ray intersects.  <br /></td></tr>
-<tr class="separator:abb728284497ed8524b8acc57996e6f0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56e4ef4336218f97dfe99fb7ae8608b9" id="r_a56e4ef4336218f97dfe99fb7ae8608b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56e4ef4336218f97dfe99fb7ae8608b9">getPlanesRanges</a> (const <a class="el" href="unionray.html">ray</a> <a class="el" href="unionray.html">ray</a>, <a class="el" href="unionrange.html">range</a> planesIndexes[3], const double aMin, const double aMax)</td></tr>
+<tr class="memdesc:a56e4ef4336218f97dfe99fb7ae8608b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the ranges of planes that the ray intersects.  <br /></td></tr>
+<tr class="separator:a56e4ef4336218f97dfe99fb7ae8608b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6ca17545d3e55eadcfdfe51b4b5e11c" id="r_ae6ca17545d3e55eadcfdfe51b4b5e11c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6ca17545d3e55eadcfdfe51b4b5e11c">getAllIntersections</a> (const <a class="el" href="unionray.html">ray</a> <a class="el" href="unionray.html">ray</a>, const <a class="el" href="unionrange.html">range</a> planesRanges[3], double *a[3])</td></tr>
 <tr class="memdesc:ae6ca17545d3e55eadcfdfe51b4b5e11c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates <em>all</em> the intersection points of the ray with the planes.  <br /></td></tr>
 <tr class="separator:ae6ca17545d3e55eadcfdfe51b4b5e11c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6616c0957bffb44f16fb54c48f3f3f05" id="r_a6616c0957bffb44f16fb54c48f3f3f05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6616c0957bffb44f16fb54c48f3f3f05">mergeIntersections</a> (const double aX[], const double aY[], const double aZ[], const int aXSize, const int aYSize, const int aZSize, double aMerged[])</td></tr>
 <tr class="memdesc:a6616c0957bffb44f16fb54c48f3f3f05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merges the intersection points of the ray with the planes.  <br /></td></tr>
 <tr class="separator:a6616c0957bffb44f16fb54c48f3f3f05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a973af40d863ad969ee5362184f7656a8" id="r_a973af40d863ad969ee5362184f7656a8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a973af40d863ad969ee5362184f7656a8">isArraySorted</a> (const double array[], int size)</td></tr>
-<tr class="memdesc:a973af40d863ad969ee5362184f7656a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the array is sorted in ascending order.  <br /></td></tr>
-<tr class="separator:a973af40d863ad969ee5362184f7656a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0dff3e6286ee3ee9b7e74f9a9ad4f2ec" id="r_a0dff3e6286ee3ee9b7e74f9a9ad4f2ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0dff3e6286ee3ee9b7e74f9a9ad4f2ec">computeAbsorption</a> (const <a class="el" href="unionray.html">ray</a> <a class="el" href="unionray.html">ray</a>, const double a[], const int lenA, const double pixelAbsorptionValue, double *coefficients)</td></tr>
 <tr class="memdesc:a0dff3e6286ee3ee9b7e74f9a9ad4f2ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the absorption value of the voxels intersected by the ray.  <br /></td></tr>
 <tr class="separator:a0dff3e6286ee3ee9b7e74f9a9ad4f2ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -763,7 +760,7 @@ k(m) = 1 + (Z_1 + \alpha_{mid} * (Z_2 - Z_1) - Z_{plane}(0)) / d_z
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00233">233</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00238">238</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -805,35 +802,33 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00273">273</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00281">281</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="backprojector_8h_a695176076b7a7e5eff55b510ca9293f7_cgraph.png" border="0" usemap="#abackprojector_8h_a695176076b7a7e5eff55b510ca9293f7_cgraph" alt=""/></div>
 <map name="abackprojector_8h_a695176076b7a7e5eff55b510ca9293f7_cgraph" id="abackprojector_8h_a695176076b7a7e5eff55b510ca9293f7_cgraph">
-<area shape="rect" title="Computes the backprojection of the projection." alt="" coords="5,252,181,277"/>
+<area shape="rect" title="Computes the backprojection of the projection." alt="" coords="5,228,181,253"/>
 <area shape="rect" href="backprojector_8c.html#a0dff3e6286ee3ee9b7e74f9a9ad4f2ec" title="Computes the absorption value of the voxels intersected by the ray." alt="" coords="236,5,385,31"/>
-<area shape="poly" title=" " alt="" coords="96,251,111,210,138,153,177,92,201,64,228,40,235,35,238,39,231,44,205,68,181,96,143,156,116,212,101,253"/>
+<area shape="poly" title=" " alt="" coords="97,227,114,190,142,139,180,86,202,61,228,40,236,35,239,39,231,44,206,65,184,89,146,142,119,192,102,229"/>
 <area shape="rect" href="backprojector_8c.html#ae6ca17545d3e55eadcfdfe51b4b5e11c" title="Calculates all the intersection points of the ray with the planes." alt="" coords="239,55,383,80"/>
-<area shape="poly" title=" " alt="" coords="99,250,117,218,145,174,183,129,228,89,237,83,240,88,231,93,187,132,150,177,121,220,103,253"/>
+<area shape="poly" title=" " alt="" coords="101,226,149,161,185,122,228,89,239,83,241,88,231,94,189,126,153,164,105,229"/>
 <area shape="rect" href="backprojector_8c.html#a5dad3fd7c1d04e6eeca36364d14c1245" title="Finds the maximum intersection point along the given axis." alt="" coords="271,104,351,129"/>
-<area shape="poly" title=" " alt="" coords="103,250,153,196,189,165,228,138,256,126,259,131,231,143,192,169,157,200,107,254"/>
+<area shape="poly" title=" " alt="" coords="107,226,158,183,192,159,228,138,257,127,259,132,231,143,195,164,161,188,110,230"/>
 <area shape="rect" href="backprojector_8c.html#a0e38a3847dec2b2e3c40870d8b938e19" title="Finds the minimum intersection point along the given axis." alt="" coords="273,153,349,179"/>
-<area shape="poly" title=" " alt="" coords="113,250,164,219,228,188,259,177,260,182,230,192,167,224,116,254"/>
+<area shape="poly" title=" " alt="" coords="126,225,228,187,259,178,260,183,230,193,127,230"/>
 <area shape="rect" href="backprojector_8c.html#a96c75e5ea7fdb7390df28cf46090b065" title="Finds which axis is parallel to the ray." alt="" coords="251,203,370,228"/>
-<area shape="poly" title=" " alt="" coords="149,249,240,228,241,234,151,255"/>
+<area shape="poly" title=" " alt="" coords="181,228,237,221,238,226,182,233"/>
 <area shape="rect" href="backprojector_8c.html#a44ba7f13100e9b59778aaa69cf1b6237" title="Calculates the 3D coordinates of a pixel of the detector." alt="" coords="247,252,374,277"/>
-<area shape="poly" title=" " alt="" coords="181,262,233,262,233,267,181,267"/>
-<area shape="rect" href="backprojector_8c.html#abb728284497ed8524b8acc57996e6f0d" title="Calculates the ranges of planes that the ray intersects." alt="" coords="243,301,378,327"/>
-<area shape="poly" title=" " alt="" coords="151,275,241,296,240,301,149,280"/>
+<area shape="poly" title=" " alt="" coords="182,248,233,253,233,259,181,253"/>
+<area shape="rect" href="backprojector_8c.html#a9445bd05a2be753cb2c4c44c5aee654f" title="Calculates the ranges of planes that the ray intersects." alt="" coords="243,301,378,327"/>
+<area shape="poly" title=" " alt="" coords="130,251,230,286,256,295,254,300,228,291,129,256"/>
 <area shape="rect" href="backprojector_8c.html#ae8384b3bc5b85feb8e1c1a498bbff052" title="Calculates the intersection points of the ray with the planes." alt="" coords="229,351,392,376"/>
-<area shape="poly" title=" " alt="" coords="116,275,167,305,230,336,252,344,250,349,228,340,165,309,114,280"/>
+<area shape="poly" title=" " alt="" coords="111,251,162,292,231,336,249,344,247,348,228,340,159,297,107,256"/>
 <area shape="rect" href="backprojector_8c.html#a081dea4548f6635b8bcf377386c33226" title="Calculates the 3D coordinates of the source of the ray given the index of the projection." alt="" coords="241,400,380,425"/>
-<area shape="poly" title=" " alt="" coords="107,276,157,328,192,359,231,385,246,393,244,397,228,390,189,363,153,332,103,279"/>
-<area shape="rect" href="backprojector_8c.html#a973af40d863ad969ee5362184f7656a8" title="Checks if the array is sorted in ascending order." alt="" coords="255,449,366,475"/>
-<area shape="poly" title=" " alt="" coords="104,276,122,308,150,351,187,396,231,435,244,442,241,447,228,439,183,400,146,354,117,311,99,279"/>
-<area shape="rect" href="backprojector_8c.html#a6616c0957bffb44f16fb54c48f3f3f05" title="Merges the intersection points of the ray with the planes." alt="" coords="237,499,385,524"/>
-<area shape="poly" title=" " alt="" coords="101,276,117,317,143,373,181,432,205,460,231,484,241,490,238,495,228,488,201,464,177,436,139,375,112,319,96,278"/>
+<area shape="poly" title=" " alt="" coords="105,252,154,316,190,353,231,385,244,392,242,397,228,390,186,357,150,319,101,255"/>
+<area shape="rect" href="backprojector_8c.html#a6616c0957bffb44f16fb54c48f3f3f05" title="Merges the intersection points of the ray with the planes." alt="" coords="237,449,385,475"/>
+<area shape="poly" title=" " alt="" coords="102,252,119,288,146,337,184,390,206,414,231,435,241,441,239,446,228,439,203,417,180,393,142,340,114,291,97,254"/>
 <area shape="rect" href="backprojector_8c.html#aff0f271395d320a9c9856d4c12e4febb" title="Calculates the position of the plane parallel to the given axis and at the given index." alt="" coords="440,55,571,80"/>
 <area shape="poly" title=" " alt="" coords="383,65,426,65,426,70,383,70"/>
 </map>
@@ -890,7 +885,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00159">159</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00158">158</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1087,8 +1082,8 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
 
 </div>
 </div>
-<a id="abb728284497ed8524b8acc57996e6f0d" name="abb728284497ed8524b8acc57996e6f0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb728284497ed8524b8acc57996e6f0d">&#9670;&#160;</a></span>getPlanesRanges()</h2>
+<a id="a56e4ef4336218f97dfe99fb7ae8608b9" name="a56e4ef4336218f97dfe99fb7ae8608b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56e4ef4336218f97dfe99fb7ae8608b9">&#9670;&#160;</a></span>getPlanesRanges()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1111,12 +1106,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double</td>          <td class="paramname"><span class="paramname"><em>aMax</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="#accc088009d44c521706aa98d6387ee21">axis</a></td>          <td class="paramname"><span class="paramname"><em>parallelTo</em></span>&#160;)</td>
+          <td class="paramtype">const double</td>          <td class="paramname"><span class="paramname"><em>aMax</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1138,7 +1128,6 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
     <tr><td class="paramname">planesIndexes</td><td>The array to store the ranges of planes. </td></tr>
     <tr><td class="paramname">aMin</td><td>The minimum intersection point. </td></tr>
     <tr><td class="paramname">aMax</td><td>The maximum intersection point. </td></tr>
-    <tr><td class="paramname">parallelTo</td><td>The axis parallel to the ray. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1245,40 +1234,6 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
 
 </div>
 </div>
-<a id="a973af40d863ad969ee5362184f7656a8" name="a973af40d863ad969ee5362184f7656a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a973af40d863ad969ee5362184f7656a8">&#9670;&#160;</a></span>isArraySorted()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool isArraySorted </td>
-          <td>(</td>
-          <td class="paramtype">const double</td>          <td class="paramname"><span class="paramname"><em>array</em></span>[], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>size</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks if the array is sorted in ascending order. </p>
-<dl class="section note"><dt>Note</dt><dd>this function is used for debugging purposes only.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">array</td><td>The array to check. </td></tr>
-    <tr><td class="paramname">size</td><td>The size of the array. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the array is sorted, false otherwise. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00224">224</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
-
-</div>
-</div>
 <a id="a6616c0957bffb44f16fb54c48f3f3f05" name="a6616c0957bffb44f16fb54c48f3f3f05"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6616c0957bffb44f16fb54c48f3f3f05">&#9670;&#160;</a></span>mergeIntersections()</h2>
 
@@ -1345,7 +1300,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00186">186</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00189">189</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
