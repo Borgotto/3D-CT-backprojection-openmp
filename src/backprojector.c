@@ -167,6 +167,10 @@ void getAllIntersections(const ray ray, const range planesRanges[3], double* a[3
             continue;
         }
 
+        #ifdef _DEBUG
+        assert(pixel.coordinates[axis] - source.coordinates[axis] != 0);
+        #endif
+
         // Siddon's algorithm, equation (7)
         if (pixel.coordinates[axis] - source.coordinates[axis] > 0) {
             a[axis][0] = (getPlanePosition(axis, minIndex) - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
@@ -221,6 +225,7 @@ void mergeIntersections(const double aX[], const double aY[], const double aZ[],
     }
 }
 
+#ifdef _DEBUG
 bool isArraySorted(const double array[], int size) {
     for (int i = 1; i < size; i++) {
         if (array[i] < array[i - 1]) {
@@ -229,6 +234,7 @@ bool isArraySorted(const double array[], int size) {
     }
     return true;
 }
+#endif
 
 void computeAbsorption(const ray ray, const double a[], const int lenA, const double pixelAbsorptionValue, double* coefficients) {
     const point3D source = ray.source;
@@ -253,15 +259,18 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
         const int voxelX = ((source.x) + aMid * (pixel.x - source.x) - firstPlane[X]) / VOXEL_SIZE_X;
         const int voxelY = ((source.y) + aMid * (pixel.y - source.y) - firstPlane[Y]) / VOXEL_SIZE_Y;
         const int voxelZ = ((source.z) + aMid * (pixel.z - source.z) - firstPlane[Z]) / VOXEL_SIZE_Z;
-        assert(voxelX >= 0 && voxelY >= 0 && voxelZ >= 0);
-        assert(voxelX <= N_VOXELS_X && voxelY <= N_VOXELS_Y && voxelZ <= N_VOXELS_Z);
 
         // Update the value of the voxel given the value of the pixel and the
         // length of the segment that the ray intersects with the voxel
         const double voxelAbsorptionValue = pixelAbsorptionValue * segmentLength;
-        assert(voxelAbsorptionValue >= 0);
         const int voxelIndex = voxelX + voxelY * N_VOXELS_Y + voxelZ * N_VOXELS_Z;
+
+        #ifdef _DEBUG
+        assert(voxelX >= 0 && voxelY >= 0 && voxelZ >= 0);
+        assert(voxelX <= N_VOXELS_X && voxelY <= N_VOXELS_Y && voxelZ <= N_VOXELS_Z);
+        assert(voxelAbsorptionValue >= 0);
         assert(voxelIndex >= 0 && voxelIndex <= N_VOXELS_X * N_VOXELS_Y * N_VOXELS_Z);
+        #endif
 
         // TODO: find a way to avoid using atomic operations, this is a bottleneck
         // Siddon's algorithm, equation (14)
@@ -314,13 +323,17 @@ void computeBackProjection(const projection* projection, volume* volume) {
             range planesRanges[3];
             getPlanesRanges(ray, planesRanges, aMin, aMax, parallelTo);
 
+            #ifdef _DEBUG
+            assert(planesRanges[X].min >= 0 && planesRanges[Y].min >= 0 && planesRanges[Z].min >= 0);
+            assert(planesRanges[X].max <= N_PLANES_X && planesRanges[Y].max <= N_PLANES_Y && planesRanges[Z].max <= N_PLANES_Z);
+            #endif
+
             // Calculate all of the intersections of the ray with the planes of
             // all axes and merge them into a single array
             // TODO: a volte ci sono indici negativi, verificare perché
             const int aXSize = fmax(0, planesRanges[X].max - planesRanges[X].min);
             const int aYSize = fmax(0, planesRanges[Y].max - planesRanges[Y].min);
             const int aZSize = fmax(0, planesRanges[Z].max - planesRanges[Z].min);
-            assert(aXSize >= 0 && aYSize >= 0 && aZSize >= 0);
             double aX[aXSize], aY[aYSize], aZ[aZSize];
             getAllIntersections(ray, planesRanges, (double*[]){aX, aY, aZ});
 
@@ -331,7 +344,9 @@ void computeBackProjection(const projection* projection, volume* volume) {
             // Merge all of the intersections into a single sorted array
             // Siddon's algorithm, equation (8)
             mergeIntersections(aX, aY, aZ, aXSize, aYSize, aZSize, aMerged);
+            #ifdef _DEBUG
             assert(isArraySorted(aMerged, mergedSize));
+            #endif
 
             // Calculate the coefficients of the voxels that the ray intersects
             // TODO: finish implementing this properly

@@ -359,6 +359,8 @@ void getAllIntersections(const ray ray, const range planesRanges[3], double* a[3
  */
 void mergeIntersections(const double aX[], const double aY[], const double aZ[], const int aXSize, const int aYSize, const int aZSize, double aMerged[]);
 
+
+#ifdef _DEBUG
 /**
  * @brief Checks if the array is sorted in ascending order.
  *
@@ -369,6 +371,7 @@ void mergeIntersections(const double aX[], const double aY[], const double aZ[],
  * @return true if the array is sorted, false otherwise.
  */
 bool isArraySorted(const double array[], int size);
+#endif
 
 /**
  * @brief Computes the absorption value of the voxels intersected by the ray.
