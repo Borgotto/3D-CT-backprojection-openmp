@@ -53,7 +53,7 @@ void initTables() {
     // Calculate the first and last plane positions for each axis
     for (axis axis = X; axis <= Z; axis++) {
         firstPlane[axis] = -(VOXEL_SIZE[axis] * N_VOXELS[axis]) / 2;
-        lastPlane[axis] = (VOXEL_SIZE[axis] * N_VOXELS[axis]) / 2;
+        lastPlane[axis] = -firstPlane[axis];
     }
 }
 
@@ -73,7 +73,7 @@ point3D getPixelPosition(const projection* projection, const int row, const int 
     const double cosAngle = cosTable[projection->index];
 
     return (point3D) {
-        .x = (DOD * sinAngle) + cosAngle * (-dFirstPixel + col * PIXEL_SIZE),
+        .x =  DOD * sinAngle + cosAngle * (-dFirstPixel + col * PIXEL_SIZE),
         .y = -DOD * cosAngle + sinAngle * (-dFirstPixel + col * PIXEL_SIZE),
         .z = -dFirstPixel + row * PIXEL_SIZE
     };
@@ -149,7 +149,6 @@ void getPlanesRanges(const ray ray, range planesRanges[3], const double aMin, co
             maxIndex = floor((source.coordinates[axis] + aMax * (pixel.coordinates[axis] - source.coordinates[axis]) - firstPlane[axis]) / VOXEL_SIZE[axis]);
         } else {
             minIndex = N_PLANES[axis] - ceil((lastPlane[axis] - aMax * (pixel.coordinates[axis] - source.coordinates[axis]) - source.coordinates[axis]) / VOXEL_SIZE[axis]);
-            // TODO: verify if '1 +' is needed at the beginning of the next line
             maxIndex = floor((source.coordinates[axis] + aMin * (pixel.coordinates[axis] - source.coordinates[axis]) - firstPlane[axis]) / VOXEL_SIZE[axis]);
         }
         planesRanges[axis] = (range){.min=minIndex, .max=maxIndex};
@@ -256,9 +255,9 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
 
         // Calculate the voxel indices that the ray intersects
         // Siddon's algorithm, equation (12)
-        const int voxelX = ((source.x) + aMid * (pixel.x - source.x) - firstPlane[X]) / VOXEL_SIZE_X;
-        const int voxelY = ((source.y) + aMid * (pixel.y - source.y) - firstPlane[Y]) / VOXEL_SIZE_Y;
-        const int voxelZ = ((source.z) + aMid * (pixel.z - source.z) - firstPlane[Z]) / VOXEL_SIZE_Z;
+        const int voxelX = (source.x + aMid * (pixel.x - source.x) - firstPlane[X]) / VOXEL_SIZE_X;
+        const int voxelY = (source.y + aMid * (pixel.y - source.y) - firstPlane[Y]) / VOXEL_SIZE_Y;
+        const int voxelZ = (source.z + aMid * (pixel.z - source.z) - firstPlane[Z]) / VOXEL_SIZE_Z;
 
         // Update the value of the voxel given the value of the pixel and the
         // length of the segment that the ray intersects with the voxel
@@ -330,7 +329,6 @@ void computeBackProjection(const projection* projection, volume* volume) {
 
             // Calculate all of the intersections of the ray with the planes of
             // all axes and merge them into a single array
-            // TODO: a volte ci sono indici negativi, verificare perché
             const int aXSize = fmax(0, planesRanges[X].max - planesRanges[X].min);
             const int aYSize = fmax(0, planesRanges[Y].max - planesRanges[Y].min);
             const int aZSize = fmax(0, planesRanges[Z].max - planesRanges[Z].min);
@@ -341,6 +339,7 @@ void computeBackProjection(const projection* projection, volume* volume) {
             // Siddon's algorithm, equation (9)
             const int mergedSize = aXSize + aYSize + aZSize;
             double aMerged[mergedSize];
+
             // Merge all of the intersections into a single sorted array
             // Siddon's algorithm, equation (8)
             mergeIntersections(aX, aY, aZ, aXSize, aYSize, aZSize, aMerged);
