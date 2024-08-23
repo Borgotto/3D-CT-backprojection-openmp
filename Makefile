@@ -1,7 +1,8 @@
 CC = gcc
 CFLAGS = -std=c11 -Wall -Wpedantic -fopenmp
 LFLAGS = -lm
-DEBUGFLAGS = -D_DEBUG -D_WORK_UNITS=2352 -O0 -g -pg -fno-omit-frame-pointer -fno-inline-functions -fno-inline-functions-called-once -fno-optimize-sibling-calls
+# pass `WORK_UNITS='-D_WORK_UNITS='` to 'make backprojector' to specify work units
+DEBUGFLAGS = $(WORK_UNITS) -D_DEBUG -O0 -g -pg -fno-omit-frame-pointer -fno-inline-functions -fno-inline-functions-called-once -fno-optimize-sibling-calls
 
 TARGET = backprojector
 SRC = src/$(TARGET).c
