@@ -24,11 +24,12 @@
 #include <stdlib.h>     // malloc, calloc, free
 #include <stdbool.h>    // bool, true, false
 #include <string.h>     // strcmp, strstr
-#include <math.h>       // sinl, cosl
-#include <float.h>      // DBL_MAX, DBL_MIN
-#include <assert.h>     // assert
+#include <math.h>       // sinl, cosl, sqrt, ceil, floor, fmax, fmin
 #include <unistd.h>     // isatty
-#include <omp.h>
+#include <omp.h>        // omp_get_wtime, #pragma omp
+#ifdef _DEBUG
+#include <assert.h>     // assert
+#endif
 
 #include "backprojector.h" // All of the constants and structs needed for the backprojection algorithm
 #include "fileReader.h"    // Functions to read the projection images from the file
