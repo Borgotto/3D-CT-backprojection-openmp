@@ -20,7 +20,7 @@
  *
  */
 
-#include <stdio.h>      // printf, perror
+#include <stdio.h>      // fprintf
 #include <stdlib.h>     // malloc, calloc, free
 #include <stdbool.h>    // bool, true, false
 #include <string.h>     // strcmp, strstr
@@ -282,8 +282,8 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
 void computeBackProjection(const projection* projection, volume* volume) {
     // Check if the arguments are valid
     if (volume == NULL || projection == NULL) {
-        printf("Invalid arguments\n");
-        return;
+        fprintf(stderr, "Invalid arguments\n");
+        exit(1);
     }
 
     // Get the source point of this projection
@@ -359,23 +359,23 @@ void computeBackProjection(const projection* projection, volume* volume) {
 
 int main(int argc, char* argv[]) {
     // Check if input file is provided either as an argument or through stdin
-    if (argc < 2 && isatty(fileno(stdin))) {
+    if (argc < 2 && isatty(fileno(stdin))) { // TODO: find alternative to isatty
         fprintf(stderr, "No input file provided\n");
-        return 1;
+        exit(1);
     }
+
     // Open the input file or use stdin
     FILE* inputFile = (argc >= 2) ? fopen(argv[1], "r") : stdin;
     if (inputFile == NULL) {
-        perror("Error opening input file");
-        return 1;
+        fprintf(stderr, "Error opening input file\n");
+        exit(1);
     }
 
     // Do the same with the output file
     FILE* outputFile = (argc >= 3) ? fopen(argv[2], "w") : stdout;
     if (outputFile == NULL) {
-        perror("Error opening output file");
-        fclose(outputFile);
-        return 1;
+        fprintf(stderr, "Error opening output file\n");
+        exit(1);
     }
 
 
@@ -397,10 +397,8 @@ int main(int argc, char* argv[]) {
     };
     // Check if the memory was allocated successfully
     if (volume.coefficients == NULL) {
-        perror("Error allocating memory for the volume");
-        fclose(inputFile);
-        fclose(outputFile);
-        return 1;
+        fprintf(stderr, "Error allocating memory for the volume\n");
+        exit(1);
     }
 
     initTables();
@@ -421,7 +419,6 @@ int main(int argc, char* argv[]) {
 
         // if read is false, it means that the end of the file was reached
         if (read) {
-            fprintf(stderr, "Processing projection %d/%d\n", projection.index + 1, N_THETA);
             computeBackProjection(&projection, &volume);
         }
 
@@ -429,8 +426,7 @@ int main(int argc, char* argv[]) {
     }
 
     double finalTime = omp_get_wtime();
-    fprintf(stderr, "Average time per projection: %.3lf seconds\n", (finalTime - initialTime) / N_THETA);
-    fprintf(stderr, "Total time for %d projections: %.3lf seconds\n", N_THETA, finalTime - initialTime);
+    fprintf(stderr, "%d: %lf\n", width, (finalTime - initialTime));
 
     writeVolume(outputFile, &volume);
 
