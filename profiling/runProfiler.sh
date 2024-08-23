@@ -6,8 +6,12 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # go back one directory to the root of the project
 cd "$DIR"/.. || exit
 
+# work units
+WORK_UNITS="${1##*/}"
+WORK_UNITS="${WORK_UNITS%%x*}"
+
 # compile program
-make backprojector
+make backprojector WORK_UNITS="-D_WORK_UNITS=$WORK_UNITS"
 
 # run program
 ./backprojector "$@"
