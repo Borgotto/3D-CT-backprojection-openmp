@@ -37,6 +37,26 @@ typedef struct volume {
  * @return `false` if an error occurred while writing the file
  */
 bool writeVolume(FILE* file, volume* vol) {
-    // TODO: Write the voxel coefficients to the file
+    // File version and identifier (1)
+    fprintf(file, "# vtk DataFile Version 3.0\n");
+    // Header (2)
+    fprintf(file, "Backprojector output\n");
+    // File format (3)
+    fprintf(file, "ASCII\n");
+    // Dataset structure (4)
+    fprintf(file, "DATASET STRUCTURED_POINTS\n");
+    fprintf(file, "DIMENSIONS %d %d %d\n", vol->nVoxelsX, vol->nVoxelsY, vol->nVoxelsZ);
+    fprintf(file, "ORIGIN 0 0 0\n");
+    fprintf(file, "SPACING %lf %lf %lf\n", vol->voxelSizeX, vol->voxelSizeY, vol->voxelSizeZ);
+    // Dataset attributes (5)
+    fprintf(file, "POINT_DATA %d\n", (vol->nVoxelsX) * (vol->nVoxelsY) * (vol->nVoxelsZ));
+    fprintf(file, "SCALARS absorption double\n");
+    fprintf(file, "LOOKUP_TABLE default\n");
+
+    // Write voxel coefficients
+    for (int i = 0; i < vol->nVoxelsX * vol->nVoxelsY * vol->nVoxelsZ; i++) {
+        fprintf(file, "%lf\n", vol->coefficients[i]);
+    }
+
     return true;
 }
