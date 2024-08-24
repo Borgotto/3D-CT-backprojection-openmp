@@ -96,15 +96,15 @@ Data Fields</h2></td></tr>
 <tr class="memitem:adfd57b1bda7a29adf33896f70334654e" id="r_adfd57b1bda7a29adf33896f70334654e"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adfd57b1bda7a29adf33896f70334654e">nVoxelsZ</a></td></tr>
 <tr class="memdesc:adfd57b1bda7a29adf33896f70334654e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of voxels in the z-axis.  <br /></td></tr>
 <tr class="separator:adfd57b1bda7a29adf33896f70334654e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad13e1a281aa26081f77308a586fd76ef" id="r_ad13e1a281aa26081f77308a586fd76ef"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad13e1a281aa26081f77308a586fd76ef">nPlanesX</a></td></tr>
-<tr class="memdesc:ad13e1a281aa26081f77308a586fd76ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of planes in the x-axis.  <br /></td></tr>
-<tr class="separator:ad13e1a281aa26081f77308a586fd76ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad811081005b27f02cc36053057fe83a" id="r_aad811081005b27f02cc36053057fe83a"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad811081005b27f02cc36053057fe83a">nPlanesY</a></td></tr>
-<tr class="memdesc:aad811081005b27f02cc36053057fe83a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of planes in the y-axis.  <br /></td></tr>
-<tr class="separator:aad811081005b27f02cc36053057fe83a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a048293cabea1587bbe5ceac07f97954d" id="r_a048293cabea1587bbe5ceac07f97954d"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a048293cabea1587bbe5ceac07f97954d">nPlanesZ</a></td></tr>
-<tr class="memdesc:a048293cabea1587bbe5ceac07f97954d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of planes in the z-axis.  <br /></td></tr>
-<tr class="separator:a048293cabea1587bbe5ceac07f97954d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90005f328de8fb0618df028986b012a9" id="r_a90005f328de8fb0618df028986b012a9"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a90005f328de8fb0618df028986b012a9">voxelSizeX</a></td></tr>
+<tr class="memdesc:a90005f328de8fb0618df028986b012a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of voxels in the x-axis.  <br /></td></tr>
+<tr class="separator:a90005f328de8fb0618df028986b012a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfb83b19efd7fdc1202fb6361d2d09ba" id="r_abfb83b19efd7fdc1202fb6361d2d09ba"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abfb83b19efd7fdc1202fb6361d2d09ba">voxelSizeY</a></td></tr>
+<tr class="memdesc:abfb83b19efd7fdc1202fb6361d2d09ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of voxels in the y-axis.  <br /></td></tr>
+<tr class="separator:abfb83b19efd7fdc1202fb6361d2d09ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03c7c75ed91fa81edf642866bd9c791f" id="r_a03c7c75ed91fa81edf642866bd9c791f"><td class="memItemLeft" align="right" valign="top">const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03c7c75ed91fa81edf642866bd9c791f">voxelSizeZ</a></td></tr>
+<tr class="memdesc:a03c7c75ed91fa81edf642866bd9c791f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size of voxels in the z-axis.  <br /></td></tr>
+<tr class="separator:a03c7c75ed91fa81edf642866bd9c791f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8553556d086a75fc0e97218bafa95279" id="r_a8553556d086a75fc0e97218bafa95279"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8553556d086a75fc0e97218bafa95279">coefficients</a></td></tr>
 <tr class="memdesc:a8553556d086a75fc0e97218bafa95279"><td class="mdescLeft">&#160;</td><td class="mdescRight">3D array of size (nVoxelsX*nVoxelsY*nVoxelsZ) containing the absorption coefficients  <br /></td></tr>
 <tr class="separator:a8553556d086a75fc0e97218bafa95279"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -150,26 +150,8 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="ad13e1a281aa26081f77308a586fd76ef" name="ad13e1a281aa26081f77308a586fd76ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad13e1a281aa26081f77308a586fd76ef">&#9670;&#160;</a></span>nPlanesX <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int volume::nPlanesX</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Number of planes in the x-axis. </p>
-
-<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00162">162</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
-
-</div>
-</div>
 <a id="aac2f5e7622f62d43ed8e77597192d0a9" name="aac2f5e7622f62d43ed8e77597192d0a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac2f5e7622f62d43ed8e77597192d0a9">&#9670;&#160;</a></span>nPlanesX <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aac2f5e7622f62d43ed8e77597192d0a9">&#9670;&#160;</a></span>nPlanesX</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,26 +168,8 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="aad811081005b27f02cc36053057fe83a" name="aad811081005b27f02cc36053057fe83a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad811081005b27f02cc36053057fe83a">&#9670;&#160;</a></span>nPlanesY <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int volume::nPlanesY</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Number of planes in the y-axis. </p>
-
-<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00164">164</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
-
-</div>
-</div>
 <a id="ae7c2d51655c43cc67c415ff6a10d356d" name="ae7c2d51655c43cc67c415ff6a10d356d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7c2d51655c43cc67c415ff6a10d356d">&#9670;&#160;</a></span>nPlanesY <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7c2d51655c43cc67c415ff6a10d356d">&#9670;&#160;</a></span>nPlanesY</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,26 +186,8 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a048293cabea1587bbe5ceac07f97954d" name="a048293cabea1587bbe5ceac07f97954d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a048293cabea1587bbe5ceac07f97954d">&#9670;&#160;</a></span>nPlanesZ <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int volume::nPlanesZ</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Number of planes in the z-axis. </p>
-
-<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00166">166</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
-
-</div>
-</div>
 <a id="a6f19dc2bd44138b9a5b0837d194c68a7" name="a6f19dc2bd44138b9a5b0837d194c68a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f19dc2bd44138b9a5b0837d194c68a7">&#9670;&#160;</a></span>nPlanesZ <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f19dc2bd44138b9a5b0837d194c68a7">&#9670;&#160;</a></span>nPlanesZ</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -363,6 +309,60 @@ Data Fields</h2></td></tr>
 <p>Number of voxels in the z-axis. </p>
 
 <p class="definition">Definition at line <a class="el" href="fileWriter_8h_source.html#l00019">19</a> of file <a class="el" href="fileWriter_8h_source.html">fileWriter.h</a>.</p>
+
+</div>
+</div>
+<a id="a90005f328de8fb0618df028986b012a9" name="a90005f328de8fb0618df028986b012a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90005f328de8fb0618df028986b012a9">&#9670;&#160;</a></span>voxelSizeX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double volume::voxelSizeX</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Size of voxels in the x-axis. </p>
+
+<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00162">162</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
+
+</div>
+</div>
+<a id="abfb83b19efd7fdc1202fb6361d2d09ba" name="abfb83b19efd7fdc1202fb6361d2d09ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfb83b19efd7fdc1202fb6361d2d09ba">&#9670;&#160;</a></span>voxelSizeY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double volume::voxelSizeY</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Size of voxels in the y-axis. </p>
+
+<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00164">164</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
+
+</div>
+</div>
+<a id="a03c7c75ed91fa81edf642866bd9c791f" name="a03c7c75ed91fa81edf642866bd9c791f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03c7c75ed91fa81edf642866bd9c791f">&#9670;&#160;</a></span>voxelSizeZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double volume::voxelSizeZ</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Size of voxels in the z-axis. </p>
+
+<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00166">166</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
 
 </div>
 </div>

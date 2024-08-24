@@ -344,7 +344,7 @@ $(function(){initNavTree('backprojector_8c_source.html',''); initResizable(true)
 <div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        <span class="comment">// Update the value of the voxel given the value of the pixel and the</span></div>
 <div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        <span class="comment">// length of the segment that the ray intersects with the voxel</span></div>
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> voxelAbsorptionValue = pixelAbsorptionValue * segmentLength;</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> voxelIndex = voxelX + voxelY * <a class="code hl_define" href="backprojector_8h.html#ae9d65f60533a93f52d6433c7217e7890">N_VOXELS_Y</a> + voxelZ * <a class="code hl_define" href="backprojector_8h.html#a30ddf7294bb91a0b16a37edc3fbd6fe6">N_VOXELS_Z</a>;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> voxelIndex = voxelY * <a class="code hl_define" href="backprojector_8h.html#a4735bdd812464f6a3cd734e0cfda1fb1">N_VOXELS_X</a> * <a class="code hl_define" href="backprojector_8h.html#a30ddf7294bb91a0b16a37edc3fbd6fe6">N_VOXELS_Z</a> + voxelZ * <a class="code hl_define" href="backprojector_8h.html#a30ddf7294bb91a0b16a37edc3fbd6fe6">N_VOXELS_Z</a> + voxelX;</div>
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="preprocessor">        #ifdef _DEBUG</span></div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        assert(voxelX &gt;= 0 &amp;&amp; voxelY &gt;= 0 &amp;&amp; voxelZ &gt;= 0);</div>
@@ -457,7 +457,7 @@ $(function(){initNavTree('backprojector_8c_source.html',''); initResizable(true)
 <div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    }</div>
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span> </div>
 <div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    <span class="comment">// Do the same with the output file</span></div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    FILE* outputFile = (argc &gt;= 3) ? fopen(argv[2], <span class="stringliteral">&quot;w&quot;</span>) : stdout;</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    FILE* outputFile = (argc &gt;= 3) ? fopen(argv[2], <span class="stringliteral">&quot;wb&quot;</span>) : stdout;</div>
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <span class="keywordflow">if</span> (outputFile == NULL) {</div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>        fprintf(stderr, <span class="stringliteral">&quot;Error opening output file\n&quot;</span>);</div>
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>        exit(1);</div>
@@ -472,9 +472,9 @@ $(function(){initNavTree('backprojector_8c_source.html',''); initResizable(true)
 <div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>        .nVoxelsX = <a class="code hl_define" href="backprojector_8h.html#a4735bdd812464f6a3cd734e0cfda1fb1">N_VOXELS_X</a>,</div>
 <div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>        .nVoxelsY = <a class="code hl_define" href="backprojector_8h.html#ae9d65f60533a93f52d6433c7217e7890">N_VOXELS_Y</a>,</div>
 <div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>        .nVoxelsZ = <a class="code hl_define" href="backprojector_8h.html#a30ddf7294bb91a0b16a37edc3fbd6fe6">N_VOXELS_Z</a>,</div>
-<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>        .nPlanesX = <a class="code hl_define" href="backprojector_8h.html#a31fa1e7b37667299703791619e8192c7">N_PLANES_X</a>,</div>
-<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>        .nPlanesY = <a class="code hl_define" href="backprojector_8h.html#a9d8870ca5a668dc86dec40cb7e4a1626">N_PLANES_Y</a>,</div>
-<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>        .nPlanesZ = <a class="code hl_define" href="backprojector_8h.html#a70b79c1e11466ce6e40be89f54e1f02b">N_PLANES_Z</a>,</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>        .voxelSizeX = <a class="code hl_define" href="backprojector_8h.html#a6f3d6d47811941eb602bf29ca41a2748">VOXEL_SIZE_X</a>,</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>        .voxelSizeY = <a class="code hl_define" href="backprojector_8h.html#a37617f106adc807eed8d0b793293e736">VOXEL_SIZE_Y</a>,</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>        .voxelSizeZ = <a class="code hl_define" href="backprojector_8h.html#a639cffe85bb2cb95d55e5fe6dedc368d">VOXEL_SIZE_Z</a>,</div>
 <div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>        <span class="comment">// TODO: find a way to split this array into multiple parts because it&#39;s too big (1000^3)*8 bytes = 8GB</span></div>
 <div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>        <span class="comment">// TODO: a possible solution is to split the volume into chunks and process them serially, this reduces the memory usage but increases the runtime</span></div>
 <div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>        <span class="comment">// TODO: or sacrifice accuracy for memory by using float instead of double</span></div>
