@@ -158,12 +158,12 @@ typedef struct volume {
     const int nVoxelsY;
     /// Number of voxels in the z-axis
     const int nVoxelsZ;
-    /// Number of planes in the x-axis
-    const int nPlanesX;
-    /// Number of planes in the y-axis
-    const int nPlanesY;
-    /// Number of planes in the z-axis
-    const int nPlanesZ;
+    /// Size of voxels in the x-axis
+    const double voxelSizeX;
+    /// Size of voxels in the y-axis
+    const double voxelSizeY;
+    /// Size of voxels in the z-axis
+    const double voxelSizeZ;
     /// 3D array of size (nVoxelsX*nVoxelsY*nVoxelsZ) containing the absorption coefficients
     double* coefficients;
 } volume;

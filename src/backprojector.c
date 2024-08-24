@@ -263,7 +263,7 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
         // Update the value of the voxel given the value of the pixel and the
         // length of the segment that the ray intersects with the voxel
         const double voxelAbsorptionValue = pixelAbsorptionValue * segmentLength;
-        const int voxelIndex = voxelX + voxelY * N_VOXELS_Y + voxelZ * N_VOXELS_Z;
+        const int voxelIndex = voxelY * N_VOXELS_X * N_VOXELS_Z + voxelZ * N_VOXELS_Z + voxelX;
 
         #ifdef _DEBUG
         assert(voxelX >= 0 && voxelY >= 0 && voxelZ >= 0);
@@ -372,7 +372,7 @@ int main(int argc, char* argv[]) {
     }
 
     // Do the same with the output file
-    FILE* outputFile = (argc >= 3) ? fopen(argv[2], "w") : stdout;
+    FILE* outputFile = (argc >= 3) ? fopen(argv[2], "wb") : stdout;
     if (outputFile == NULL) {
         fprintf(stderr, "Error opening output file\n");
         exit(1);
@@ -387,9 +387,9 @@ int main(int argc, char* argv[]) {
         .nVoxelsX = N_VOXELS_X,
         .nVoxelsY = N_VOXELS_Y,
         .nVoxelsZ = N_VOXELS_Z,
-        .nPlanesX = N_PLANES_X,
-        .nPlanesY = N_PLANES_Y,
-        .nPlanesZ = N_PLANES_Z,
+        .voxelSizeX = VOXEL_SIZE_X,
+        .voxelSizeY = VOXEL_SIZE_Y,
+        .voxelSizeZ = VOXEL_SIZE_Z,
         // TODO: find a way to split this array into multiple parts because it's too big (1000^3)*8 bytes = 8GB
         // TODO: a possible solution is to split the volume into chunks and process them serially, this reduces the memory usage but increases the runtime
         // TODO: or sacrifice accuracy for memory by using float instead of double
