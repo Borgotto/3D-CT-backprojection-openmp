@@ -263,6 +263,8 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
         // Update the value of the voxel given the value of the pixel and the
         // length of the segment that the ray intersects with the voxel
         const double voxelAbsorptionValue = pixelAbsorptionValue * segmentLength;
+
+        // TODO: fix the orientation of the volume, the indices are ordered differently
         const int voxelIndex = voxelY * N_VOXELS_X * N_VOXELS_Z + voxelZ * N_VOXELS_Z + voxelX;
 
         #ifdef _DEBUG
