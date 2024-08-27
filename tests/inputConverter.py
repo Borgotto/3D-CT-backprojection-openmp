@@ -7,7 +7,7 @@ import sys
 
 # take input file and output file as arguments
 input_file = next(iter(sys.argv[1:]), None) or "tests/input.pgm"
-output_file = next(iter(sys.argv[2:]), None) or "tests/output.pgm"
+output_file = next(iter(sys.argv[2:]), None)
 
 # take angle and step as arguments, if not provided, use default values
 angle = next(iter(sys.argv[3:]), None) or 45
@@ -29,10 +29,14 @@ for line in lines:
     else:
         data.append(line)
 
-# get the width of the image
+# get the width and height of the image
 width = int(header[1].split()[0])
+height = int(header[1].split()[1])
 
 # write the output pgm file
+if output_file is None:
+    output_file = f"tests/{width}x{height}.pgm"
+
 with open(output_file, 'w') as outfile:
     # write the header unchanged
     for line in header:
@@ -41,5 +45,5 @@ with open(output_file, 'w') as outfile:
     # every width lines, add a comment with the angle
     for i, line in enumerate(data):
         if i % width == 0:
-            outfile.write(f"# angle: {angle + i // width * step}°\n")
+            outfile.write(f"# angle: {(AP + (i // width) * STEP_ANGLE)%360}°\n")
         outfile.write(line)
