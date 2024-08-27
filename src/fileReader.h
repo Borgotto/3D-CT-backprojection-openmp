@@ -87,12 +87,10 @@ bool readPGM(FILE* file, projection* projection, int* width, int* height, double
     // The first projection is at angle AP-AP/2, the last one is at AP+AP/2
     projection->index = (int)((projection->angle - AP / 2) / STEP_ANGLE);
 
-    // Make sure the angle is in the range [-360, 360] inclusive
-    if (projection->angle < -360 || projection->angle > 360) {
-        fprintf(stderr, "Invalid angle value read: %lf\n", projection->angle);
-        fclose(file);
-        exit(1);
-    }
+    #ifdef DEBUG
+    assert(projection->angle >= -360 && projection->angle <= 360);
+    assert(projection->index >= 0 && projection->index < N_THETA);
+    #endif
 
     // Read the pixel values and store them in the matrix
     double pixelValue;

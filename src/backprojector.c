@@ -270,6 +270,8 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
         assert(voxelX <= N_VOXELS_X && voxelY <= N_VOXELS_Y && voxelZ <= N_VOXELS_Z);
         assert(voxelAbsorptionValue >= 0);
         assert(voxelIndex >= 0 && voxelIndex <= N_VOXELS_X * N_VOXELS_Y * N_VOXELS_Z);
+        // TODO: figure out why this assertion fails when using OpenMP
+        assert(coefficients[voxelIndex] + voxelAbsorptionValue >= coefficients[voxelIndex]);
         #endif
 
         // TODO: find a way to avoid using atomic operations, this is a bottleneck
@@ -299,6 +301,14 @@ void computeBackProjection(const projection* projection, volume* volume) {
             const point3D pixel = getPixelPosition(projection, row, col);
             const ray ray = {.source=source, .pixel=pixel};
             const axis parallelTo = getParallelAxis(ray);
+
+            #ifdef _DEBUG
+            // check if the source and pixel coordinates are NaN or infinite
+            assert(!isnan(source.x) && !isnan(source.y) && !isnan(source.z));
+            assert(!isnan(pixel.x) && !isnan(pixel.y) && !isnan(pixel.z));
+            assert(!isinf(source.x) && !isinf(source.y) && !isinf(source.z));
+            assert(!isinf(pixel.x) && !isinf(pixel.y) && !isinf(pixel.z));
+            #endif
 
             // This array will contain the intersection points of the ray with
             // the planes. For each (3) axis the first element is the entry point
