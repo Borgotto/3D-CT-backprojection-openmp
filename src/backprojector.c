@@ -429,6 +429,7 @@ int main(int argc, char* argv[]) {
 
         // if read is false, it means that the end of the file was reached
         if (read) {
+            fprintf(stderr, "Processing projection %d/%d\n", i + 1, N_THETA);
             computeBackProjection(&projection, &volume);
         }
 
@@ -438,7 +439,9 @@ int main(int argc, char* argv[]) {
     double finalTime = omp_get_wtime();
     fprintf(stderr, "%d: %lf\n", width, (finalTime - initialTime));
 
+    fprintf(stderr, "Writing volume to file\n");
     writeVolume(outputFile, &volume);
+    fprintf(stderr, "Done\n");
 
     fclose(inputFile);
     fclose(outputFile);
