@@ -22,3 +22,8 @@ docs/build/doxy*
 
 # Backup files
 *.bak
+
+# Ignore example input files that aren't needed
+[A-Za-z]*.pgm
+# same for output files
+[A-Za-z]*.vtk
