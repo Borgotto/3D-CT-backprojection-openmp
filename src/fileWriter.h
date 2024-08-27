@@ -54,8 +54,15 @@ bool writeVolume(FILE* file, volume* vol) {
     fprintf(file, "LOOKUP_TABLE default\n");
 
     // Write voxel coefficients
-    for (int i = 0; i < vol->nVoxelsX * vol->nVoxelsY * vol->nVoxelsZ; i++) {
-        fprintf(file, "%lf\n", vol->coefficients[i]);
+    for (int voxelY = 0; y < vol->nVoxelsY; y++) {
+        for (int voxelX = 0; x < vol->nVoxelsX; x++) {
+            for (int voxelZ = 0; z < vol->nVoxelsZ; z++) {
+                // TODO: fix the orientation of the volume, the indices are ordered differently
+                const int voxelIndex = voxelX * vol->nVoxelsX * vol->nVoxelsZ + voxelZ * vol->nVoxelsX + voxelY;
+                fprintf(file, "%lf ", vol->coefficients[voxelIndex]);
+            }
+            fprintf(file, "\n");
+        }
     }
 
     return true;
