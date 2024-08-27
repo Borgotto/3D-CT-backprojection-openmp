@@ -84,8 +84,8 @@ bool readPGM(FILE* file, projection* projection, int* width, int* height, double
     sscanf(line, "%*s %*s %lf", &projection->angle);
 
     // Calculate the index of the projection based on the angle
-    // The first projection is at angle AP-AP/2, the last one is at AP+AP/2
-    projection->index = (int)((projection->angle - AP / 2) / STEP_ANGLE);
+    // The first projection is at angle AP/2, the last one is at AP/2+AP
+    projection->index = (int)((projection->angle + 180) / 360 * N_THETA) % N_THETA;
 
     #ifdef DEBUG
     assert(projection->angle >= -360 && projection->angle <= 360);
