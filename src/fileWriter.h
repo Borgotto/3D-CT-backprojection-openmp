@@ -59,7 +59,7 @@ bool writeVolume(FILE* file, volume* vol) {
             for (int voxelZ = 0; voxelZ < vol->nVoxelsZ; voxelZ++) {
                 // TODO: fix the orientation of the volume, the indices are ordered differently
                 const int voxelIndex = voxelX * vol->nVoxelsX * vol->nVoxelsZ + voxelZ * vol->nVoxelsX + voxelY;
-                fprintf(file, "%lf ", vol->coefficients[voxelIndex]);
+                fprintf(file, "%g ", vol->coefficients[voxelIndex]);
             }
             fprintf(file, "\n");
         }
