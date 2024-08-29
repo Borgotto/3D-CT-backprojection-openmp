@@ -236,7 +236,7 @@ bool isArraySorted(const double array[], int size) {
 }
 #endif
 
-void computeAbsorption(const ray ray, const double a[], const int lenA, const double pixelAbsorptionValue, double* coefficients) {
+void computeAbsorption(const ray ray, const double a[], const int lenA, const volume* volume, const projection* projection, const int pixelIndex) {
     const point3D source = ray.source;
     const point3D pixel = ray.pixel;
 
@@ -262,7 +262,9 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
 
         // Update the value of the voxel given the value of the pixel and the
         // length of the segment that the ray intersects with the voxel
-        const double voxelAbsorptionValue = pixelAbsorptionValue * segmentLength;
+        const double normalizedPixelValue = projection->pixels[pixelIndex] / projection->maxVal;
+        const double normalizedSegmentLength = segmentLength / d12;
+        const double voxelAbsorptionValue = normalizedPixelValue * normalizedSegmentLength;
 
         // TODO: fix the orientation of the volume, the indices are ordered differently
         const int voxelIndex = voxelY * N_VOXELS_X * N_VOXELS_Z + voxelZ * N_VOXELS_Z + voxelX;
@@ -279,7 +281,7 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const do
         // TODO: find a way to avoid using atomic operations, this is a bottleneck
         // Siddon's algorithm, equation (14)
         #pragma omp atomic update
-        coefficients[voxelIndex] += voxelAbsorptionValue;
+        volume->coefficients[voxelIndex] += voxelAbsorptionValue;
     }
 }
 
@@ -362,8 +364,8 @@ void computeBackProjection(const projection* projection, volume* volume) {
 
             // Calculate the coefficients of the voxels that the ray intersects
             // TODO: finish implementing this properly
-            const double pixelAbsorptionValue = projection->pixels[row * projection->nSidePixels + col];
-            computeAbsorption(ray, aMerged, mergedSize, pixelAbsorptionValue, volume->coefficients);
+            const int pixelIndex = row * projection->nSidePixels + col;
+            computeAbsorption(ray, aMerged, mergedSize, volume, projection, pixelIndex);
         }
     }
 }

@@ -407,10 +407,11 @@ bool isArraySorted(const double array[], int size);
  * @param ray The ray to compute the absorption for.
  * @param a The absorption coefficients array.
  * @param lenA The size of the absorption coefficients array.
- * @param pixelAbsorptionValue The absorption value of the pixel.
- * @param coefficients The array to store the absorption values.
+ * @param volume The volume structure containing the absorption coefficients.
+ * @param projection The projection data.
+ * @param pixelIndex The index of the pixel to get the absorption value for.
  */
-void computeAbsorption(const ray ray, const double a[], const int lenA, const double pixelAbsorptionValue, double* coefficients);
+void computeAbsorption(const ray ray, const double a[], const int lenA, const volume* volume, const projection* projection, const int pixelIndex);
 
 /**
  * @brief Computes the backprojection of the projection.
