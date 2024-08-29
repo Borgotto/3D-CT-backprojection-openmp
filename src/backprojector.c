@@ -26,6 +26,7 @@
 #include <string.h>     // strcmp, strstr
 #include <math.h>       // sinl, cosl, sqrt, ceil, floor, fmax, fmin
 #include <unistd.h>     // isatty
+#include <time.h>       // nanosleep
 #include <omp.h>        // omp_get_wtime, #pragma omp
 #ifdef _DEBUG
 #include <assert.h>     // assert
@@ -442,12 +443,26 @@ int main(int argc, char* argv[]) {
     }
 
     double finalTime = omp_get_wtime();
-    fprintf(stderr, "%d: %lf\n", width, (finalTime - initialTime));
+    fprintf(stderr, "\nTime taken (%dx%d): %.3lf seconds\n", width, height, (finalTime - initialTime));
 
-    fprintf(stderr, "Writing volume to file\n");
-    writeVolume(outputFile, &volume);
-    fprintf(stderr, "Done\n");
+    // Write the volume to the output file
+    bool done = false;
+    int loadingBarIndex = 0;
+    char* loadingBar = "|/-\\";
+    #pragma omp parallel shared(done, loadingBarIndex, loadingBar)
+    {
+        #pragma omp single nowait
+        done = writeVolume(outputFile, &volume);
+        #pragma omp critical
+        while (!done) {
+            fprintf(stderr, "Writing volume to file.. %c\r", loadingBar[loadingBarIndex]);
+            loadingBarIndex = (loadingBarIndex + 1) % 4;
+            nanosleep((const struct timespec[]){{0, 100000000L}}, NULL);
+        }
+    }
+    fprintf(stderr, "Writing volume to file.. Done!\n");
 
+    // Free memory and handles
     fclose(inputFile);
     fclose(outputFile);
     free(volume.coefficients);
