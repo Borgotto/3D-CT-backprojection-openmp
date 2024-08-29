@@ -424,7 +424,7 @@ int main(int argc, char* argv[]) {
 
     // Read the projection images from the file and compute the backprojection
     int processedProjections = 0;
-    #pragma omp parallel for default(none) shared(inputFile, volume, width, height, maxVal, stderr, processedProjections)
+    #pragma omp parallel for schedule(dynamic) default(none) shared(inputFile, volume, width, height, maxVal, stderr, processedProjections)
     for (int i = 0; i < N_THETA; i++) {
         projection projection;
         bool read;
