@@ -422,7 +422,8 @@ int main(int argc, char* argv[]) {
     double maxVal;
 
     // Read the projection images from the file and compute the backprojection
-    #pragma omp parallel for default(none) shared(inputFile, volume, width, height, maxVal, stderr)
+    int processedProjections = 0;
+    #pragma omp parallel for default(none) shared(inputFile, volume, width, height, maxVal, stderr, processedProjections)
     for (int i = 0; i < N_THETA; i++) {
         projection projection;
         bool read;
@@ -433,7 +434,7 @@ int main(int argc, char* argv[]) {
 
         // if read is false, it means that the end of the file was reached
         if (read) {
-            fprintf(stderr, "Processing projection %d/%d\n", i + 1, N_THETA);
+            fprintf(stderr, "Processing projection %d/%d\r", ++processedProjections, N_THETA);
             computeBackProjection(&projection, &volume);
         }
 
