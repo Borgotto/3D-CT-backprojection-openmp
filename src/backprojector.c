@@ -360,6 +360,9 @@ void computeBackProjection(const projection* projection, volume* volume) {
             // Siddon's algorithm, equation (8)
             mergeIntersections(aX, aY, aZ, aXSize, aYSize, aZSize, aMerged);
             #ifdef _DEBUG
+            assert(isArraySorted(aX, aXSize));
+            assert(isArraySorted(aY, aYSize));
+            assert(isArraySorted(aZ, aZSize));
             assert(isArraySorted(aMerged, mergedSize));
             #endif
 
