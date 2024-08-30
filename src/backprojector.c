@@ -380,7 +380,7 @@ int main(int argc, char* argv[]) {
     }
 
     // Open the input file or use stdin
-    FILE* inputFile = (argc >= 2) ? fopen(argv[1], "r") : stdin;
+    FILE* inputFile = (argc >= 2) ? fopen(argv[1], "rb") : stdin;
     if (inputFile == NULL) {
         fprintf(stderr, "Error opening input file\n");
         exit(1);
@@ -419,19 +419,25 @@ int main(int argc, char* argv[]) {
     initTables();
 
     double initialTime = omp_get_wtime();
+
+    // Projection attributes to be read from file
     int width, height;
-    double maxVal;
+    double minVal, maxVal;
 
     // Read the projection images from the file and compute the backprojection
     int processedProjections = 0;
-    #pragma omp parallel for schedule(dynamic) default(none) shared(inputFile, volume, width, height, maxVal, stderr, processedProjections)
+    #pragma omp parallel for schedule(dynamic) default(none) shared(inputFile, volume, width, height, minVal, maxVal, stderr, processedProjections)
     for (int i = 0; i < N_THETA; i++) {
         projection projection;
         bool read;
 
         // File reading has to be done sequentially
         #pragma omp critical
-        read = readPGM(inputFile, &projection, &width, &height, &maxVal);
+        #if defined(_INPUT_ASCII)
+            read = readPGM(inputFile, &projection, &width, &height, &minVal, &maxVal);
+        #elif defined(_INPUT_BINARY)
+            read = readDAT(inputFile, &projection, &width, &height, &minVal, &maxVal);
+        #endif
 
         // if read is false, it means that the end of the file was reached
         if (read) {
