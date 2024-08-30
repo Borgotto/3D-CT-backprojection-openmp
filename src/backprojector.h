@@ -140,6 +140,8 @@ typedef struct projection {
     int index;
     /// Angle from which the projection was taken
     double angle;
+    /// Minimum absorption value assumed by the pixels
+    double minVal;
     /// Maximum absorption value assumed by the pixels
     double maxVal;
     /// Number of pixels on one side of the detector (square)
