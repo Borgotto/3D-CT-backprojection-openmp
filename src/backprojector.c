@@ -441,7 +441,9 @@ int main(int argc, char* argv[]) {
 
         // if read is false, it means that the end of the file was reached
         if (read) {
-            fprintf(stderr, "Processing projection %d/%d\r", ++processedProjections, N_THETA);
+            #pragma omp atomic update
+            processedProjections++;
+            fprintf(stderr, "Processing projection %d/%d\r", processedProjections, N_THETA);
             computeBackProjection(&projection, &volume);
         }
 
