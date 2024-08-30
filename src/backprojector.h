@@ -29,7 +29,7 @@
 /// distance between rays sources (in degrees)
 #define STEP_ANGLE 15
 
-#ifdef _WORK_UNITS
+#if defined(_WORK_UNITS) && _WORK_UNITS > 0
     // These values will be used when running benchmarks for scalability
     #define VOXEL_MATRIX_SIZE ((int)((_WORK_UNITS) * (VOXEL_SIZE_X) * 125 / 294))
     #define DOD ((int)(1.5 * (VOXEL_MATRIX_SIZE)))
