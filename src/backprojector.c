@@ -263,6 +263,7 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const vo
 
         // Update the value of the voxel given the value of the pixel and the
         // length of the segment that the ray intersects with the voxel
+        // TODO: find better normalization process (also add minVal)
         const double normalizedPixelValue = projection->pixels[pixelIndex] / projection->maxVal;
         const double normalizedSegmentLength = segmentLength / d12;
         const double voxelAbsorptionValue = normalizedPixelValue * normalizedSegmentLength;
@@ -434,6 +435,8 @@ int main(int argc, char* argv[]) {
         projection projection;
         bool read;
 
+        // TODO: find a way to not have to pass the width, height, minVal, and maxVal to the function
+        // TODO: fix projection index assignment, it shouldn't depend on the projection angle
         // File reading has to be done sequentially
         #pragma omp critical
         #if defined(_INPUT_ASCII)
@@ -468,6 +471,7 @@ int main(int argc, char* argv[]) {
         while (!done) {
             fprintf(stderr, "Writing volume to file.. %c\r", loadingBar[loadingBarIndex]);
             loadingBarIndex = (loadingBarIndex + 1) % 4;
+            // TODO: find platform-independent way to sleep
             nanosleep((const struct timespec[]){{0, 100000000L}}, NULL);
         }
     }
