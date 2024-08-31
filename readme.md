@@ -3,32 +3,49 @@
 ## Compile
 Compile using gcc:
 ```bash
-gcc -std=c11 -Wall -Wpedantic -fopenmp backprojector.c -lm -o backprojector
+gcc -std=c11 -Wall -Wpedantic -fopenmp -o backprojector src/backprojector.c -lm
 ```
 or simply use the provided Makefile:
 ```bash
 make backprojector
 ```
 
+You can specify the type of input and output files by defining the `_INPUT_TYPE` and `_OUTPUT_TYPE` macros respectively, \
+if not specified **binary** files will be used for both **by default**.
+```bash
+-D_INPUT_TYPE=ASCII -D_OUTPUT_TYPE=ASCII
+```
+```bash
+-D_INPUT_TYPE=BINARY -D_OUTPUT_TYPE=BINARY
+```
+or using the makefile:
+```bash
+make backprojector INPUT=ASCII OUTPUT=ASCII
+```
+```bash
+make backprojector INPUT=BINARY OUTPUT=BINARY
+```
+
+
 ## Run
 Run the program with the following command:
 ```bash
 ./backprojector <input_file> <output_file>
 ```
-where `<input_file>` is the path to the input `.PGM` file
-and `<output_file>` is the path to the output `.txt` file.
+where `<input_file>` is the path to the input file,  `.pgm` if the input type is **ascii**, or `.dat` if the input type is **binary** *(default)*\
+and `<output_file>` is the path to the output `.vtk` file.
 
 ## Profiling
 First, compile the program with the `-pg` flag then run it as usual:
 ```bash
-gcc -std=c11 -Wall -Wpedantic -fopenmp backprojector.c -lm -o backprojector -pg
+gcc -std=c11 -Wall -Wpedantic -fopenmp -o backprojector src/backprojector.c -lm -pg
 ./backprojector <input_file> <output_file>
 ```
-convert the `gmon.out` file to a human-readable format using the following command:
+convert the `gmon.out` file to a human-readable `.svg` format using the following command:
 ```bash
 gprof backprojector | gprof2dot -n0 -e0 | dot -Tsvg -Gbgcolor=transparent -o profiling/snapshots/"$(ls -l ./profiling/snapshots/ | wc -l) - $(date '+%Y-%m-%d %H.%M.%S')".svg
 ```
-you can then convert them to `png`:
+you can optionally convert them to `png`:
 ```bash
 convert -background white -alpha remove -alpha off profiling/snapshots/<snapshot>.svg profiling/snapshots/<snapshot>.png
 ```
@@ -38,7 +55,7 @@ The profiling snapshots found in the [profiling/snapshots](profiling/snapshots) 
 ## Documentation
 To view the documentation, visit the [GitHub pages](https://borgotto.github.io/3D-CT-backprojection-openmp/) or open the [index.html](docs/index.html) file in your browser.
 
-The documentation was generated using [Doxygen 1.12.0](https://www.doxygen.nl/) and this [Doxyfile](docs/build/Doxyfile).
+The documentation was generated using [Doxygen 1.12.0](https://www.doxygen.nl/) with this [Doxyfile](docs/build/Doxyfile).
 ```bash
 doxygen Doxyfile
 ```
