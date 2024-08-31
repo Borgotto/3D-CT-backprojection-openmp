@@ -1,11 +1,16 @@
 # Input variables
 WORK_UNITS ?= 236 # number of work units to process (int)
-INPUT ?= BINARY # input file format (ASCII or BINARY)
+INPUT ?= BINARY # input file format (ASCII or BINARY) if not specified, BINARY is used
+OUTPUT ?= BINARY # output file format (ASCII or BINARY) if not specified, BINARY is used
 
 CC = gcc
-CFLAGS = -std=c11 -Wall -Wpedantic -fopenmp -O0 -D_INPUT_$(INPUT)
+CFLAGS = -std=c11 -Wall -Wpedantic -fopenmp -O0 -D_INPUT_$(strip $(INPUT)) -D_OUTPUT_$(strip $(OUTPUT))
 LFLAGS = -lm
-DEBUGFLAGS = -D_WORK_UNITS=$(WORK_UNITS) -D_DEBUG -g -pg -fno-omit-frame-pointer -fno-inline-functions -fno-inline-functions-called-once -fno-optimize-sibling-calls
+
+# Add debug flags if WORK_UNITS is set
+ifneq ($(strip $(WORK_UNITS)), 0)
+	DEBUGFLAGS = -D_WORK_UNITS=$(strip $(WORK_UNITS)) -D_DEBUG -g -pg -fno-omit-frame-pointer -fno-inline-functions -fno-inline-functions-called-once -fno-optimize-sibling-calls
+endif
 
 TARGET = backprojector
 SRC = src/$(TARGET).c
