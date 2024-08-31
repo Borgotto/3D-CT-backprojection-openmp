@@ -439,11 +439,7 @@ int main(int argc, char* argv[]) {
         // TODO: fix projection index assignment, it shouldn't depend on the projection angle
         // File reading has to be done sequentially
         #pragma omp critical
-        #if defined(_INPUT_ASCII)
-            read = readPGM(inputFile, &projection, &width, &height, &minVal, &maxVal);
-        #elif defined(_INPUT_BINARY)
-            read = readDAT(inputFile, &projection, &width, &height, &minVal, &maxVal);
-        #endif
+        read = readProjection(inputFile, &projection, &width, &height, &minVal, &maxVal);
 
         // if read is false, it means that the end of the file was reached
         if (read) {
