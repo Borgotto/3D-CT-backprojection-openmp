@@ -37,12 +37,18 @@ typedef struct volume {
  * @return `false` if an error occurred while writing the file
  */
 bool writeVolume(FILE* file, volume* vol) {
+    // TODO: Implement the new XML VTK format
+
     // File version and identifier (1)
     fprintf(file, "# vtk DataFile Version 3.0\n");
     // Header (2)
     fprintf(file, "Backprojector output\n");
     // File format (3)
+    #ifdef _OUTPUT_ASCII
     fprintf(file, "ASCII\n");
+    #else
+    fprintf(file, "BINARY\n");
+    #endif
     // Dataset structure (4)
     fprintf(file, "DATASET STRUCTURED_POINTS\n");
     fprintf(file, "DIMENSIONS %d %d %d\n", vol->nVoxelsX, vol->nVoxelsY, vol->nVoxelsZ);
@@ -54,6 +60,7 @@ bool writeVolume(FILE* file, volume* vol) {
     fprintf(file, "LOOKUP_TABLE default\n");
 
     // Write voxel coefficients
+    #ifdef _OUTPUT_ASCII
     for (int voxelX = 0; voxelX < vol->nVoxelsX; voxelX++) {
         for (int voxelY = 0; voxelY < vol->nVoxelsY; voxelY++) {
             for (int voxelZ = 0; voxelZ < vol->nVoxelsZ; voxelZ++) {
@@ -64,6 +71,10 @@ bool writeVolume(FILE* file, volume* vol) {
             fprintf(file, "\n");
         }
     }
+    #else
+    // TODO: values aren't read correctly when using BINARY format, probably due to endianness
+    fwrite(vol->coefficients, sizeof(double), (vol->nVoxelsX) * (vol->nVoxelsY) * (vol->nVoxelsZ), file);
+    #endif
 
     return true;
 }
