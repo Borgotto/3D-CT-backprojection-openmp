@@ -34,7 +34,7 @@ var backprojector_8h =
       [ "Y", "backprojector_8h.html#accc088009d44c521706aa98d6387ee21a5596231eabd6cf29050967d5ac83ad84", null ],
       [ "Z", "backprojector_8h.html#accc088009d44c521706aa98d6387ee21aa70478ce277ffc322f8e1e3418e07355", null ]
     ] ],
-    [ "computeAbsorption", "backprojector_8h.html#a0dff3e6286ee3ee9b7e74f9a9ad4f2ec", null ],
+    [ "computeAbsorption", "backprojector_8h.html#adeed0117a7aa23163c82f9b64d019b82", null ],
     [ "computeBackProjection", "backprojector_8h.html#a695176076b7a7e5eff55b510ca9293f7", null ],
     [ "getAllIntersections", "backprojector_8h.html#ae6ca17545d3e55eadcfdfe51b4b5e11c", null ],
     [ "getAMax", "backprojector_8h.html#a5dad3fd7c1d04e6eeca36364d14c1245", null ],

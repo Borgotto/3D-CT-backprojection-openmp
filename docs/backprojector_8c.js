@@ -1,6 +1,6 @@
 var backprojector_8c =
 [
-    [ "computeAbsorption", "backprojector_8c.html#a0dff3e6286ee3ee9b7e74f9a9ad4f2ec", null ],
+    [ "computeAbsorption", "backprojector_8c.html#adeed0117a7aa23163c82f9b64d019b82", null ],
     [ "computeBackProjection", "backprojector_8c.html#a695176076b7a7e5eff55b510ca9293f7", null ],
     [ "getAllIntersections", "backprojector_8c.html#ae6ca17545d3e55eadcfdfe51b4b5e11c", null ],
     [ "getAMax", "backprojector_8c.html#a5dad3fd7c1d04e6eeca36364d14c1245", null ],

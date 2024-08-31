@@ -135,10 +135,10 @@ Macros</h2></td></tr>
 <tr class="memitem:a139400013c795fbea5304c0bdbe51591" id="r_a139400013c795fbea5304c0bdbe51591"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a139400013c795fbea5304c0bdbe51591">PIXEL_SIZE</a>&#160;&#160;&#160;85</td></tr>
 <tr class="memdesc:a139400013c795fbea5304c0bdbe51591"><td class="mdescLeft">&#160;</td><td class="mdescRight">side lenght of a single square pixel (in micrometers)  <br /></td></tr>
 <tr class="separator:a139400013c795fbea5304c0bdbe51591"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8300bbcd56f47545962fcf22d934e24b" id="r_a8300bbcd56f47545962fcf22d934e24b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8300bbcd56f47545962fcf22d934e24b">AP</a>&#160;&#160;&#160;90</td></tr>
+<tr class="memitem:a8300bbcd56f47545962fcf22d934e24b" id="r_a8300bbcd56f47545962fcf22d934e24b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8300bbcd56f47545962fcf22d934e24b">AP</a>&#160;&#160;&#160;360</td></tr>
 <tr class="memdesc:a8300bbcd56f47545962fcf22d934e24b"><td class="mdescLeft">&#160;</td><td class="mdescRight">rays source initial angle (in degrees)  <br /></td></tr>
 <tr class="separator:a8300bbcd56f47545962fcf22d934e24b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16e0a6585d892aa03b6c0102ddfd0b75" id="r_a16e0a6585d892aa03b6c0102ddfd0b75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16e0a6585d892aa03b6c0102ddfd0b75">STEP_ANGLE</a>&#160;&#160;&#160;15</td></tr>
+<tr class="memitem:a16e0a6585d892aa03b6c0102ddfd0b75" id="r_a16e0a6585d892aa03b6c0102ddfd0b75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16e0a6585d892aa03b6c0102ddfd0b75">STEP_ANGLE</a>&#160;&#160;&#160;24</td></tr>
 <tr class="memdesc:a16e0a6585d892aa03b6c0102ddfd0b75"><td class="mdescLeft">&#160;</td><td class="mdescRight">distance between rays sources (in degrees)  <br /></td></tr>
 <tr class="separator:a16e0a6585d892aa03b6c0102ddfd0b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cd66512d32043f2b9475a4a23b21f54" id="r_a7cd66512d32043f2b9475a4a23b21f54"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cd66512d32043f2b9475a4a23b21f54">VOXEL_MATRIX_SIZE</a>&#160;&#160;&#160;100000</td></tr>
@@ -238,9 +238,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a6616c0957bffb44f16fb54c48f3f3f05" id="r_a6616c0957bffb44f16fb54c48f3f3f05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6616c0957bffb44f16fb54c48f3f3f05">mergeIntersections</a> (const double aX[], const double aY[], const double aZ[], const int aXSize, const int aYSize, const int aZSize, double aMerged[])</td></tr>
 <tr class="memdesc:a6616c0957bffb44f16fb54c48f3f3f05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merges the intersection points of the ray with the planes.  <br /></td></tr>
 <tr class="separator:a6616c0957bffb44f16fb54c48f3f3f05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0dff3e6286ee3ee9b7e74f9a9ad4f2ec" id="r_a0dff3e6286ee3ee9b7e74f9a9ad4f2ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0dff3e6286ee3ee9b7e74f9a9ad4f2ec">computeAbsorption</a> (const <a class="el" href="unionray.html">ray</a> <a class="el" href="unionray.html">ray</a>, const double a[], const int lenA, const double pixelAbsorptionValue, double *coefficients)</td></tr>
-<tr class="memdesc:a0dff3e6286ee3ee9b7e74f9a9ad4f2ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the absorption value of the voxels intersected by the ray.  <br /></td></tr>
-<tr class="separator:a0dff3e6286ee3ee9b7e74f9a9ad4f2ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adeed0117a7aa23163c82f9b64d019b82" id="r_adeed0117a7aa23163c82f9b64d019b82"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adeed0117a7aa23163c82f9b64d019b82">computeAbsorption</a> (const <a class="el" href="unionray.html">ray</a> <a class="el" href="unionray.html">ray</a>, const double a[], const int lenA, const <a class="el" href="structvolume.html">volume</a> *<a class="el" href="structvolume.html">volume</a>, const <a class="el" href="structprojection.html">projection</a> *<a class="el" href="structprojection.html">projection</a>, const int pixelIndex)</td></tr>
+<tr class="memdesc:adeed0117a7aa23163c82f9b64d019b82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the absorption value of the voxels intersected by the ray.  <br /></td></tr>
+<tr class="separator:adeed0117a7aa23163c82f9b64d019b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a695176076b7a7e5eff55b510ca9293f7" id="r_a695176076b7a7e5eff55b510ca9293f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a695176076b7a7e5eff55b510ca9293f7">computeBackProjection</a> (const <a class="el" href="structprojection.html">projection</a> *<a class="el" href="structprojection.html">projection</a>, <a class="el" href="structvolume.html">volume</a> *<a class="el" href="structvolume.html">volume</a>)</td></tr>
 <tr class="memdesc:a695176076b7a7e5eff55b510ca9293f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the backprojection of the projection.  <br /></td></tr>
 <tr class="separator:a695176076b7a7e5eff55b510ca9293f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -269,7 +269,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AP&#160;&#160;&#160;90</td>
+          <td class="memname">#define AP&#160;&#160;&#160;360</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -485,7 +485,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define STEP_ANGLE&#160;&#160;&#160;15</td>
+          <td class="memname">#define STEP_ANGLE&#160;&#160;&#160;24</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -695,8 +695,8 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a0dff3e6286ee3ee9b7e74f9a9ad4f2ec" name="a0dff3e6286ee3ee9b7e74f9a9ad4f2ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0dff3e6286ee3ee9b7e74f9a9ad4f2ec">&#9670;&#160;</a></span>computeAbsorption()</h2>
+<a id="adeed0117a7aa23163c82f9b64d019b82" name="adeed0117a7aa23163c82f9b64d019b82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adeed0117a7aa23163c82f9b64d019b82">&#9670;&#160;</a></span>computeAbsorption()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -719,12 +719,17 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const double</td>          <td class="paramname"><span class="paramname"><em>pixelAbsorptionValue</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="structvolume.html">volume</a> *</td>          <td class="paramname"><span class="paramname"><em>volume</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>coefficients</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="structprojection.html">projection</a> *</td>          <td class="paramname"><span class="paramname"><em>projection</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>pixelIndex</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -754,13 +759,14 @@ k(m) = 1 + (Z_1 + \alpha_{mid} * (Z_2 - Z_1) - Z_{plane}(0)) / d_z
     <tr><td class="paramname">ray</td><td>The ray to compute the absorption for. </td></tr>
     <tr><td class="paramname">a</td><td>The absorption coefficients array. </td></tr>
     <tr><td class="paramname">lenA</td><td>The size of the absorption coefficients array. </td></tr>
-    <tr><td class="paramname">pixelAbsorptionValue</td><td>The absorption value of the pixel. </td></tr>
-    <tr><td class="paramname">coefficients</td><td>The array to store the absorption values. </td></tr>
+    <tr><td class="paramname">volume</td><td>The volume structure containing the absorption coefficients. </td></tr>
+    <tr><td class="paramname">projection</td><td>The projection data. </td></tr>
+    <tr><td class="paramname">pixelIndex</td><td>The index of the pixel to get the absorption value for. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00239">239</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00240">240</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -802,14 +808,14 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00282">282</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00290">290</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="backprojector_8h_a695176076b7a7e5eff55b510ca9293f7_cgraph.png" border="0" usemap="#abackprojector_8h_a695176076b7a7e5eff55b510ca9293f7_cgraph" alt=""/></div>
 <map name="abackprojector_8h_a695176076b7a7e5eff55b510ca9293f7_cgraph" id="abackprojector_8h_a695176076b7a7e5eff55b510ca9293f7_cgraph">
 <area shape="rect" title="Computes the backprojection of the projection." alt="" coords="5,228,181,253"/>
-<area shape="rect" href="backprojector_8c.html#a0dff3e6286ee3ee9b7e74f9a9ad4f2ec" title="Computes the absorption value of the voxels intersected by the ray." alt="" coords="236,5,385,31"/>
+<area shape="rect" href="backprojector_8c.html#adeed0117a7aa23163c82f9b64d019b82" title="Computes the absorption value of the voxels intersected by the ray." alt="" coords="236,5,385,31"/>
 <area shape="poly" title=" " alt="" coords="97,227,114,190,142,139,180,86,202,61,228,40,236,35,239,39,231,44,206,65,184,89,146,142,119,192,102,229"/>
 <area shape="rect" href="backprojector_8c.html#ae6ca17545d3e55eadcfdfe51b4b5e11c" title="Calculates all the intersection points of the ray with the planes." alt="" coords="239,55,383,80"/>
 <area shape="poly" title=" " alt="" coords="101,226,149,161,185,122,228,89,239,83,241,88,231,94,189,126,153,164,105,229"/>
@@ -885,7 +891,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00159">159</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00160">160</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -933,7 +939,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The maximum intersection point. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00129">129</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00130">130</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -970,7 +976,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The minimum intersection point. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00116">116</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00117">117</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -999,7 +1005,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The axis that is parallel to the ray, or axis::NONE if none. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00083">83</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00084">84</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1039,7 +1045,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The 3D coordinates of the pixel. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00069">69</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00070">70</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1078,7 +1084,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The position of the plane. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00096">96</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00097">97</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1132,7 +1138,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00142">142</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00143">143</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1179,7 +1185,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00101">101</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00102">102</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1208,7 +1214,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The 3D coordinates of the source. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00061">61</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00062">62</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1230,7 +1236,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
 <p>Initializes the sine and cosine tables, as well as the firstPlane and lastPlane arrays. </p>
 <p>These values are complex to calculate each time, so they are precomputed and cached to optimize performance during backprojection operations. </p>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00045">45</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00046">46</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1300,7 +1306,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00190">190</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00191">191</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>

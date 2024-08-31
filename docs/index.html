@@ -80,23 +80,27 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <div class="textblock"><p><a class="anchor" id="md__2home_2borgo_23D-CT-backprojection-openmp_2readme"></a></p>
 <h1><a class="anchor" id="compile"></a>
 Compile</h1>
-<p>Compile using gcc: </p><div class="fragment"><div class="line">gcc -std=c11 -Wall -Wpedantic -fopenmp backprojector.c -lm -o backprojector</div>
+<p>Compile using gcc: </p><div class="fragment"><div class="line">gcc -std=c11 -Wall -Wpedantic -fopenmp -o backprojector src/backprojector.c -lm</div>
 </div><!-- fragment --><p> or simply use the provided Makefile: </p><div class="fragment"><div class="line">make backprojector</div>
+</div><!-- fragment --><p>You can specify the type of input and output files by defining the <code>_INPUT_TYPE</code> and <code>_OUTPUT_TYPE</code> macros respectively, \ if not specified <b>binary</b> files will be used for both <b>by default</b>. </p><div class="fragment"><div class="line">-D_INPUT_TYPE=ASCII -D_OUTPUT_TYPE=ASCII</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">-D_INPUT_TYPE=BINARY -D_OUTPUT_TYPE=BINARY</div>
+</div><!-- fragment --><p> or using the makefile: </p><div class="fragment"><div class="line">make backprojector INPUT=ASCII OUTPUT=ASCII</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">make backprojector INPUT=BINARY OUTPUT=BINARY</div>
 </div><!-- fragment --><h1><a class="anchor" id="run"></a>
 Run</h1>
 <p>Run the program with the following command: </p><div class="fragment"><div class="line">./backprojector &lt;input_file&gt; &lt;output_file&gt;</div>
-</div><!-- fragment --><p> where <code>&lt;input_file&gt;</code> is the path to the input <code>.PGM</code> file and <code>&lt;output_file&gt;</code> is the path to the output <code>.txt</code> file.</p>
+</div><!-- fragment --><p> where <code>&lt;input_file&gt;</code> is the path to the input file, <code>.pgm</code> if the input type is <b>ascii</b>, or <code>.dat</code> if the input type is <b>binary</b> <em>(default)</em>\ and <code>&lt;output_file&gt;</code> is the path to the output <code>.vtk</code> file.</p>
 <h1><a class="anchor" id="profiling"></a>
 Profiling</h1>
-<p>First, compile the program with the <code>-pg</code> flag then run it as usual: </p><div class="fragment"><div class="line">gcc -std=c11 -Wall -Wpedantic -fopenmp backprojector.c -lm -o backprojector -pg</div>
+<p>First, compile the program with the <code>-pg</code> flag then run it as usual: </p><div class="fragment"><div class="line">gcc -std=c11 -Wall -Wpedantic -fopenmp -o backprojector src/backprojector.c -lm -pg</div>
 <div class="line">./backprojector &lt;input_file&gt; &lt;output_file&gt;</div>
-</div><!-- fragment --><p> convert the <code>gmon.out</code> file to a human-readable format using the following command: </p><div class="fragment"><div class="line">gprof backprojector | gprof2dot -n0 -e0 | dot -Tsvg -Gbgcolor=transparent -o profiling/snapshots/&quot;$(ls -l ./profiling/snapshots/ | wc -l) - $(date &#39;+%Y-%m-%d %H.%M.%S&#39;)&quot;.svg</div>
-</div><!-- fragment --><p> you can then convert them to <code>png</code>: </p><div class="fragment"><div class="line">convert -background white -alpha remove -alpha off profiling/snapshots/&lt;snapshot&gt;.svg profiling/snapshots/&lt;snapshot&gt;.png</div>
+</div><!-- fragment --><p> convert the <code>gmon.out</code> file to a human-readable <code>.svg</code> format using the following command: </p><div class="fragment"><div class="line">gprof backprojector | gprof2dot -n0 -e0 | dot -Tsvg -Gbgcolor=transparent -o profiling/snapshots/&quot;$(ls -l ./profiling/snapshots/ | wc -l) - $(date &#39;+%Y-%m-%d %H.%M.%S&#39;)&quot;.svg</div>
+</div><!-- fragment --><p> you can optionally convert them to <code>png</code>: </p><div class="fragment"><div class="line">convert -background white -alpha remove -alpha off profiling/snapshots/&lt;snapshot&gt;.svg profiling/snapshots/&lt;snapshot&gt;.png</div>
 </div><!-- fragment --><p>The profiling snapshots found in the <a href="profiling/snapshots">profiling/snapshots</a> directory were generated using <a href="profiling/runProfiler.sh">this</a> script</p>
 <h1><a class="anchor" id="documentation"></a>
 Documentation</h1>
 <p>To view the documentation, visit the <a href="https://borgotto.github.io/3D-CT-backprojection-openmp/">GitHub pages</a> or open the <a href="docs/index.html">index.html</a> file in your browser.</p>
-<p>The documentation was generated using <a href="https://www.doxygen.nl/">Doxygen 1.12.0</a> and this <a href="docs/build/Doxyfile">Doxyfile</a>. </p><div class="fragment"><div class="line">doxygen Doxyfile</div>
+<p>The documentation was generated using <a href="https://www.doxygen.nl/">Doxygen 1.12.0</a> with this <a href="docs/build/Doxyfile">Doxyfile</a>. </p><div class="fragment"><div class="line">doxygen Doxyfile</div>
 </div><!-- fragment --><p> there's also a Makefile target for it: </p><div class="fragment"><div class="line">make doc</div>
 </div><!-- fragment --><p> the generated documentation can be found in the [docs](docs) directory. </p>
 </div></div><!-- PageDoc -->

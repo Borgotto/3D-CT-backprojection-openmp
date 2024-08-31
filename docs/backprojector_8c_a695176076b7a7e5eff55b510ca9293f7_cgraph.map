@@ -1,6 +1,6 @@
 <map id="computeBackProjection" name="computeBackProjection">
 <area shape="rect" id="Node000001" title="Computes the backprojection of the projection." alt="" coords="5,228,181,253"/>
-<area shape="rect" id="Node000002" href="$backprojector_8c.html#a0dff3e6286ee3ee9b7e74f9a9ad4f2ec" title="Computes the absorption value of the voxels intersected by the ray." alt="" coords="236,5,385,31"/>
+<area shape="rect" id="Node000002" href="$backprojector_8c.html#adeed0117a7aa23163c82f9b64d019b82" title="Computes the absorption value of the voxels intersected by the ray." alt="" coords="236,5,385,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,227,114,190,142,139,180,86,202,61,228,40,236,35,239,39,231,44,206,65,184,89,146,142,119,192,102,229"/>
 <area shape="rect" id="Node000003" href="$backprojector_8c.html#ae6ca17545d3e55eadcfdfe51b4b5e11c" title="Calculates all the intersection points of the ray with the planes." alt="" coords="239,55,383,80"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="101,226,149,161,185,122,228,89,239,83,241,88,231,94,189,126,153,164,105,229"/>
