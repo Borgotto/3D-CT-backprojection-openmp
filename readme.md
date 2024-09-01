@@ -10,13 +10,14 @@ or simply use the provided Makefile:
 make backprojector
 ```
 
-You can specify the type of input and output files by defining the `_INPUT_TYPE` and `_OUTPUT_TYPE` macros respectively, \
-if not specified **binary** files will be used for both **by default**.
+##
+
+You can specify the format of input and output files by defining some macros.
 ```bash
--D_INPUT_TYPE=ASCII -D_OUTPUT_TYPE=ASCII
+gcc [...] -D_INPUT_FORMAT_ASCII -D_OUTPUT_FORMAT_ASCII
 ```
 ```bash
--D_INPUT_TYPE=BINARY -D_OUTPUT_TYPE=BINARY
+gcc [...] -D_INPUT_FORMAT_BINARY -D_OUTPUT_FORMAT_BINARY
 ```
 or using the makefile:
 ```bash
@@ -25,6 +26,7 @@ make backprojector INPUT=ASCII OUTPUT=ASCII
 ```bash
 make backprojector INPUT=BINARY OUTPUT=BINARY
 ```
+a combination of both is also valid, if not specified **binary** will be used **by default** for both input and output.
 
 
 ## Run
@@ -32,8 +34,10 @@ Run the program with the following command:
 ```bash
 ./backprojector <input_file> <output_file>
 ```
-where `<input_file>` is the path to the input file,  `.pgm` if the input type is **ascii**, or `.dat` if the input type is **binary** *(default)*\
-and `<output_file>` is the path to the output `.vtk` file.
+where `<input_file>` is the path to the input file,  `.pgm` if the input format was set to **ascii**, or `.dat` if the input format was set to **binary**\
+and `<output_file>` is the path to the output `.nrrd` file.
+
+<!-- TODO: Add "Visualizing" section here with instruction of software to use to view the output file -->
 
 ## Profiling
 First, compile the program with the `-pg` flag then run it as usual:
@@ -64,5 +68,3 @@ there's also a Makefile target for it:
 make doc
 ```
 the generated documentation can be found in the [docs](docs) directory.
-
-
