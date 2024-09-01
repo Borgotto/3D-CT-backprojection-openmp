@@ -57,7 +57,7 @@ bool writeVolume(FILE* file, volume* vol) {
     #endif
 
     // Set the encoding of the data and write the coefficients
-    #ifdef _OUTPUT_ASCII
+    #ifdef _OUTPUT_FORMAT_ASCII
     fprintf(file, "encoding: ascii\n\n");
     for (int i = 0; i < vol->nVoxelsX * vol->nVoxelsY * vol->nVoxelsZ; i++) {
         fprintf(file, "%g ", vol->coefficients[i]);

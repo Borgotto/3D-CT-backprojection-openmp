@@ -24,7 +24,7 @@ typedef struct projection {
 } projection;
 #endif
 
-#ifdef _INPUT_ASCII
+#ifdef _INPUT_FORMAT_ASCII
 /**
  * @brief Read a PGM file containing CT projections.
  *
