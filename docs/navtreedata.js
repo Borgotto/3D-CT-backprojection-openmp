@@ -26,6 +26,7 @@ var NAVTREE =
 [
   [ "3D-CT-backprojection-openmp", "index.html", [
     [ "Compile", "index.html#compile", null ],
+    [ "autotoc_md0", "index.html#autotoc_md0", null ],
     [ "Run", "index.html#run", null ],
     [ "Profiling", "index.html#profiling", null ],
     [ "Documentation", "index.html#documentation", null ],
