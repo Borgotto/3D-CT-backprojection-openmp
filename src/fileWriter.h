@@ -37,43 +37,39 @@ typedef struct volume {
  * @return `false` if an error occurred while writing the file
  */
 bool writeVolume(FILE* file, volume* vol) {
-    fprintf(file, "<?xml version=\"1.0\"?>\n");
+    // Write the NRRD header
+    fprintf(file, "NRRD0005\n");
+    fprintf(file, "# Complete NRRD file format specification at:\n");
+    fprintf(file, "# http://teem.sourceforge.net/nrrd/format.html\n");
+    fprintf(file, "type: double\n");
+    fprintf(file, "dimension: 3\n");
+    fprintf(file, "sizes: %d %d %d\n", vol->nVoxelsX, vol->nVoxelsY, vol->nVoxelsZ);
+    fprintf(file, "spacings: %g %g %g\n", vol->voxelSizeX, vol->voxelSizeY, vol->voxelSizeZ);
+    fprintf(file, "axis mins: 0 0 0\n");
 
     // Set the endianness of the data
     #if !defined(__ORDER_BIG_ENDIAN__) && !defined(__ORDER_LITTLE_ENDIAN__)
         #error "Endianness not defined"
     #elif __FLOAT_WORD_ORDER__ == __ORDER_LITTLE_ENDIAN__
-        fprintf(file, "<VTKFile type=\"ImageData\" version=\"0.1\" byte_order=\"LittleEndian\">\n");
+        fprintf(file, "endian: little\n");
     #else
-        fprintf(file, "<VTKFile type=\"ImageData\" version=\"0.1\" byte_order=\"BigEndian\">\n");
+        fprintf(file, "endian: big\n");
     #endif
 
-    fprintf(file, "  <ImageData WholeExtent=\"0 %d 0 %d 0 %d\" Origin=\"0 0 0\" Spacing=\"%g %g %g\">\n",
-            vol->nVoxelsX - 1, vol->nVoxelsY - 1, vol->nVoxelsZ - 1,
-            vol->voxelSizeX, vol->voxelSizeY, vol->voxelSizeZ);
-    fprintf(file, "  <Piece Extent=\"0 %d 0 %d 0 %d\">\n",
-            vol->nVoxelsX - 1, vol->nVoxelsY - 1, vol->nVoxelsZ - 1);
-    fprintf(file, "    <PointData Scalars=\"absorption_coefficients\">\n");
-
-    // Write voxel coefficients
+    // Set the encoding of the data and write the coefficients
     #ifdef _OUTPUT_ASCII
-    fprintf(file, "      <DataArray type=\"Float64\" Name=\"absorption_coefficients\" format=\"ascii\">\n        ");
+    fprintf(file, "encoding: ascii\n\n");
     for (int i = 0; i < vol->nVoxelsX * vol->nVoxelsY * vol->nVoxelsZ; i++) {
         fprintf(file, "%g ", vol->coefficients[i]);
     }
     #else
-    fprintf(file, "      <DataArray type=\"Float64\" Name=\"absorption_coefficients\" format=\"binary\">\n        ");
-    // TODO: Writing binary data in XML format requires base64 encoding first
-    fwrite(vol->coefficients, sizeof(double), vol->nVoxelsX * vol->nVoxelsY * vol->nVoxelsZ, file);
+    fprintf(file, "encoding: raw\n\n");
+    size_t numVoxels = vol->nVoxelsX * vol->nVoxelsY * vol->nVoxelsZ;
+    if (fwrite(vol->coefficients, sizeof(double), numVoxels, file) != numVoxels) {
+        return false;  // If fwrite doesn't write all the data, return false
+    }
     #endif
 
-    fprintf(file, "\n      </DataArray>\n");
-    fprintf(file, "    </PointData>\n");
-    fprintf(file, "    <CellData>\n");
-    fprintf(file, "    </CellData>\n");
-    fprintf(file, "  </Piece>\n");
-    fprintf(file, "  </ImageData>\n");
-    fprintf(file, "</VTKFile>\n");
 
     return true;
 }
