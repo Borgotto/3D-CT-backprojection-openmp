@@ -37,44 +37,43 @@ typedef struct volume {
  * @return `false` if an error occurred while writing the file
  */
 bool writeVolume(FILE* file, volume* vol) {
-    // TODO: Implement the new XML VTK format
+    fprintf(file, "<?xml version=\"1.0\"?>\n");
 
-    // File version and identifier (1)
-    fprintf(file, "# vtk DataFile Version 3.0\n");
-    // Header (2)
-    fprintf(file, "Backprojector output\n");
-    // File format (3)
-    #ifdef _OUTPUT_ASCII
-    fprintf(file, "ASCII\n");
+    // Set the endianness of the data
+    #if !defined(__ORDER_BIG_ENDIAN__) && !defined(__ORDER_LITTLE_ENDIAN__)
+        #error "Endianness not defined"
+    #elif __FLOAT_WORD_ORDER__ == __ORDER_LITTLE_ENDIAN__
+        fprintf(file, "<VTKFile type=\"ImageData\" version=\"0.1\" byte_order=\"LittleEndian\">\n");
     #else
-    fprintf(file, "BINARY\n");
+        fprintf(file, "<VTKFile type=\"ImageData\" version=\"0.1\" byte_order=\"BigEndian\">\n");
     #endif
-    // Dataset structure (4)
-    fprintf(file, "DATASET STRUCTURED_POINTS\n");
-    fprintf(file, "DIMENSIONS %d %d %d\n", vol->nVoxelsX, vol->nVoxelsY, vol->nVoxelsZ);
-    fprintf(file, "ORIGIN 0 0 0\n");
-    fprintf(file, "SPACING %lf %lf %lf\n", vol->voxelSizeX, vol->voxelSizeY, vol->voxelSizeZ);
-    // Dataset attributes (5)
-    fprintf(file, "POINT_DATA %d\n", (vol->nVoxelsX) * (vol->nVoxelsY) * (vol->nVoxelsZ));
-    fprintf(file, "SCALARS absorption double\n");
-    fprintf(file, "LOOKUP_TABLE default\n");
+
+    fprintf(file, "  <ImageData WholeExtent=\"0 %d 0 %d 0 %d\" Origin=\"0 0 0\" Spacing=\"%g %g %g\">\n",
+            vol->nVoxelsX - 1, vol->nVoxelsY - 1, vol->nVoxelsZ - 1,
+            vol->voxelSizeX, vol->voxelSizeY, vol->voxelSizeZ);
+    fprintf(file, "  <Piece Extent=\"0 %d 0 %d 0 %d\">\n",
+            vol->nVoxelsX - 1, vol->nVoxelsY - 1, vol->nVoxelsZ - 1);
+    fprintf(file, "    <PointData Scalars=\"absorption_coefficients\">\n");
 
     // Write voxel coefficients
     #ifdef _OUTPUT_ASCII
-    for (int voxelX = 0; voxelX < vol->nVoxelsX; voxelX++) {
-        for (int voxelY = 0; voxelY < vol->nVoxelsY; voxelY++) {
-            for (int voxelZ = 0; voxelZ < vol->nVoxelsZ; voxelZ++) {
-                // TODO: fix the orientation of the volume, the indices are ordered differently
-                const int voxelIndex = voxelX * vol->nVoxelsX * vol->nVoxelsZ + voxelZ * vol->nVoxelsX + voxelY;
-                fprintf(file, "%g ", vol->coefficients[voxelIndex]);
-            }
-            fprintf(file, "\n");
-        }
+    fprintf(file, "      <DataArray type=\"Float64\" Name=\"absorption_coefficients\" format=\"ascii\">\n        ");
+    for (int i = 0; i < vol->nVoxelsX * vol->nVoxelsY * vol->nVoxelsZ; i++) {
+        fprintf(file, "%g ", vol->coefficients[i]);
     }
     #else
-    // TODO: values aren't read correctly when using BINARY format, probably due to endianness
-    fwrite(vol->coefficients, sizeof(double), (vol->nVoxelsX) * (vol->nVoxelsY) * (vol->nVoxelsZ), file);
+    fprintf(file, "      <DataArray type=\"Float64\" Name=\"absorption_coefficients\" format=\"binary\">\n        ");
+    // TODO: Writing binary data in XML format requires base64 encoding first
+    fwrite(vol->coefficients, sizeof(double), vol->nVoxelsX * vol->nVoxelsY * vol->nVoxelsZ, file);
     #endif
+
+    fprintf(file, "\n      </DataArray>\n");
+    fprintf(file, "    </PointData>\n");
+    fprintf(file, "    <CellData>\n");
+    fprintf(file, "    </CellData>\n");
+    fprintf(file, "  </Piece>\n");
+    fprintf(file, "  </ImageData>\n");
+    fprintf(file, "</VTKFile>\n");
 
     return true;
 }
