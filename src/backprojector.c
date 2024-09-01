@@ -291,7 +291,7 @@ void computeBackProjection(const projection* projection, volume* volume) {
     // Check if the arguments are valid
     if (volume == NULL || projection == NULL) {
         fprintf(stderr, "Invalid arguments\n");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     // Get the source point of this projection
@@ -380,21 +380,21 @@ int main(int argc, char* argv[]) {
     // Check if input file is provided either as an argument or through stdin
     if (argc < 2 && isatty(fileno(stdin))) { // TODO: find alternative to isatty
         fprintf(stderr, "No input file provided\n");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     // Open the input file or use stdin
     FILE* inputFile = (argc >= 2) ? fopen(argv[1], "rb") : stdin;
     if (inputFile == NULL) {
         fprintf(stderr, "Error opening input file\n");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     // Do the same with the output file
     FILE* outputFile = (argc >= 3) ? fopen(argv[2], "wb") : stdout;
     if (outputFile == NULL) {
         fprintf(stderr, "Error opening output file\n");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
 
@@ -417,7 +417,7 @@ int main(int argc, char* argv[]) {
     // Check if the memory was allocated successfully
     if (volume.coefficients == NULL) {
         fprintf(stderr, "Error allocating memory for the volume\n");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     initTables();

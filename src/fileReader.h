@@ -52,13 +52,13 @@ bool readProjection(FILE* file, projection* projection, int* width, int* height,
         if (strcmp(fileFormat, "P2") != 0) {
             fprintf(stderr, "Unsupported PGM format\n");
             fclose(file);
-            exit(1);
+            exit(EXIT_FAILURE);
         }
 
         if (*height / *width != N_THETA) {
             fprintf(stderr, "Number of projections in the file doesn't match the expected value\n");
             fclose(file);
-            exit(1);
+            exit(EXIT_FAILURE);
         }
     }
 
@@ -71,7 +71,7 @@ bool readProjection(FILE* file, projection* projection, int* width, int* height,
     if (projection->pixels == NULL) {
         fprintf(stderr, "Error allocating memory for the projection\n");
         fclose(file);
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     // Skip lines until "#" is found
@@ -115,6 +115,8 @@ bool readProjection(FILE* file, projection* projection, int* width, int* height,
 /**
  * @brief Read a DAT file containing CT projections.
  *
+ * Projection's pixel data must be freed after use.
+ *
  * @param file handle to the file to read
  * @param projection `projection` struct to store the read data into
  * @param width pointer to the variable to store/read the width of the image
@@ -139,7 +141,7 @@ bool readProjection(FILE* file, projection* projection, int* width, int* height,
         if (nProjections != N_THETA) {
             fprintf(stderr, "Number of projections in the file doesn't match the expected value\n");
             fclose(file);
-            exit(1);
+            exit(EXIT_FAILURE);
         }
     }
 
@@ -152,7 +154,7 @@ bool readProjection(FILE* file, projection* projection, int* width, int* height,
     if (projection->pixels == NULL) {
         fprintf(stderr, "Error allocating memory for the projection\n");
         fclose(file);
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     // Read the angle from the file
