@@ -10,7 +10,7 @@ or simply use the provided Makefile:
 make backprojector
 ```
 
-##
+---
 
 You can specify the format of input and output files by defining some macros.
 ```bash

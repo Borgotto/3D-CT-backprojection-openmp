@@ -82,8 +82,7 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 Compile</h1>
 <p>Compile using gcc: </p><div class="fragment"><div class="line">gcc -std=c11 -Wall -Wpedantic -fopenmp -o backprojector src/backprojector.c -lm</div>
 </div><!-- fragment --><p> or simply use the provided Makefile: </p><div class="fragment"><div class="line">make backprojector</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md0"></a>
-autotoc_md0</h1>
+</div><!-- fragment --><hr  />
 <p>You can specify the format of input and output files by defining some macros. </p><div class="fragment"><div class="line">gcc [...] -D_INPUT_FORMAT_ASCII -D_OUTPUT_FORMAT_ASCII</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">gcc [...] -D_INPUT_FORMAT_BINARY -D_OUTPUT_FORMAT_BINARY</div>
 </div><!-- fragment --><p> or using the makefile: </p><div class="fragment"><div class="line">make backprojector INPUT=ASCII OUTPUT=ASCII</div>
