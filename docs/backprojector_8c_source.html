@@ -374,7 +374,7 @@ $(function(){initNavTree('backprojector_8c_source.html',''); initResizable(true)
 <div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    <span class="comment">// Check if the arguments are valid</span></div>
 <div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    <span class="keywordflow">if</span> (<a class="code hl_struct" href="structvolume.html">volume</a> == NULL || <a class="code hl_struct" href="structprojection.html">projection</a> == NULL) {</div>
 <div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        fprintf(stderr, <span class="stringliteral">&quot;Invalid arguments\n&quot;</span>);</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        exit(1);</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        exit(EXIT_FAILURE);</div>
 <div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    }</div>
 <div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span> </div>
 <div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    <span class="comment">// Get the source point of this projection</span></div>
@@ -465,21 +465,21 @@ $(function(){initNavTree('backprojector_8c_source.html',''); initResizable(true)
 <div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>    <span class="comment">// Check if input file is provided either as an argument or through stdin</span></div>
 <div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    <span class="keywordflow">if</span> (argc &lt; 2 &amp;&amp; isatty(fileno(stdin))) { <span class="comment">// TODO: find alternative to isatty</span></div>
 <div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>        fprintf(stderr, <span class="stringliteral">&quot;No input file provided\n&quot;</span>);</div>
-<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>        exit(1);</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>        exit(EXIT_FAILURE);</div>
 <div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>    }</div>
 <div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span> </div>
 <div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    <span class="comment">// Open the input file or use stdin</span></div>
 <div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    FILE* inputFile = (argc &gt;= 2) ? fopen(argv[1], <span class="stringliteral">&quot;rb&quot;</span>) : stdin;</div>
 <div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>    <span class="keywordflow">if</span> (inputFile == NULL) {</div>
 <div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>        fprintf(stderr, <span class="stringliteral">&quot;Error opening input file\n&quot;</span>);</div>
-<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>        exit(1);</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>        exit(EXIT_FAILURE);</div>
 <div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>    }</div>
 <div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span> </div>
 <div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>    <span class="comment">// Do the same with the output file</span></div>
 <div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>    FILE* outputFile = (argc &gt;= 3) ? fopen(argv[2], <span class="stringliteral">&quot;wb&quot;</span>) : stdout;</div>
 <div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>    <span class="keywordflow">if</span> (outputFile == NULL) {</div>
 <div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>        fprintf(stderr, <span class="stringliteral">&quot;Error opening output file\n&quot;</span>);</div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>        exit(1);</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>        exit(EXIT_FAILURE);</div>
 <div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>    }</div>
 <div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span> </div>
 <div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span> </div>
@@ -502,7 +502,7 @@ $(function(){initNavTree('backprojector_8c_source.html',''); initResizable(true)
 <div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>    <span class="comment">// Check if the memory was allocated successfully</span></div>
 <div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>    <span class="keywordflow">if</span> (<a class="code hl_struct" href="structvolume.html">volume</a>.<a class="code hl_variable" href="structvolume.html#a8553556d086a75fc0e97218bafa95279">coefficients</a> == NULL) {</div>
 <div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>        fprintf(stderr, <span class="stringliteral">&quot;Error allocating memory for the volume\n&quot;</span>);</div>
-<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>        exit(1);</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>        exit(EXIT_FAILURE);</div>
 <div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>    }</div>
 <div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span> </div>
 <div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>    <a class="code hl_function" href="backprojector_8c.html#a6a3745a608949257cc9c8dcd35bb6e72">initTables</a>();</div>
@@ -611,7 +611,7 @@ $(function(){initNavTree('backprojector_8c_source.html',''); initResizable(true)
 <div class="ttc" id="abackprojector_8h_html_ae9d65f60533a93f52d6433c7217e7890"><div class="ttname"><a href="backprojector_8h.html#ae9d65f60533a93f52d6433c7217e7890">N_VOXELS_Y</a></div><div class="ttdeci">#define N_VOXELS_Y</div><div class="ttdoc">number of voxels in the y-axis</div><div class="ttdef"><b>Definition</b> <a href="backprojector_8h_source.html#l00057">backprojector.h:57</a></div></div>
 <div class="ttc" id="abackprojector_8h_html_ae9e413a79eae2da136d9f7c30775fac3"><div class="ttname"><a href="backprojector_8h.html#ae9e413a79eae2da136d9f7c30775fac3">N_PLANES</a></div><div class="ttdeci">static const int N_PLANES[3]</div><div class="ttdef"><b>Definition</b> <a href="backprojector_8h_source.html#l00074">backprojector.h:74</a></div></div>
 <div class="ttc" id="afileReader_8h_html"><div class="ttname"><a href="fileReader_8h.html">fileReader.h</a></div><div class="ttdoc">fileReader module</div></div>
-<div class="ttc" id="afileReader_8h_html_ae85009705af82ff5ce1ce02dff4e8426"><div class="ttname"><a href="fileReader_8h.html#ae85009705af82ff5ce1ce02dff4e8426">readProjection</a></div><div class="ttdeci">bool readProjection(FILE *file, projection *projection, int *width, int *height, double *minVal, double *maxVal)</div><div class="ttdoc">Read a DAT file containing CT projections.</div><div class="ttdef"><b>Definition</b> <a href="fileReader_8h_source.html#l00127">fileReader.h:127</a></div></div>
+<div class="ttc" id="afileReader_8h_html_ae85009705af82ff5ce1ce02dff4e8426"><div class="ttname"><a href="fileReader_8h.html#ae85009705af82ff5ce1ce02dff4e8426">readProjection</a></div><div class="ttdeci">bool readProjection(FILE *file, projection *projection, int *width, int *height, double *minVal, double *maxVal)</div><div class="ttdoc">Read a DAT file containing CT projections.</div><div class="ttdef"><b>Definition</b> <a href="fileReader_8h_source.html#l00129">fileReader.h:129</a></div></div>
 <div class="ttc" id="afileWriter_8h_html"><div class="ttname"><a href="fileWriter_8h.html">fileWriter.h</a></div><div class="ttdoc">fileWriter module</div></div>
 <div class="ttc" id="afileWriter_8h_html_aa55291cd635a2a4e7c58d4a256c014d6"><div class="ttname"><a href="fileWriter_8h.html#aa55291cd635a2a4e7c58d4a256c014d6">writeVolume</a></div><div class="ttdeci">bool writeVolume(FILE *file, volume *vol)</div><div class="ttdoc">Write a 3D volume of voxels to a file.</div><div class="ttdef"><b>Definition</b> <a href="fileWriter_8h_source.html#l00039">fileWriter.h:39</a></div></div>
 <div class="ttc" id="astructprojection_html"><div class="ttname"><a href="structprojection.html">projection</a></div><div class="ttdoc">Struct for representing a CT projection.</div><div class="ttdef"><b>Definition</b> <a href="backprojector_8h_source.html#l00138">backprojector.h:138</a></div></div>
