@@ -457,7 +457,7 @@ int main(int argc, char* argv[]) {
     bool done = false;
     int loadingBarIndex = 0;
     char* loadingBar = "|/-\\";
-    #pragma omp parallel shared(done, loadingBarIndex, loadingBar)
+    #pragma omp parallel num_threads(2) default(none) shared(outputFile, volume, done, loadingBarIndex, loadingBar, stderr)
     {
         #pragma omp single nowait
         done = writeVolume(outputFile, &volume);
