@@ -181,7 +181,6 @@ void getAllIntersections(const ray ray, const range planesRanges[3], double* a[3
         } else if (pixel.coordinates[axis] - source.coordinates[axis] < 0) {
             a[axis][0] = (getPlanePosition(axis, maxIndex) - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
             for (int i = 1; i < maxIndex - minIndex; i++) {
-                // TODO: check if '+' or '-' is correct here (it's '+' in Siddon's algorithm, but '-' seems to be correct)
                 a[axis][i] = a[axis][i - 1] - VOXEL_SIZE[axis] / (pixel.coordinates[axis] - source.coordinates[axis]);
             }
         }
@@ -263,24 +262,24 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const vo
 
         // Update the value of the voxel given the value of the pixel and the
         // length of the segment that the ray intersects with the voxel
-        // TODO: find better normalization process (also add minVal)
-        const double normalizedPixelValue = projection->pixels[pixelIndex] / projection->maxVal;
-        const double normalizedSegmentLength = segmentLength / d12;
+        const double normalizedPixelValue = (projection->pixels[pixelIndex] - projection->minVal) / (projection->maxVal - projection->minVal);
+        const double normalizedSegmentLength = segmentLength / (DOD + DOS);
         const double voxelAbsorptionValue = normalizedPixelValue * normalizedSegmentLength;
 
-        // TODO: fix the orientation of the volume, the indices are ordered differently
         const int voxelIndex = voxelY * N_VOXELS_X * N_VOXELS_Z + voxelZ * N_VOXELS_Z + voxelX;
 
         #ifdef _DEBUG
+        assert(normalizedPixelValue >= 0 && normalizedPixelValue <= 1);
+        assert(normalizedSegmentLength >= 0 && normalizedSegmentLength <= 1);
         assert(voxelX >= 0 && voxelY >= 0 && voxelZ >= 0);
         assert(voxelX <= N_VOXELS_X && voxelY <= N_VOXELS_Y && voxelZ <= N_VOXELS_Z);
         assert(voxelAbsorptionValue >= 0);
         assert(voxelIndex >= 0 && voxelIndex <= N_VOXELS_X * N_VOXELS_Y * N_VOXELS_Z);
-        // TODO: figure out why this assertion fails when using OpenMP
-        assert(coefficients[voxelIndex] + voxelAbsorptionValue >= coefficients[voxelIndex]);
+        #pragma omp critical
+        assert(volume->coefficients[voxelIndex] + voxelAbsorptionValue >= volume->coefficients[voxelIndex]);
         #endif
 
-        // TODO: find a way to avoid using atomic operations, this is a bottleneck
+        // TODO: find a way to avoid using atomic operations
         // Siddon's algorithm, equation (14)
         #pragma omp atomic update
         volume->coefficients[voxelIndex] += voxelAbsorptionValue;
@@ -368,7 +367,6 @@ void computeBackProjection(const projection* projection, volume* volume) {
             #endif
 
             // Calculate the coefficients of the voxels that the ray intersects
-            // TODO: finish implementing this properly
             const int pixelIndex = row * projection->nSidePixels + col;
             computeAbsorption(ray, aMerged, mergedSize, volume, projection, pixelIndex);
         }
