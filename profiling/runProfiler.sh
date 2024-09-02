@@ -11,7 +11,7 @@ WORK_UNITS="${1##*/}"
 WORK_UNITS="${WORK_UNITS%%x*}"
 
 # compile program
-make backprojector WORK_UNITS="-D_WORK_UNITS=$WORK_UNITS"
+make backprojector WORK_UNITS="$WORK_UNITS"
 
 # run program
 ./backprojector "$@"
