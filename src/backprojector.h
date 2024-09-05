@@ -27,7 +27,7 @@
 /// rays source initial angle (in degrees)
 #define AP 360
 /// distance between rays sources (in degrees)
-#define STEP_ANGLE 24
+#define STEP_ANGLE 15
 
 #if defined(_WORK_UNITS) && _WORK_UNITS > 0
     // These values will be used when running benchmarks for scalability
