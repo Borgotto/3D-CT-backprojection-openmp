@@ -55,8 +55,9 @@ bool readProjection(FILE* file, projection* projection, int* width, int* height,
             exit(EXIT_FAILURE);
         }
 
-        if (*height / *width != N_THETA) {
-            fprintf(stderr, "Number of projections in the file doesn't match the expected value\n");
+        int nProjections = *height / *width;
+        if (nProjections != N_THETA) {
+            fprintf(stderr, "Number of projections in the file (%d) doesn't match the expected value (%d)\n", nProjections, N_THETA);
             fclose(file);
             exit(EXIT_FAILURE);
         }
@@ -139,7 +140,7 @@ bool readProjection(FILE* file, projection* projection, int* width, int* height,
         *height = *width * nProjections;
 
         if (nProjections != N_THETA) {
-            fprintf(stderr, "Number of projections in the file doesn't match the expected value\n");
+            fprintf(stderr, "Number of projections in the file (%d) doesn't match the expected value (%d)\n", nProjections, N_THETA);
             fclose(file);
             exit(EXIT_FAILURE);
         }
