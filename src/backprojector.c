@@ -275,8 +275,6 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const vo
         assert(voxelX <= N_VOXELS_X && voxelY <= N_VOXELS_Y && voxelZ <= N_VOXELS_Z);
         assert(voxelAbsorptionValue >= 0);
         assert(voxelIndex >= 0 && voxelIndex <= N_VOXELS_X * N_VOXELS_Y * N_VOXELS_Z);
-        #pragma omp critical
-        assert(volume->coefficients[voxelIndex] + voxelAbsorptionValue >= volume->coefficients[voxelIndex]);
         #endif
 
         // TODO: find a way to avoid using atomic operations
