@@ -45,7 +45,7 @@ bool writeVolume(FILE* file, volume* vol) {
     fprintf(file, "dimension: 3\n");
     fprintf(file, "sizes: %d %d %d\n", vol->nVoxelsX, vol->nVoxelsY, vol->nVoxelsZ);
     fprintf(file, "spacings: %g %g %g\n", vol->voxelSizeX, vol->voxelSizeY, vol->voxelSizeZ);
-    fprintf(file, "axis mins: 0 0 0\n");
+    fprintf(file, "axis mins: %g %g %g\n", -vol->nVoxelsX * vol->voxelSizeX / 2, -vol->nVoxelsY * vol->voxelSizeY / 2, -vol->nVoxelsZ * vol->voxelSizeZ / 2);
 
     // Set the endianness of the data
     #if !defined(__ORDER_BIG_ENDIAN__) && !defined(__ORDER_LITTLE_ENDIAN__)
