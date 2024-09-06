@@ -4,7 +4,7 @@ INPUT ?= BINARY # input file format (ASCII or BINARY) if not specified, BINARY i
 OUTPUT ?= BINARY # output file format (ASCII or BINARY) if not specified, BINARY is used
 
 CC = gcc
-CFLAGS = -std=c11 -Wall -Wpedantic -fopenmp -O0 -D_INPUT_FORMAT_$(strip $(INPUT)) -D_OUTPUT_FORMAT_$(strip $(OUTPUT))
+CFLAGS = -std=c99 -Wall -Wpedantic -fopenmp -O0 -D_INPUT_FORMAT_$(strip $(INPUT)) -D_OUTPUT_FORMAT_$(strip $(OUTPUT))
 LFLAGS = -lm
 
 # Add debug flags if WORK_UNITS is set

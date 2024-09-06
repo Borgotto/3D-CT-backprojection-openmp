@@ -91,45 +91,37 @@ typedef enum axis {
  * @brief Union of Struct/Array for representing a 3D point in space.
  */
 typedef union point3D {
-    /// Array form of unnamed coordinates struct
-    const double coordinates[3];
-    struct {
+    /// Array form of coordinates struct
+    const double coordsArray[3];
+    struct coords {
         /// X coordinate
         const double x;
         /// Y coordinate
         const double y;
         /// Z coordinate
         const double z;
-    };
+    } coords;
 } point3D;
 
 /**
- * @brief Union of Struct/Array for representing a straight line in 3D space.
+ * @brief Struct for representing a straight line in 3D space.
  */
-typedef union ray {
-    /// Array form of unnamed points struct (source and pixel)
-    const point3D points[2];
-    struct {
-        /// Source (starting) point of the ray
-        const point3D source;
-        /// Pixel (ending) point of the ray
-        const point3D pixel;
-    };
+typedef struct ray {
+    /// Source (starting) point of the ray
+    const point3D source;
+    /// Pixel (ending) point of the ray
+    const point3D pixel;
 } ray;
 
 /**
- * @brief Union of Struct/Array for representing a range of @c int
+ * @brief Struct for representing a range of @c int
  *        with minimum and maximum bounds.
  */
-typedef union range {
-    /// Array form of unnamed bounds struct (min and max)
-    int bounds[2];
-    struct {
-        /// Minimum bound
-        int min;
-        /// Maximum bound
-        int max;
-    };
+typedef struct range {
+    /// Minimum bound
+    int min;
+    /// Maximum bound
+    int max;
 } range;
 
 /**

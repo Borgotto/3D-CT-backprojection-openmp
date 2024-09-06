@@ -61,9 +61,9 @@ void initTables() {
 
 point3D getSourcePosition(const int projectionIndex) {
     return (point3D) {
-        .x = -sinTable[projectionIndex] * DOS,
-        .y = cosTable[projectionIndex] * DOS,
-        .z = 0 // 0 because the source is perpendicular to the center of the detector
+        .coords.x = -sinTable[projectionIndex] * DOS,
+        .coords.y = cosTable[projectionIndex] * DOS,
+        .coords.z = 0 // 0 because the source is perpendicular to the center of the detector
     };
 }
 
@@ -75,20 +75,20 @@ point3D getPixelPosition(const projection* projection, const int row, const int 
     const double cosAngle = cosTable[projection->index];
 
     return (point3D) {
-        .x =  DOD * sinAngle + cosAngle * (-dFirstPixel + col * PIXEL_SIZE),
-        .y = -DOD * cosAngle + sinAngle * (-dFirstPixel + col * PIXEL_SIZE),
-        .z = -dFirstPixel + row * PIXEL_SIZE
+        .coords.x =  DOD * sinAngle + cosAngle * (-dFirstPixel + col * PIXEL_SIZE),
+        .coords.y = -DOD * cosAngle + sinAngle * (-dFirstPixel + col * PIXEL_SIZE),
+        .coords.z = -dFirstPixel + row * PIXEL_SIZE
     };
 }
 
 axis getParallelAxis(const ray ray) {
     const point3D source = ray.source;
     const point3D pixel = ray.pixel;
-    if (source.x == pixel.x) {
+    if (source.coords.x == pixel.coords.x) {
         return X;
-    } else if (source.y == pixel.y) {
+    } else if (source.coords.y == pixel.coords.y) {
         return Y;
-    } else if (source.z == pixel.z) {
+    } else if (source.coords.z == pixel.coords.z) {
         return Z;
     }
     return NONE;
@@ -109,8 +109,8 @@ void getSidesIntersections(const ray ray, const axis parallelTo, double intersec
 
         // Calculate the entry and exit points of the ray with the planes of this axis
         // Siddon's algorithm, equation (4)
-        intersections[axis][0] = (firstPlane[axis] - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
-        intersections[axis][1] = (lastPlane[axis] - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
+        intersections[axis][0] = (firstPlane[axis] - source.coordsArray[axis]) / (pixel.coordsArray[axis] - source.coordsArray[axis]);
+        intersections[axis][1] = (lastPlane[axis] - source.coordsArray[axis]) / (pixel.coordsArray[axis] - source.coordsArray[axis]);
     }
 }
 
@@ -146,12 +146,12 @@ void getPlanesRanges(const ray ray, range planesRanges[3], const double aMin, co
     for (axis axis = X; axis <= Z; axis++) {
         // Siddon's algorithm, equation (6)
         int minIndex, maxIndex;
-        if (pixel.coordinates[axis] - source.coordinates[axis] >= 0) {
-            minIndex = N_PLANES[axis] - ceil((lastPlane[axis] - aMin * (pixel.coordinates[axis] - source.coordinates[axis]) - source.coordinates[axis]) / VOXEL_SIZE[axis]);
-            maxIndex = floor((source.coordinates[axis] + aMax * (pixel.coordinates[axis] - source.coordinates[axis]) - firstPlane[axis]) / VOXEL_SIZE[axis]);
+        if (pixel.coordsArray[axis] - source.coordsArray[axis] >= 0) {
+            minIndex = N_PLANES[axis] - ceil((lastPlane[axis] - aMin * (pixel.coordsArray[axis] - source.coordsArray[axis]) - source.coordsArray[axis]) / VOXEL_SIZE[axis]);
+            maxIndex = floor((source.coordsArray[axis] + aMax * (pixel.coordsArray[axis] - source.coordsArray[axis]) - firstPlane[axis]) / VOXEL_SIZE[axis]);
         } else {
-            minIndex = N_PLANES[axis] - ceil((lastPlane[axis] - aMax * (pixel.coordinates[axis] - source.coordinates[axis]) - source.coordinates[axis]) / VOXEL_SIZE[axis]);
-            maxIndex = floor((source.coordinates[axis] + aMin * (pixel.coordinates[axis] - source.coordinates[axis]) - firstPlane[axis]) / VOXEL_SIZE[axis]);
+            minIndex = N_PLANES[axis] - ceil((lastPlane[axis] - aMax * (pixel.coordsArray[axis] - source.coordsArray[axis]) - source.coordsArray[axis]) / VOXEL_SIZE[axis]);
+            maxIndex = floor((source.coordsArray[axis] + aMin * (pixel.coordsArray[axis] - source.coordsArray[axis]) - firstPlane[axis]) / VOXEL_SIZE[axis]);
         }
         planesRanges[axis] = (range){.min=minIndex, .max=maxIndex};
     }
@@ -169,19 +169,19 @@ void getAllIntersections(const ray ray, const range planesRanges[3], double* a[3
         }
 
         #ifdef _DEBUG
-        assert(pixel.coordinates[axis] - source.coordinates[axis] != 0);
+        assert(pixel.coordsArray[axis] - source.coordsArray[axis] != 0);
         #endif
 
         // Siddon's algorithm, equation (7)
-        if (pixel.coordinates[axis] - source.coordinates[axis] > 0) {
-            a[axis][0] = (getPlanePosition(axis, minIndex) - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
+        if (pixel.coordsArray[axis] - source.coordsArray[axis] > 0) {
+            a[axis][0] = (getPlanePosition(axis, minIndex) - source.coordsArray[axis]) / (pixel.coordsArray[axis] - source.coordsArray[axis]);
             for (int i = 1; i < maxIndex - minIndex; i++) {
-                a[axis][i] = a[axis][i - 1] + VOXEL_SIZE[axis] / (pixel.coordinates[axis] - source.coordinates[axis]);
+                a[axis][i] = a[axis][i - 1] + VOXEL_SIZE[axis] / (pixel.coordsArray[axis] - source.coordsArray[axis]);
             }
-        } else if (pixel.coordinates[axis] - source.coordinates[axis] < 0) {
-            a[axis][0] = (getPlanePosition(axis, maxIndex) - source.coordinates[axis]) / (pixel.coordinates[axis] - source.coordinates[axis]);
+        } else if (pixel.coordsArray[axis] - source.coordsArray[axis] < 0) {
+            a[axis][0] = (getPlanePosition(axis, maxIndex) - source.coordsArray[axis]) / (pixel.coordsArray[axis] - source.coordsArray[axis]);
             for (int i = 1; i < maxIndex - minIndex; i++) {
-                a[axis][i] = a[axis][i - 1] - VOXEL_SIZE[axis] / (pixel.coordinates[axis] - source.coordinates[axis]);
+                a[axis][i] = a[axis][i - 1] - VOXEL_SIZE[axis] / (pixel.coordsArray[axis] - source.coordsArray[axis]);
             }
         }
     }
@@ -242,9 +242,9 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const vo
 
     // distance between the source and the pixel
     // Siddon's algorithm, equation (11)
-    const double dx = pixel.x - source.x;
-    const double dy = pixel.y - source.y;
-    const double dz = pixel.z - source.z;
+    const double dx = pixel.coords.x - source.coords.x;
+    const double dy = pixel.coords.y - source.coords.y;
+    const double dz = pixel.coords.z - source.coords.z;
     const double d12 = sqrt(dx * dx + dy * dy + dz * dz);
 
     // TODO: this needs to be optimized, see if it's possible to use SIMD instructions
@@ -256,9 +256,9 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const vo
 
         // Calculate the voxel indices that the ray intersects
         // Siddon's algorithm, equation (12)
-        const int voxelX = (source.x + aMid * (pixel.x - source.x) - firstPlane[X]) / VOXEL_SIZE_X;
-        const int voxelY = (source.y + aMid * (pixel.y - source.y) - firstPlane[Y]) / VOXEL_SIZE_Y;
-        const int voxelZ = (source.z + aMid * (pixel.z - source.z) - firstPlane[Z]) / VOXEL_SIZE_Z;
+        const int voxelX = (source.coords.x + aMid * (pixel.coords.x - source.coords.x) - firstPlane[X]) / VOXEL_SIZE_X;
+        const int voxelY = (source.coords.y + aMid * (pixel.coords.y - source.coords.y) - firstPlane[Y]) / VOXEL_SIZE_Y;
+        const int voxelZ = (source.coords.z + aMid * (pixel.coords.z - source.coords.z) - firstPlane[Z]) / VOXEL_SIZE_Z;
 
         // Update the value of the voxel given the value of the pixel and the
         // length of the segment that the ray intersects with the voxel
@@ -307,10 +307,10 @@ void computeBackProjection(const projection* projection, volume* volume) {
 
             #ifdef _DEBUG
             // check if the source and pixel coordinates are NaN or infinite
-            assert(!isnan(source.x) && !isnan(source.y) && !isnan(source.z));
-            assert(!isnan(pixel.x) && !isnan(pixel.y) && !isnan(pixel.z));
-            assert(!isinf(source.x) && !isinf(source.y) && !isinf(source.z));
-            assert(!isinf(pixel.x) && !isinf(pixel.y) && !isinf(pixel.z));
+            assert(!isnan(source.coords.x) && !isnan(source.coords.y) && !isnan(source.coords.z));
+            assert(!isnan(pixel.coords.x) && !isnan(pixel.coords.y) && !isnan(pixel.coords.z));
+            assert(!isinf(source.coords.x) && !isinf(source.coords.y) && !isinf(source.coords.z));
+            assert(!isinf(pixel.coords.x) && !isinf(pixel.coords.y) && !isinf(pixel.coords.z));
             #endif
 
             // This array will contain the intersection points of the ray with

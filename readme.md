@@ -3,7 +3,7 @@
 ## Compile
 Compile using gcc:
 ```bash
-gcc -std=c11 -Wall -Wpedantic -fopenmp -o backprojector src/backprojector.c -lm
+gcc -std=c99 -Wall -Wpedantic -fopenmp -o backprojector src/backprojector.c -lm
 ```
 or simply use the provided Makefile:
 ```bash
@@ -42,7 +42,7 @@ and `<output_file>` is the path to the output `.nrrd` file.
 ## Profiling
 First, compile the program with the `-pg` flag then run it as usual:
 ```bash
-gcc -std=c11 -Wall -Wpedantic -fopenmp -o backprojector src/backprojector.c -lm -pg
+gcc -std=c99 -Wall -Wpedantic -fopenmp -o backprojector src/backprojector.c -lm -pg
 ./backprojector <input_file> <output_file>
 ```
 convert the `gmon.out` file to a human-readable `.svg` format using the following command:
