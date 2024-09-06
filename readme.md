@@ -39,6 +39,17 @@ and `<output_file>` is the path to the output `.nrrd` file.
 
 <!-- TODO: Add "Visualizing" section here with instruction of software to use to view the output file -->
 
+## Visualize
+To visualize the output file, you can use [ITK/VTK Viewer](https://github.com/kitware/itk-vtk-viewer) with its accessible progressive web app [here](https://kitware.github.io/itk-vtk-viewer/app/).\
+It's possible to view a file by simply dragging and dropping it into the window, or even by providing a link to it.
+
+For example, let's use [this](output/cubeWithSphereCutout-ascii.nrrd) output file.\
+By adding the `?fileToLoad=[link]` query parameter to the URL of the web app you can load the file [like so](https://kitware.github.io/itk-vtk-viewer/app/?fileToLoad=https://raw.githubusercontent.com/Borgotto/3D-CT-backprojection-openmp/main/output/cubeWithSphereCutout-ascii.nrrd) without having to download it.
+
+
+The ITK/VTK Viewer can also be used to compare two output files to verify the correctness of the program.\
+An example of the comparison of two output files can be found [here](https://kitware.github.io/itk-vtk-viewer/app/?rotate=false&image=https://raw.githubusercontent.com/Borgotto/3D-CT-backprojection-openmp/main/output/cubeWithSphereCutout-original.nrrd&fixedImage=https://raw.githubusercontent.com/Borgotto/3D-CT-backprojection-openmp/main/output/cubeWithSphereCutout-ascii.nrrd&compare=blend).
+
 ## Profiling
 First, compile the program with the `-pg` flag then run it as usual:
 ```bash
@@ -68,3 +79,8 @@ there's also a Makefile target for it:
 make doc
 ```
 the generated documentation can be found in the [docs](docs) directory.
+
+## Example files
+The example [input files](tests) were generated using a slightly tuned version of the projection analogue of this program, which can be found [here](https://github.com/LorenzoColletta/Parallel-implementation-of-a-tomographic-projection-algorithm).
+
+The [output files](output) are the result of backprojecting the homonymous input files.
