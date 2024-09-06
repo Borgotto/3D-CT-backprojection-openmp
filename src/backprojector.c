@@ -23,6 +23,7 @@
 #include <stdio.h>      // fprintf
 #include <stdlib.h>     // malloc, calloc, free
 #include <stdbool.h>    // bool, true, false
+#include <ctype.h>      // tolower
 #include <string.h>     // strcmp, strstr
 #include <math.h>       // sinl, cosl, sqrt, ceil, floor, fmax, fmin
 #include <unistd.h>     // isatty
@@ -373,21 +374,42 @@ void computeBackProjection(const projection* projection, volume* volume) {
 
 
 int main(int argc, char* argv[]) {
-    // Check if input file is provided either as an argument or through stdin
-    if (argc < 2 && isatty(fileno(stdin))) { // TODO: find alternative to isatty
-        fprintf(stderr, "No input file provided\n");
+    // Open the input file
+    if (argc < 2) {
+        fprintf(stderr, "Input file not provided\n");
+        fprintf(stderr, "Usage: %s <input_file> <output_file>\n", argv[0]);
         exit(EXIT_FAILURE);
     }
-
-    // Open the input file or use stdin
-    FILE* inputFile = (argc >= 2) ? fopen(argv[1], "rb") : stdin;
+    char* inputFileName = argv[1];
+    FILE* inputFile = fopen(inputFileName, "rb");
     if (inputFile == NULL) {
         fprintf(stderr, "Error opening input file\n");
         exit(EXIT_FAILURE);
     }
+    // Get the input file extension
+    char* inputFileExtension = strrchr(inputFileName, '.');
+    // null-terminate the string if NULL
+    inputFileExtension = (inputFileExtension == NULL) ? "" : inputFileExtension;
+    // and convert it to lowercase
+    for (int i = 0; inputFileExtension[i]; i++) {
+        inputFileExtension[i] = tolower(inputFileExtension[i]);
+    }
+    // if the extension isn't ".dat" or ".pgm" then it's invalid
+    if (strcmp(inputFileExtension, ".dat") != 0 &&
+        strcmp(inputFileExtension, ".pgm") != 0) {
+        fprintf(stderr, "Invalid input file format\n");
+        fprintf(stderr, "Supported formats: .dat, .pgm\n");
+        exit(EXIT_FAILURE);
+    }
 
-    // Do the same with the output file
-    FILE* outputFile = (argc >= 3) ? fopen(argv[2], "wb") : stdout;
+    // Open the output file
+    char* outputFileName = (argc >= 3) ? argv[2] : "";
+    // Make sure the output file isn't the same as the input file
+    if (strcmp(inputFileName, outputFileName) == 0) {
+        fprintf(stderr, "Output file can't be the same as the input file\n");
+        exit(EXIT_FAILURE);
+    }
+    FILE* outputFile = (outputFileName[0] != '\0') ? fopen(outputFileName, "wb") : stdout;
     if (outputFile == NULL) {
         fprintf(stderr, "Error opening output file\n");
         exit(EXIT_FAILURE);
@@ -426,7 +448,7 @@ int main(int argc, char* argv[]) {
 
     // Read the projection images from the file and compute the backprojection
     int processedProjections = 0;
-    #pragma omp parallel for schedule(dynamic) default(none) shared(inputFile, volume, width, height, minVal, maxVal, stderr, processedProjections)
+    #pragma omp parallel for schedule(dynamic) default(none) shared(inputFile, volume, width, height, minVal, maxVal, stderr, processedProjections, inputFileExtension)
     for (int i = 0; i < N_THETA; i++) {
         projection projection;
         bool read;
@@ -435,7 +457,11 @@ int main(int argc, char* argv[]) {
         // TODO: fix projection index assignment, it shouldn't depend on the projection angle
         // File reading has to be done sequentially
         #pragma omp critical
-        read = readProjection(inputFile, &projection, &width, &height, &minVal, &maxVal);
+        if (strcmp(inputFileExtension, ".dat") == 0) {
+            read = readProjectionDAT(inputFile, &projection, &width, &height, &minVal, &maxVal);
+        } else {
+            read = readProjectionPGM(inputFile, &projection, &width, &height, &minVal, &maxVal);
+        }
 
         // if read is false, it means that the end of the file was reached
         if (read) {

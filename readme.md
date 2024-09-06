@@ -12,32 +12,30 @@ make backprojector
 
 ---
 
-You can specify the format of input and output files by defining some macros.
+You can specify the format of output files by defining the following preprocessor macros:
 ```bash
-gcc [...] -D_INPUT_FORMAT_ASCII -D_OUTPUT_FORMAT_ASCII
+gcc [...] -D_OUTPUT_FORMAT_ASCII
 ```
 ```bash
-gcc [...] -D_INPUT_FORMAT_BINARY -D_OUTPUT_FORMAT_BINARY
+gcc [...] -D_OUTPUT_FORMAT_BINARY
 ```
 or using the makefile:
 ```bash
-make backprojector INPUT=ASCII OUTPUT=ASCII
+make backprojector OUTPUT=ASCII
 ```
 ```bash
-make backprojector INPUT=BINARY OUTPUT=BINARY
+make backprojector OUTPUT=BINARY
 ```
-a combination of both is also valid, if not specified **binary** will be used **by default** for both input and output.
+if not specified **binary** will be used **by default**.
 
 
 ## Run
 Run the program with the following command:
 ```bash
-./backprojector <input_file> <output_file>
+backprojector <input_file> <output_file>
 ```
-where `<input_file>` is the path to the input file,  `.pgm` if the input format was set to **ascii**, or `.dat` if the input format was set to **binary**\
+where `<input_file>` is the path to the input file (only `.pgm` or `.dat` are accepted)\
 and `<output_file>` is the path to the output `.nrrd` file.
-
-<!-- TODO: Add "Visualizing" section here with instruction of software to use to view the output file -->
 
 ## Visualize
 To visualize the output file, you can use [ITK/VTK Viewer](https://github.com/kitware/itk-vtk-viewer) with its accessible progressive web app [here](https://kitware.github.io/itk-vtk-viewer/app/).\
@@ -54,7 +52,7 @@ An example of the comparison of two output files can be found [here](https://kit
 First, compile the program with the `-pg` flag then run it as usual:
 ```bash
 gcc -std=c99 -Wall -Wpedantic -fopenmp -o backprojector src/backprojector.c -lm -pg
-./backprojector <input_file> <output_file>
+backprojector <input_file> <output_file>
 ```
 convert the `gmon.out` file to a human-readable `.svg` format using the following command:
 ```bash

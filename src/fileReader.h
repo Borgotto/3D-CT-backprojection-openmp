@@ -24,7 +24,6 @@ typedef struct projection {
 } projection;
 #endif
 
-#ifdef _INPUT_FORMAT_ASCII
 /**
  * @brief Read a PGM file containing CT projections.
  *
@@ -37,7 +36,7 @@ typedef struct projection {
  * @return `true` if the file was read successfully
  * @return `false` if an error occurred while reading the file or during memory allocation
  */
-bool readProjection(FILE* file, projection* projection, int* width, int* height, double* minVal, double* maxVal) {
+bool readProjectionPGM(FILE* file, projection* projection, int* width, int* height, double* minVal, double* maxVal) {
     // If the read pointer is at the beginning of the file
     if (ftell(file) == 0) {
         char fileFormat[3];
@@ -112,7 +111,6 @@ bool readProjection(FILE* file, projection* projection, int* width, int* height,
     return true;
 }
 
-#else
 /**
  * @brief Read a DAT file containing CT projections.
  *
@@ -127,7 +125,7 @@ bool readProjection(FILE* file, projection* projection, int* width, int* height,
  * @return `true` if the file was read successfully
  * @return `false` if an error occurred while reading the file or during memory allocation
  */
-bool readProjection(FILE* file, projection* projection, int* width, int* height, double* minVal, double* maxVal) {
+bool readProjectionDAT(FILE* file, projection* projection, int* width, int* height, double* minVal, double* maxVal) {
     // If the read pointer is at the beginning of the file
     if (ftell(file) == 0) {
         int nProjections;
@@ -188,4 +186,3 @@ bool readProjection(FILE* file, projection* projection, int* width, int* height,
 
     return true;
 }
-#endif
