@@ -1,8 +1,9 @@
 var backprojector_8h =
 [
     [ "point3D", "unionpoint3D.html", "unionpoint3D" ],
-    [ "ray", "unionray.html", "unionray" ],
-    [ "range", "unionrange.html", "unionrange" ],
+    [ "point3D::coords", "structpoint3D_1_1coords.html", "structpoint3D_1_1coords" ],
+    [ "ray", "structray.html", "structray" ],
+    [ "range", "structrange.html", "structrange" ],
     [ "projection", "structprojection.html", "structprojection" ],
     [ "volume", "structvolume.html", "structvolume" ],
     [ "AP", "backprojector_8h.html#a8300bbcd56f47545962fcf22d934e24b", null ],
@@ -25,8 +26,8 @@ var backprojector_8h =
     [ "axis", "backprojector_8h.html#aeaa76270fca30a177737d2f324daafc2", null ],
     [ "point3D", "backprojector_8h.html#aac8decfd6be9692c16b8c44e83ab2183", null ],
     [ "projection", "backprojector_8h.html#a3e83f6beae9344c4b2248e2b11c64df8", null ],
-    [ "range", "backprojector_8h.html#a49a5be5971db30b47d2564ab77552eaa", null ],
-    [ "ray", "backprojector_8h.html#a44b45d6036b4ddd0f396e719e7c50ade", null ],
+    [ "range", "backprojector_8h.html#a693de0eab522699176f2dea69e1565dd", null ],
+    [ "ray", "backprojector_8h.html#a2a00a96cd4708da9220b0a3c9bfc3661", null ],
     [ "volume", "backprojector_8h.html#a8d58bee42bf93a193595267ce3e933c0", null ],
     [ "axis", "backprojector_8h.html#accc088009d44c521706aa98d6387ee21", [
       [ "NONE", "backprojector_8h.html#accc088009d44c521706aa98d6387ee21ac157bdf0b85a40d2619cbc8bc1ae5fe2", null ],

@@ -27,8 +27,10 @@ var NAVTREE =
   [ "3D-CT-backprojection-openmp", "index.html", [
     [ "Compile", "index.html#compile", null ],
     [ "Run", "index.html#run", null ],
+    [ "Visualize", "index.html#visualize", null ],
     [ "Profiling", "index.html#profiling", null ],
     [ "Documentation", "index.html#documentation", null ],
+    [ "Example files", "index.html#example-files", null ],
     [ "Globals", "globals.html", [
       [ "All", "globals.html", null ],
       [ "Functions", "globals_func.html", null ],

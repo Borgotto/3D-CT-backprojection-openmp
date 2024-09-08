@@ -86,6 +86,7 @@ $(function(){initNavTree('backprojector_8c.html',''); initResizable(true); });
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;ctype.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
 <code>#include &lt;unistd.h&gt;</code><br />
@@ -99,29 +100,31 @@ Include dependency graph for backprojector.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="backprojector_8c__incl.png" border="0" usemap="#abackprojector_8c" alt=""/></div>
 <map name="abackprojector_8c" id="abackprojector_8c">
-<area shape="rect" title="Implementation of the backprojection algorithm for CT reconstruction." alt="" coords="463,5,585,31"/>
+<area shape="rect" title="Implementation of the backprojection algorithm for CT reconstruction." alt="" coords="510,5,631,31"/>
 <area shape="rect" title=" " alt="" coords="5,79,72,104"/>
-<area shape="poly" title=" " alt="" coords="463,28,297,48,86,81,85,76,296,43,463,23"/>
+<area shape="poly" title=" " alt="" coords="510,27,325,46,207,62,86,81,85,76,207,56,324,41,510,22"/>
 <area shape="rect" title=" " alt="" coords="97,79,167,104"/>
-<area shape="poly" title=" " alt="" coords="463,31,182,81,181,76,462,26"/>
+<area shape="poly" title=" " alt="" coords="510,30,364,50,181,81,180,76,364,45,509,24"/>
 <area shape="rect" title=" " alt="" coords="192,79,275,104"/>
-<area shape="poly" title=" " alt="" coords="478,33,289,79,287,74,477,28"/>
+<area shape="poly" title=" " alt="" coords="516,33,289,81,288,76,515,28"/>
 <area shape="rect" title=" " alt="" coords="299,79,370,104"/>
-<area shape="poly" title=" " alt="" coords="495,33,379,76,378,71,493,28"/>
-<area shape="rect" title=" " alt="" coords="394,79,462,104"/>
-<area shape="poly" title=" " alt="" coords="510,33,456,72,453,68,507,29"/>
-<area shape="rect" title=" " alt="" coords="487,79,561,104"/>
-<area shape="poly" title=" " alt="" coords="527,31,527,65,521,65,521,31"/>
-<area shape="rect" title=" " alt="" coords="585,79,649,104"/>
-<area shape="poly" title=" " alt="" coords="541,29,593,68,590,72,537,33"/>
-<area shape="rect" title=" " alt="" coords="674,79,737,104"/>
-<area shape="poly" title=" " alt="" coords="554,28,664,71,662,76,552,33"/>
-<area shape="rect" href="backprojector_8h.html" title="Header file for the backprojector module." alt="" coords="761,79,884,104"/>
-<area shape="poly" title=" " alt="" coords="573,28,762,73,760,78,571,33"/>
-<area shape="rect" href="fileReader_8h.html" title="fileReader module" alt="" coords="908,79,1007,104"/>
-<area shape="poly" title=" " alt="" coords="586,26,895,76,894,81,585,31"/>
-<area shape="rect" href="fileWriter_8h.html" title="fileWriter module" alt="" coords="1031,79,1124,104"/>
-<area shape="poly" title=" " alt="" coords="585,23,774,43,1018,76,1017,81,773,48,584,28"/>
+<area shape="poly" title=" " alt="" coords="534,33,384,78,382,73,532,28"/>
+<area shape="rect" title=" " alt="" coords="394,79,465,104"/>
+<area shape="poly" title=" " alt="" coords="549,33,466,75,463,70,547,28"/>
+<area shape="rect" title=" " alt="" coords="489,79,557,104"/>
+<area shape="poly" title=" " alt="" coords="565,33,540,69,536,66,561,30"/>
+<area shape="rect" title=" " alt="" coords="581,79,656,104"/>
+<area shape="poly" title=" " alt="" coords="581,30,606,66,601,69,576,33"/>
+<area shape="rect" title=" " alt="" coords="680,79,744,104"/>
+<area shape="poly" title=" " alt="" coords="595,28,678,70,676,75,592,33"/>
+<area shape="rect" title=" " alt="" coords="769,79,831,104"/>
+<area shape="poly" title=" " alt="" coords="608,28,756,74,754,79,607,33"/>
+<area shape="rect" href="backprojector_8h.html" title="Header file for the backprojector module." alt="" coords="856,79,979,104"/>
+<area shape="poly" title=" " alt="" coords="627,28,848,73,847,78,626,33"/>
+<area shape="rect" href="fileReader_8h.html" title="fileReader module" alt="" coords="1003,79,1101,104"/>
+<area shape="poly" title=" " alt="" coords="632,24,989,76,989,81,631,30"/>
+<area shape="rect" href="fileWriter_8h.html" title="fileWriter module" alt="" coords="1125,79,1219,104"/>
+<area shape="poly" title=" " alt="" coords="632,22,840,42,1112,76,1111,81,840,47,631,27"/>
 </map>
 </div>
 </div>
@@ -138,13 +141,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a44ba7f13100e9b59778aaa69cf1b6237" id="r_a44ba7f13100e9b59778aaa69cf1b6237"><td class="memItemLeft" align="right" valign="top"><a class="el" href="unionpoint3D.html">point3D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a44ba7f13100e9b59778aaa69cf1b6237">getPixelPosition</a> (const <a class="el" href="structprojection.html">projection</a> *<a class="el" href="structprojection.html">projection</a>, const int row, const int col)</td></tr>
 <tr class="memdesc:a44ba7f13100e9b59778aaa69cf1b6237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the 3D coordinates of a pixel of the detector.  <br /></td></tr>
 <tr class="separator:a44ba7f13100e9b59778aaa69cf1b6237"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96c75e5ea7fdb7390df28cf46090b065" id="r_a96c75e5ea7fdb7390df28cf46090b065"><td class="memItemLeft" align="right" valign="top"><a class="el" href="backprojector_8h.html#accc088009d44c521706aa98d6387ee21">axis</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96c75e5ea7fdb7390df28cf46090b065">getParallelAxis</a> (const <a class="el" href="unionray.html">ray</a> <a class="el" href="unionray.html">ray</a>)</td></tr>
+<tr class="memitem:a96c75e5ea7fdb7390df28cf46090b065" id="r_a96c75e5ea7fdb7390df28cf46090b065"><td class="memItemLeft" align="right" valign="top"><a class="el" href="backprojector_8h.html#accc088009d44c521706aa98d6387ee21">axis</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96c75e5ea7fdb7390df28cf46090b065">getParallelAxis</a> (const <a class="el" href="structray.html">ray</a> <a class="el" href="structray.html">ray</a>)</td></tr>
 <tr class="memdesc:a96c75e5ea7fdb7390df28cf46090b065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds which axis is parallel to the ray.  <br /></td></tr>
 <tr class="separator:a96c75e5ea7fdb7390df28cf46090b065"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff0f271395d320a9c9856d4c12e4febb" id="r_aff0f271395d320a9c9856d4c12e4febb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff0f271395d320a9c9856d4c12e4febb">getPlanePosition</a> (const <a class="el" href="backprojector_8h.html#accc088009d44c521706aa98d6387ee21">axis</a> <a class="el" href="backprojector_8h.html#accc088009d44c521706aa98d6387ee21">axis</a>, const int index)</td></tr>
 <tr class="memdesc:aff0f271395d320a9c9856d4c12e4febb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the position of the plane parallel to the given axis and at the given index.  <br /></td></tr>
 <tr class="separator:aff0f271395d320a9c9856d4c12e4febb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8384b3bc5b85feb8e1c1a498bbff052" id="r_ae8384b3bc5b85feb8e1c1a498bbff052"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8384b3bc5b85feb8e1c1a498bbff052">getSidesIntersections</a> (const <a class="el" href="unionray.html">ray</a> <a class="el" href="unionray.html">ray</a>, const <a class="el" href="backprojector_8h.html#accc088009d44c521706aa98d6387ee21">axis</a> parallelTo, double intersections[3][2])</td></tr>
+<tr class="memitem:ae8384b3bc5b85feb8e1c1a498bbff052" id="r_ae8384b3bc5b85feb8e1c1a498bbff052"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8384b3bc5b85feb8e1c1a498bbff052">getSidesIntersections</a> (const <a class="el" href="structray.html">ray</a> <a class="el" href="structray.html">ray</a>, const <a class="el" href="backprojector_8h.html#accc088009d44c521706aa98d6387ee21">axis</a> parallelTo, double intersections[3][2])</td></tr>
 <tr class="memdesc:ae8384b3bc5b85feb8e1c1a498bbff052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the intersection points of the ray with the planes.  <br /></td></tr>
 <tr class="separator:ae8384b3bc5b85feb8e1c1a498bbff052"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e38a3847dec2b2e3c40870d8b938e19" id="r_a0e38a3847dec2b2e3c40870d8b938e19"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e38a3847dec2b2e3c40870d8b938e19">getAMin</a> (const <a class="el" href="backprojector_8h.html#accc088009d44c521706aa98d6387ee21">axis</a> parallelTo, double intersections[3][2])</td></tr>
@@ -153,16 +156,16 @@ Functions</h2></td></tr>
 <tr class="memitem:a5dad3fd7c1d04e6eeca36364d14c1245" id="r_a5dad3fd7c1d04e6eeca36364d14c1245"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5dad3fd7c1d04e6eeca36364d14c1245">getAMax</a> (const <a class="el" href="backprojector_8h.html#accc088009d44c521706aa98d6387ee21">axis</a> parallelTo, double intersections[3][2])</td></tr>
 <tr class="memdesc:a5dad3fd7c1d04e6eeca36364d14c1245"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the maximum intersection point along the given axis.  <br /></td></tr>
 <tr class="separator:a5dad3fd7c1d04e6eeca36364d14c1245"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9445bd05a2be753cb2c4c44c5aee654f" id="r_a9445bd05a2be753cb2c4c44c5aee654f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9445bd05a2be753cb2c4c44c5aee654f">getPlanesRanges</a> (const <a class="el" href="unionray.html">ray</a> <a class="el" href="unionray.html">ray</a>, <a class="el" href="unionrange.html">range</a> planesRanges[3], const double aMin, const double aMax)</td></tr>
+<tr class="memitem:a9445bd05a2be753cb2c4c44c5aee654f" id="r_a9445bd05a2be753cb2c4c44c5aee654f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9445bd05a2be753cb2c4c44c5aee654f">getPlanesRanges</a> (const <a class="el" href="structray.html">ray</a> <a class="el" href="structray.html">ray</a>, <a class="el" href="structrange.html">range</a> planesRanges[3], const double aMin, const double aMax)</td></tr>
 <tr class="memdesc:a9445bd05a2be753cb2c4c44c5aee654f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the ranges of planes that the ray intersects.  <br /></td></tr>
 <tr class="separator:a9445bd05a2be753cb2c4c44c5aee654f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6ca17545d3e55eadcfdfe51b4b5e11c" id="r_ae6ca17545d3e55eadcfdfe51b4b5e11c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6ca17545d3e55eadcfdfe51b4b5e11c">getAllIntersections</a> (const <a class="el" href="unionray.html">ray</a> <a class="el" href="unionray.html">ray</a>, const <a class="el" href="unionrange.html">range</a> planesRanges[3], double *a[3])</td></tr>
+<tr class="memitem:ae6ca17545d3e55eadcfdfe51b4b5e11c" id="r_ae6ca17545d3e55eadcfdfe51b4b5e11c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6ca17545d3e55eadcfdfe51b4b5e11c">getAllIntersections</a> (const <a class="el" href="structray.html">ray</a> <a class="el" href="structray.html">ray</a>, const <a class="el" href="structrange.html">range</a> planesRanges[3], double *a[3])</td></tr>
 <tr class="memdesc:ae6ca17545d3e55eadcfdfe51b4b5e11c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates <em>all</em> the intersection points of the ray with the planes.  <br /></td></tr>
 <tr class="separator:ae6ca17545d3e55eadcfdfe51b4b5e11c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6616c0957bffb44f16fb54c48f3f3f05" id="r_a6616c0957bffb44f16fb54c48f3f3f05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6616c0957bffb44f16fb54c48f3f3f05">mergeIntersections</a> (const double aX[], const double aY[], const double aZ[], const int aXSize, const int aYSize, const int aZSize, double aMerged[])</td></tr>
 <tr class="memdesc:a6616c0957bffb44f16fb54c48f3f3f05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merges the intersection points of the ray with the planes.  <br /></td></tr>
 <tr class="separator:a6616c0957bffb44f16fb54c48f3f3f05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adeed0117a7aa23163c82f9b64d019b82" id="r_adeed0117a7aa23163c82f9b64d019b82"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adeed0117a7aa23163c82f9b64d019b82">computeAbsorption</a> (const <a class="el" href="unionray.html">ray</a> <a class="el" href="unionray.html">ray</a>, const double a[], const int lenA, const <a class="el" href="structvolume.html">volume</a> *<a class="el" href="structvolume.html">volume</a>, const <a class="el" href="structprojection.html">projection</a> *<a class="el" href="structprojection.html">projection</a>, const int pixelIndex)</td></tr>
+<tr class="memitem:adeed0117a7aa23163c82f9b64d019b82" id="r_adeed0117a7aa23163c82f9b64d019b82"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adeed0117a7aa23163c82f9b64d019b82">computeAbsorption</a> (const <a class="el" href="structray.html">ray</a> <a class="el" href="structray.html">ray</a>, const double a[], const int lenA, const <a class="el" href="structvolume.html">volume</a> *<a class="el" href="structvolume.html">volume</a>, const <a class="el" href="structprojection.html">projection</a> *<a class="el" href="structprojection.html">projection</a>, const int pixelIndex)</td></tr>
 <tr class="memdesc:adeed0117a7aa23163c82f9b64d019b82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the absorption value of the voxels intersected by the ray.  <br /></td></tr>
 <tr class="separator:adeed0117a7aa23163c82f9b64d019b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a695176076b7a7e5eff55b510ca9293f7" id="r_a695176076b7a7e5eff55b510ca9293f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a695176076b7a7e5eff55b510ca9293f7">computeBackProjection</a> (const <a class="el" href="structprojection.html">projection</a> *<a class="el" href="structprojection.html">projection</a>, <a class="el" href="structvolume.html">volume</a> *<a class="el" href="structvolume.html">volume</a>)</td></tr>
@@ -201,7 +204,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">void computeAbsorption </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="unionray.html">ray</a></td>          <td class="paramname"><span class="paramname"><em>ray</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="structray.html">ray</a></td>          <td class="paramname"><span class="paramname"><em>ray</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -263,7 +266,7 @@ k(m) = 1 + (Z_1 + \alpha_{mid} * (Z_2 - Z_1) - Z_{plane}(0)) / d_z
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00239">239</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00240">240</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -305,7 +308,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00287">287</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00288">288</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -348,12 +351,12 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">void getAllIntersections </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="unionray.html">ray</a></td>          <td class="paramname"><span class="paramname"><em>ray</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="structray.html">ray</a></td>          <td class="paramname"><span class="paramname"><em>ray</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="unionrange.html">range</a></td>          <td class="paramname"><span class="paramname"><em>planesRanges</em></span>[3], </td>
+          <td class="paramtype">const <a class="el" href="structrange.html">range</a></td>          <td class="paramname"><span class="paramname"><em>planesRanges</em></span>[3], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -388,7 +391,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00160">160</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00161">161</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -436,7 +439,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The maximum intersection point. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00130">130</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00131">131</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -473,7 +476,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The minimum intersection point. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00117">117</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00118">118</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -486,7 +489,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname"><a class="el" href="backprojector_8h.html#accc088009d44c521706aa98d6387ee21">axis</a> getParallelAxis </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="unionray.html">ray</a></td>          <td class="paramname"><span class="paramname"><em>ray</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structray.html">ray</a></td>          <td class="paramname"><span class="paramname"><em>ray</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -502,7 +505,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The axis that is parallel to the ray, or axis::NONE if none. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00084">84</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00085">85</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -542,7 +545,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The 3D coordinates of the pixel. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00070">70</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00071">71</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -581,7 +584,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The position of the plane. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00097">97</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00098">98</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -594,12 +597,12 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
         <tr>
           <td class="memname">void getPlanesRanges </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="unionray.html">ray</a></td>          <td class="paramname"><span class="paramname"><em>ray</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="structray.html">ray</a></td>          <td class="paramname"><span class="paramname"><em>ray</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="unionrange.html">range</a></td>          <td class="paramname"><span class="paramname"><em>planesIndexes</em></span>[3], </td>
+          <td class="paramtype"><a class="el" href="structrange.html">range</a></td>          <td class="paramname"><span class="paramname"><em>planesIndexes</em></span>[3], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -635,7 +638,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00143">143</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00144">144</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -648,7 +651,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
         <tr>
           <td class="memname">void getSidesIntersections </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="unionray.html">ray</a></td>          <td class="paramname"><span class="paramname"><em>ray</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="structray.html">ray</a></td>          <td class="paramname"><span class="paramname"><em>ray</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -682,7 +685,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00102">102</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00103">103</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -711,7 +714,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The 3D coordinates of the source. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00062">62</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00063">63</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -733,7 +736,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
 <p>Initializes the sine and cosine tables, as well as the firstPlane and lastPlane arrays. </p>
 <p>These values are complex to calculate each time, so they are precomputed and cached to optimize performance during backprojection operations. </p>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00046">46</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00047">47</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -756,41 +759,45 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00375">375</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00376">376</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="backprojector_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph.png" border="0" usemap="#abackprojector_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph" alt=""/></div>
 <map name="abackprojector_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph" id="abackprojector_8c_a0ddf1224851353fc92bfbff6f499fa97_cgraph">
-<area shape="rect" title=" " alt="" coords="5,303,60,328"/>
-<area shape="rect" href="backprojector_8c.html#a695176076b7a7e5eff55b510ca9293f7" title="Computes the backprojection of the projection." alt="" coords="108,228,284,253"/>
-<area shape="poly" title=" " alt="" coords="48,300,75,281,107,262,124,255,126,260,109,267,77,285,51,305"/>
-<area shape="rect" href="backprojector_8c.html#a6a3745a608949257cc9c8dcd35bb6e72" title="Initializes the sine and cosine tables, as well as the firstPlane and lastPlane arrays." alt="" coords="154,277,238,303"/>
-<area shape="poly" title=" " alt="" coords="60,309,140,296,141,301,61,314"/>
-<area shape="rect" href="fileReader_8h.html#ae85009705af82ff5ce1ce02dff4e8426" title="Read a DAT file containing CT projections." alt="" coords="138,327,254,352"/>
-<area shape="poly" title=" " alt="" coords="61,317,125,326,124,332,60,322"/>
-<area shape="rect" href="fileWriter_8h.html#aa55291cd635a2a4e7c58d4a256c014d6" title="Write a 3D volume of voxels to a file." alt="" coords="144,376,248,401"/>
-<area shape="poly" title=" " alt="" coords="52,326,78,344,109,361,132,370,130,375,107,366,76,348,49,330"/>
+<area shape="rect" title=" " alt="" coords="5,351,60,376"/>
+<area shape="rect" href="backprojector_8c.html#a695176076b7a7e5eff55b510ca9293f7" title="Computes the backprojection of the projection." alt="" coords="108,227,284,252"/>
+<area shape="poly" title=" " alt="" coords="38,349,63,306,83,282,106,261,116,255,119,260,110,265,87,285,68,309,42,352"/>
+<area shape="rect" href="backprojector_8c.html#a6a3745a608949257cc9c8dcd35bb6e72" title="Initializes the sine and cosine tables, as well as the firstPlane and lastPlane arrays." alt="" coords="154,276,238,301"/>
+<area shape="poly" title=" " alt="" coords="48,348,75,329,107,310,140,298,142,303,109,315,77,333,51,353"/>
+<area shape="rect" href="fileReader_8h.html#a8e542e7e29a221f4ededa2c04b7a8216" title="Read a DAT file containing CT projections." alt="" coords="125,325,267,351"/>
+<area shape="poly" title=" " alt="" coords="60,357,111,349,111,354,61,362"/>
+<area shape="rect" href="fileReader_8h.html#a403f55e2c17353b9a5e358a582ab8e31" title="Read a PGM file containing CT projections." alt="" coords="123,375,269,400"/>
+<area shape="poly" title=" " alt="" coords="61,365,109,372,108,377,60,370"/>
+<area shape="rect" href="fileWriter_8h.html#a25c018aea36b43f77e3f14af4ba7a6f6" title="Write a 3D volume of voxels to a file." alt="" coords="125,424,267,449"/>
+<area shape="poly" title=" " alt="" coords="52,374,78,392,109,409,130,417,128,422,107,414,76,396,49,378"/>
+<area shape="rect" href="fileWriter_8h.html#a0fc77da284b460f4ab96af666194aa42" title="Write a 3D volume of voxels to a file." alt="" coords="129,473,263,499"/>
+<area shape="poly" title=" " alt="" coords="43,375,68,416,87,439,110,458,122,466,119,470,106,463,83,443,64,419,38,378"/>
 <area shape="rect" href="backprojector_8c.html#adeed0117a7aa23163c82f9b64d019b82" title="Computes the absorption value of the voxels intersected by the ray." alt="" coords="339,5,488,31"/>
-<area shape="poly" title=" " alt="" coords="200,227,217,190,244,139,282,86,305,61,330,40,338,35,341,39,334,44,309,65,286,89,249,142,221,192,205,229"/>
+<area shape="poly" title=" " alt="" coords="200,225,217,189,244,139,282,86,305,61,330,40,338,35,341,39,334,44,309,65,286,89,249,142,221,191,205,228"/>
 <area shape="rect" href="backprojector_8c.html#ae6ca17545d3e55eadcfdfe51b4b5e11c" title="Calculates all the intersection points of the ray with the planes." alt="" coords="341,55,485,80"/>
-<area shape="poly" title=" " alt="" coords="203,226,252,161,288,122,331,89,342,83,344,88,333,94,292,126,256,164,208,229"/>
+<area shape="poly" title=" " alt="" coords="203,225,252,160,288,122,331,89,342,83,344,88,333,94,292,126,256,164,208,228"/>
 <area shape="rect" href="backprojector_8c.html#a5dad3fd7c1d04e6eeca36364d14c1245" title="Finds the maximum intersection point along the given axis." alt="" coords="373,104,453,129"/>
-<area shape="poly" title=" " alt="" coords="209,226,261,183,295,159,331,138,359,127,361,132,333,143,297,164,264,188,213,230"/>
+<area shape="poly" title=" " alt="" coords="210,225,261,183,295,159,331,138,359,127,361,132,333,143,297,164,264,187,213,229"/>
 <area shape="rect" href="backprojector_8c.html#a0e38a3847dec2b2e3c40870d8b938e19" title="Finds the minimum intersection point along the given axis." alt="" coords="375,153,451,179"/>
-<area shape="poly" title=" " alt="" coords="228,225,331,187,361,178,363,183,333,193,230,230"/>
+<area shape="poly" title=" " alt="" coords="229,224,331,187,362,178,363,183,333,193,231,229"/>
 <area shape="rect" href="backprojector_8c.html#a96c75e5ea7fdb7390df28cf46090b065" title="Finds which axis is parallel to the ray." alt="" coords="354,203,473,228"/>
-<area shape="poly" title=" " alt="" coords="284,228,340,221,341,226,284,233"/>
+<area shape="poly" title=" " alt="" coords="284,227,340,221,341,226,284,232"/>
 <area shape="rect" href="backprojector_8c.html#a44ba7f13100e9b59778aaa69cf1b6237" title="Calculates the 3D coordinates of a pixel of the detector." alt="" coords="350,252,477,277"/>
-<area shape="poly" title=" " alt="" coords="284,248,336,253,335,259,284,253"/>
+<area shape="poly" title=" " alt="" coords="284,247,336,253,336,258,284,252"/>
 <area shape="rect" href="backprojector_8c.html#a9445bd05a2be753cb2c4c44c5aee654f" title="Calculates the ranges of planes that the ray intersects." alt="" coords="346,301,481,327"/>
-<area shape="poly" title=" " alt="" coords="250,251,285,262,333,286,356,295,354,300,331,291,283,267,249,256"/>
+<area shape="poly" title=" " alt="" coords="251,249,285,261,333,286,355,295,353,300,331,291,283,266,249,255"/>
 <area shape="rect" href="backprojector_8c.html#ae8384b3bc5b85feb8e1c1a498bbff052" title="Calculates the intersection points of the ray with the planes." alt="" coords="332,351,495,376"/>
-<area shape="poly" title=" " alt="" coords="264,251,286,263,303,281,311,300,318,318,334,336,344,343,341,347,330,340,314,321,306,302,298,284,282,267,262,256"/>
+<area shape="poly" title=" " alt="" coords="265,250,286,261,303,280,311,299,318,318,334,336,344,343,341,347,330,340,313,321,306,301,298,283,282,265,262,254"/>
 <area shape="rect" href="backprojector_8c.html#a081dea4548f6635b8bcf377386c33226" title="Calculates the 3D coordinates of the source of the ray given the index of the projection." alt="" coords="344,400,483,425"/>
-<area shape="poly" title=" " alt="" coords="269,251,286,263,299,278,306,294,311,325,315,356,322,371,334,385,341,391,338,395,330,389,317,374,310,358,306,326,301,296,295,281,282,267,266,256"/>
+<area shape="poly" title=" " alt="" coords="269,250,286,261,299,277,306,293,311,325,315,356,322,371,334,385,341,391,338,395,330,389,317,373,310,357,306,325,301,295,295,280,282,265,266,254"/>
 <area shape="rect" href="backprojector_8c.html#a6616c0957bffb44f16fb54c48f3f3f05" title="Merges the intersection points of the ray with the planes." alt="" coords="339,449,487,475"/>
-<area shape="poly" title=" " alt="" coords="270,251,286,263,302,285,310,307,311,350,312,393,319,414,334,435,340,440,336,444,330,438,314,416,307,394,306,350,305,308,298,287,282,267,267,256"/>
+<area shape="poly" title=" " alt="" coords="270,250,286,261,302,283,310,306,311,350,312,393,319,414,334,435,340,440,336,444,330,438,314,416,306,394,306,350,305,307,298,286,282,265,267,254"/>
 <area shape="rect" href="backprojector_8c.html#aff0f271395d320a9c9856d4c12e4febb" title="Calculates the position of the plane parallel to the given axis and at the given index." alt="" coords="543,55,673,80"/>
 <area shape="poly" title=" " alt="" coords="486,65,529,65,529,70,486,70"/>
 </map>
@@ -864,7 +871,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00190">190</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00191">191</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -881,7 +888,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00041">41</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00042">42</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -897,7 +904,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00044">44</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00045">45</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -913,7 +920,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00044">44</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00045">45</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -929,7 +936,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00041">41</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00042">42</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>

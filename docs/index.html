@@ -80,22 +80,30 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <div class="textblock"><p><a class="anchor" id="md__2home_2borgo_23D-CT-backprojection-openmp_2readme"></a></p>
 <h1><a class="anchor" id="compile"></a>
 Compile</h1>
-<p>Compile using gcc: </p><div class="fragment"><div class="line">gcc -std=c11 -Wall -Wpedantic -fopenmp -o backprojector src/backprojector.c -lm</div>
+<p>Compile using gcc: </p><div class="fragment"><div class="line">gcc -std=c99 -Wall -Wpedantic -fopenmp -o backprojector src/backprojector.c -lm</div>
 </div><!-- fragment --><p> or simply use the provided Makefile: </p><div class="fragment"><div class="line">make backprojector</div>
 </div><!-- fragment --><hr  />
-<p>You can specify the format of input and output files by defining some macros. </p><div class="fragment"><div class="line">gcc [...] -D_INPUT_FORMAT_ASCII -D_OUTPUT_FORMAT_ASCII</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">gcc [...] -D_INPUT_FORMAT_BINARY -D_OUTPUT_FORMAT_BINARY</div>
-</div><!-- fragment --><p> or using the makefile: </p><div class="fragment"><div class="line">make backprojector INPUT=ASCII OUTPUT=ASCII</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">make backprojector INPUT=BINARY OUTPUT=BINARY</div>
-</div><!-- fragment --><p> a combination of both is also valid, if not specified <b>binary</b> will be used <b>by default</b> for both input and output.</p>
+<p>You can specify the format of <code>.nrrd</code> output files by defining the following preprocessor macros: </p><div class="fragment"><div class="line">gcc [...] -D_OUTPUT_FORMAT_ASCII</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">gcc [...] -D_OUTPUT_FORMAT_BINARY</div>
+</div><!-- fragment --><p> or using the makefile: </p><div class="fragment"><div class="line">make backprojector OUTPUT=ASCII</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">make backprojector OUTPUT=BINARY</div>
+</div><!-- fragment --><p> if not specified <b>binary</b> will be used <b>by default</b>.\ This does not apply to <code>.raw</code> image files as they're always written in binary format.</p>
 <h1><a class="anchor" id="run"></a>
 Run</h1>
-<p>Run the program with the following command: </p><div class="fragment"><div class="line">./backprojector &lt;input_file&gt; &lt;output_file&gt;</div>
-</div><!-- fragment --><p> where <code>&lt;input_file&gt;</code> is the path to the input file, <code>.pgm</code> if the input format was set to <b>ascii</b>, or <code>.dat</code> if the input format was set to <b>binary</b>\ and <code>&lt;output_file&gt;</code> is the path to the output <code>.nrrd</code> file.</p>
+<p>Run the program with the following command: </p><div class="fragment"><div class="line">backprojector &lt;input_file&gt; &lt;output_file&gt;</div>
+</div><!-- fragment --><p> where <code>&lt;input_file&gt;</code> is the path to the input file (only <code>.pgm</code> or <code>.dat</code> are accepted)\ and <code>&lt;output_file&gt;</code> is the path to the output file (only <code>.nrrd</code> or <code>.raw</code> are accepted).</p>
+<h1><a class="anchor" id="visualize"></a>
+Visualize</h1>
+<p>To visualize the output <code>.nrrd</code> file, you can use <a href="https://github.com/kitware/itk-vtk-viewer">ITK/VTK Viewer</a> with its accessible progressive web app <a href="https://kitware.github.io/itk-vtk-viewer/app/">here</a>.\ It's possible to view a file by simply dragging and dropping it into the window, or even by providing a link to it.</p>
+<p>For example, let's use <a href="output/cubeWithSphereCutout-ascii.nrrd">this</a> output file.\ By adding the <code>?fileToLoad=[link]</code> query parameter to the URL of the web app you can load the file <a href="https://kitware.github.io/itk-vtk-viewer/app/?fileToLoad=https://raw.githubusercontent.com/Borgotto/3D-CT-backprojection-openmp/main/output/cubeWithSphereCutout-ascii.nrrd">like so</a> without having to download it.</p>
+<p>The ITK/VTK Viewer can also be used to compare two output files to verify the correctness of the program.\ An example of the comparison of two output files can be found <a href="https://kitware.github.io/itk-vtk-viewer/app/?rotate=false&amp;image=https://raw.githubusercontent.com/Borgotto/3D-CT-backprojection-openmp/main/output/cubeWithSphereCutout-original.nrrd&amp;fixedImage=https://raw.githubusercontent.com/Borgotto/3D-CT-backprojection-openmp/main/output/cubeWithSphereCutout-ascii.nrrd&amp;compare=blend">here</a>.</p>
+<hr  />
+<p>To visualize the output <code>.raw</code> file you can use <a href="https://imagej.net/ij/">ImageJ</a>.</p>
+<p>Simply open the program, under the <code>File</code> menu select <code>Import</code> and then <code>Raw...</code>\ After selecting the file, you will be prompted with a dialog to specify the image parameters, here you will input the values outputted by the program.</p>
 <h1><a class="anchor" id="profiling"></a>
 Profiling</h1>
-<p>First, compile the program with the <code>-pg</code> flag then run it as usual: </p><div class="fragment"><div class="line">gcc -std=c11 -Wall -Wpedantic -fopenmp -o backprojector src/backprojector.c -lm -pg</div>
-<div class="line">./backprojector &lt;input_file&gt; &lt;output_file&gt;</div>
+<p>First, compile the program with the <code>-pg</code> flag then run it as usual: </p><div class="fragment"><div class="line">gcc -std=c99 -Wall -Wpedantic -fopenmp -o backprojector src/backprojector.c -lm -pg</div>
+<div class="line">backprojector &lt;input_file&gt; &lt;output_file&gt;</div>
 </div><!-- fragment --><p> convert the <code>gmon.out</code> file to a human-readable <code>.svg</code> format using the following command: </p><div class="fragment"><div class="line">gprof backprojector | gprof2dot -n0 -e0 | dot -Tsvg -Gbgcolor=transparent -o profiling/snapshots/&quot;$(ls -l ./profiling/snapshots/ | wc -l) - $(date &#39;+%Y-%m-%d %H.%M.%S&#39;)&quot;.svg</div>
 </div><!-- fragment --><p> you can optionally convert them to <code>png</code>: </p><div class="fragment"><div class="line">convert -background white -alpha remove -alpha off profiling/snapshots/&lt;snapshot&gt;.svg profiling/snapshots/&lt;snapshot&gt;.png</div>
 </div><!-- fragment --><p>The profiling snapshots found in the <a href="profiling/snapshots">profiling/snapshots</a> directory were generated using <a href="profiling/runProfiler.sh">this</a> script</p>
@@ -104,7 +112,11 @@ Documentation</h1>
 <p>To view the documentation, visit the <a href="https://borgotto.github.io/3D-CT-backprojection-openmp/">GitHub pages</a> or open the <a href="docs/index.html">index.html</a> file in your browser.</p>
 <p>The documentation was generated using <a href="https://www.doxygen.nl/">Doxygen 1.12.0</a> with this <a href="docs/build/Doxyfile">Doxyfile</a>. </p><div class="fragment"><div class="line">doxygen Doxyfile</div>
 </div><!-- fragment --><p> there's also a Makefile target for it: </p><div class="fragment"><div class="line">make doc</div>
-</div><!-- fragment --><p> the generated documentation can be found in the [docs](docs) directory. </p>
+</div><!-- fragment --><p> the generated documentation can be found in the [docs](docs) directory.</p>
+<h1><a class="anchor" id="example-files"></a>
+Example files</h1>
+<p>The example [input files](tests) were generated using a slightly tuned version of the projection analogue of this program, which can be found <a href="https://github.com/LorenzoColletta/Parallel-implementation-of-a-tomographic-projection-algorithm">here</a>.</p>
+<p>The [output files](output) are the result of backprojecting the homonymous input files. </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

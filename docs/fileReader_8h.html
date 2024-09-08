@@ -111,9 +111,12 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae85009705af82ff5ce1ce02dff4e8426" id="r_ae85009705af82ff5ce1ce02dff4e8426"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae85009705af82ff5ce1ce02dff4e8426">readProjection</a> (FILE *file, <a class="el" href="structprojection.html">projection</a> *<a class="el" href="structprojection.html">projection</a>, int *width, int *height, double *minVal, double *maxVal)</td></tr>
-<tr class="memdesc:ae85009705af82ff5ce1ce02dff4e8426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a DAT file containing CT projections.  <br /></td></tr>
-<tr class="separator:ae85009705af82ff5ce1ce02dff4e8426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a403f55e2c17353b9a5e358a582ab8e31" id="r_a403f55e2c17353b9a5e358a582ab8e31"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a403f55e2c17353b9a5e358a582ab8e31">readProjectionPGM</a> (FILE *file, <a class="el" href="structprojection.html">projection</a> *<a class="el" href="structprojection.html">projection</a>, int *width, int *height, double *minVal, double *maxVal)</td></tr>
+<tr class="memdesc:a403f55e2c17353b9a5e358a582ab8e31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a PGM file containing CT projections.  <br /></td></tr>
+<tr class="separator:a403f55e2c17353b9a5e358a582ab8e31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e542e7e29a221f4ededa2c04b7a8216" id="r_a8e542e7e29a221f4ededa2c04b7a8216"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e542e7e29a221f4ededa2c04b7a8216">readProjectionDAT</a> (FILE *file, <a class="el" href="structprojection.html">projection</a> *<a class="el" href="structprojection.html">projection</a>, int *width, int *height, double *minVal, double *maxVal)</td></tr>
+<tr class="memdesc:a8e542e7e29a221f4ededa2c04b7a8216"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a DAT file containing CT projections.  <br /></td></tr>
+<tr class="separator:a8e542e7e29a221f4ededa2c04b7a8216"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><code>fileReader</code> module </p>
@@ -140,14 +143,14 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ae85009705af82ff5ce1ce02dff4e8426" name="ae85009705af82ff5ce1ce02dff4e8426"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae85009705af82ff5ce1ce02dff4e8426">&#9670;&#160;</a></span>readProjection()</h2>
+<a id="a8e542e7e29a221f4ededa2c04b7a8216" name="a8e542e7e29a221f4ededa2c04b7a8216"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e542e7e29a221f4ededa2c04b7a8216">&#9670;&#160;</a></span>readProjectionDAT()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool readProjection </td>
+          <td class="memname">bool readProjectionDAT </td>
           <td>(</td>
           <td class="paramtype">FILE *</td>          <td class="paramname"><span class="paramname"><em>file</em></span>, </td>
         </tr>
@@ -196,7 +199,66 @@ Functions</h2></td></tr>
 <dd>
 <code>false</code> if an error occurred while reading the file or during memory allocation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="fileReader_8h_source.html#l00130">130</a> of file <a class="el" href="fileReader_8h_source.html">fileReader.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fileReader_8h_source.html#l00128">128</a> of file <a class="el" href="fileReader_8h_source.html">fileReader.h</a>.</p>
+
+</div>
+</div>
+<a id="a403f55e2c17353b9a5e358a582ab8e31" name="a403f55e2c17353b9a5e358a582ab8e31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a403f55e2c17353b9a5e358a582ab8e31">&#9670;&#160;</a></span>readProjectionPGM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool readProjectionPGM </td>
+          <td>(</td>
+          <td class="paramtype">FILE *</td>          <td class="paramname"><span class="paramname"><em>file</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structprojection.html">projection</a> *</td>          <td class="paramname"><span class="paramname"><em>projection</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>minVal</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>maxVal</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read a PGM file containing CT projections. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>handle to the file to read </td></tr>
+    <tr><td class="paramname">projection</td><td><code>projection</code> struct to store the read data into </td></tr>
+    <tr><td class="paramname">width</td><td>pointer to the variable to store/read the width of the image </td></tr>
+    <tr><td class="paramname">height</td><td>pointer to the variable to store/read the height of the image </td></tr>
+    <tr><td class="paramname">minVal</td><td>pointer to the variable to store/read the minimum value of the pixels </td></tr>
+    <tr><td class="paramname">maxVal</td><td>pointer to the variable to store/read the maximum value of the pixels </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the file was read successfully </dd>
+<dd>
+<code>false</code> if an error occurred while reading the file or during memory allocation </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="fileReader_8h_source.html#l00039">39</a> of file <a class="el" href="fileReader_8h_source.html">fileReader.h</a>.</p>
 
 </div>
 </div>
