@@ -12,7 +12,7 @@ make backprojector
 
 ---
 
-You can specify the format of output files by defining the following preprocessor macros:
+You can specify the format of `.nrrd` output files by defining the following preprocessor macros:
 ```bash
 gcc [...] -D_OUTPUT_FORMAT_ASCII
 ```
@@ -26,7 +26,8 @@ make backprojector OUTPUT=ASCII
 ```bash
 make backprojector OUTPUT=BINARY
 ```
-if not specified **binary** will be used **by default**.
+if not specified **binary** will be used **by default**.\
+This does not apply to `.raw` image files as they're always written in binary format.
 
 
 ## Run
@@ -35,18 +36,24 @@ Run the program with the following command:
 backprojector <input_file> <output_file>
 ```
 where `<input_file>` is the path to the input file (only `.pgm` or `.dat` are accepted)\
-and `<output_file>` is the path to the output `.nrrd` file.
+and `<output_file>` is the path to the output file (only `.nrrd` or `.raw` are accepted).
 
 ## Visualize
-To visualize the output file, you can use [ITK/VTK Viewer](https://github.com/kitware/itk-vtk-viewer) with its accessible progressive web app [here](https://kitware.github.io/itk-vtk-viewer/app/).\
+To visualize the output `.nrrd` file, you can use [ITK/VTK Viewer](https://github.com/kitware/itk-vtk-viewer) with its accessible progressive web app [here](https://kitware.github.io/itk-vtk-viewer/app/).\
 It's possible to view a file by simply dragging and dropping it into the window, or even by providing a link to it.
 
 For example, let's use [this](output/cubeWithSphereCutout-ascii.nrrd) output file.\
 By adding the `?fileToLoad=[link]` query parameter to the URL of the web app you can load the file [like so](https://kitware.github.io/itk-vtk-viewer/app/?fileToLoad=https://raw.githubusercontent.com/Borgotto/3D-CT-backprojection-openmp/main/output/cubeWithSphereCutout-ascii.nrrd) without having to download it.
 
-
 The ITK/VTK Viewer can also be used to compare two output files to verify the correctness of the program.\
 An example of the comparison of two output files can be found [here](https://kitware.github.io/itk-vtk-viewer/app/?rotate=false&image=https://raw.githubusercontent.com/Borgotto/3D-CT-backprojection-openmp/main/output/cubeWithSphereCutout-original.nrrd&fixedImage=https://raw.githubusercontent.com/Borgotto/3D-CT-backprojection-openmp/main/output/cubeWithSphereCutout-ascii.nrrd&compare=blend).
+
+---
+
+To visualize the output `.raw` file you can use [ImageJ](https://imagej.net/ij/).
+
+Simply open the program, under the `File` menu select `Import` and then `Raw...`\
+After selecting the file, you will be prompted with a dialog to specify the image parameters, here you will input the values outputted by the program.
 
 ## Profiling
 First, compile the program with the `-pg` flag then run it as usual:

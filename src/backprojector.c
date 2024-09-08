@@ -403,13 +403,33 @@ int main(int argc, char* argv[]) {
     }
 
     // Open the output file
-    char* outputFileName = (argc >= 3) ? argv[2] : "";
+    if (argc < 3) {
+        fprintf(stderr, "Output file not provided\n");
+        fprintf(stderr, "Usage: %s <input_file> <output_file>\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+    char* outputFileName = argv[2];
     // Make sure the output file isn't the same as the input file
     if (strcmp(inputFileName, outputFileName) == 0) {
         fprintf(stderr, "Output file can't be the same as the input file\n");
         exit(EXIT_FAILURE);
     }
-    FILE* outputFile = (outputFileName[0] != '\0') ? fopen(outputFileName, "wb") : stdout;
+    // Get the output file extension
+    char* outputFileExtension = strrchr(outputFileName, '.');
+    // null-terminate the string if NULL
+    outputFileExtension = (outputFileExtension == NULL) ? "" : outputFileExtension;
+    // and convert it to lowercase
+    for (int i = 0; outputFileExtension[i]; i++) {
+        outputFileExtension[i] = tolower(outputFileExtension[i]);
+    }
+    // if the extension isn't ".nrrd" or ".raw" then it's invalid
+    if (strcmp(outputFileExtension, ".nrrd") != 0 &&
+        strcmp(outputFileExtension, ".raw") != 0) {
+        fprintf(stderr, "Invalid output file format\n");
+        fprintf(stderr, "Supported formats: .nrrd, .raw\n");
+        exit(EXIT_FAILURE);
+    }
+    FILE* outputFile = fopen(outputFileName, "wb");
     if (outputFile == NULL) {
         fprintf(stderr, "Error opening output file\n");
         exit(EXIT_FAILURE);
@@ -481,10 +501,14 @@ int main(int argc, char* argv[]) {
     bool done = false;
     int loadingBarIndex = 0;
     char* loadingBar = "|/-\\";
-    #pragma omp parallel num_threads(2) default(none) shared(outputFile, volume, done, loadingBarIndex, loadingBar, stderr)
+    #pragma omp parallel num_threads(2) default(none) shared(outputFile, volume, done, loadingBarIndex, loadingBar, stderr, outputFileExtension)
     {
         #pragma omp single nowait
-        done = writeVolume(outputFile, &volume);
+        if (strcmp(outputFileExtension, ".nrrd") == 0) {
+            done = writeVolumeNRRD(outputFile, &volume);
+        } else {
+            done = writeVolumeRAW(outputFile, &volume);
+        }
         #pragma omp critical
         while (!done) {
             fprintf(stderr, "Writing volume to file.. %c\r", loadingBar[loadingBarIndex]);
@@ -493,7 +517,11 @@ int main(int argc, char* argv[]) {
             nanosleep((const struct timespec[]){{0, 100000000L}}, NULL);
         }
     }
-    fprintf(stderr, "Writing volume to file.. Done!\n");
+    if (done) {
+        fprintf(stderr, "Writing volume to file.. Done!\n");
+    } else {
+        fprintf(stderr, "Error writing the volume to the file!\n");
+    }
 
     // Free memory and handles
     fclose(inputFile);
