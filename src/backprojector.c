@@ -1,12 +1,9 @@
 /**
  * @file backprojector.c
  * @author Emanuele Borghini (emanuele.borghini@studio.unibo.it)
- * @date 2024
- *
  * @brief Implementation of the backprojection algorithm for CT reconstruction.
- *
+ * @date 2024-09
  * @see backprojector.h
- *
  * @details
  * This file contains the implementation of the backprojection algorithm for
  * reconstructing a 3D object from its 2D projections. The algorithm is based
@@ -17,7 +14,24 @@
  * The algorithm is divided into several functions, each of which implements
  * an equation from Siddon's algorithm. The main function reads the projection
  * images from the file and computes the backprojection for each of them.
+ * @copyright
+ * ```text
+ * This file is part of 3D-CT-backprojection-openmp (https://github.com/Borgotto/3D-CT-backprojection-openmp).
+ * Copyright (C) 2024 Emanuele Borghini
  *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *```
  */
 
 #include <stdio.h>      // fprintf
