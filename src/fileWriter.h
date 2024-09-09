@@ -51,20 +51,25 @@ typedef struct volume {
  * @brief Write a 3D volume of voxels to a file.
  *
  * @param file handle to the file to write
- * @param vol `volume` struct containing the Voxel data to write
+ * @param volume `volume` struct containing the Voxel data to write
  * @return `true` if the file was written successfully
  * @return `false` if an error occurred while writing the file
  */
-bool writeVolumeNRRD(FILE* file, volume* vol) {
+bool writeVolumeNRRD(FILE* file, volume* volume) {
     // Write the NRRD header
     fprintf(file, "NRRD0005\n");
     fprintf(file, "# Complete NRRD file format specification at:\n");
     fprintf(file, "# http://teem.sourceforge.net/nrrd/format.html\n");
     fprintf(file, "type: double\n");
     fprintf(file, "dimension: 3\n");
-    fprintf(file, "sizes: %d %d %d\n", vol->nVoxelsX, vol->nVoxelsY, vol->nVoxelsZ);
-    fprintf(file, "spacings: %g %g %g\n", vol->voxelSizeX, vol->voxelSizeY, vol->voxelSizeZ);
-    fprintf(file, "axis mins: %g %g %g\n", -vol->nVoxelsX * vol->voxelSizeX / 2, -vol->nVoxelsY * vol->voxelSizeY / 2, -vol->nVoxelsZ * vol->voxelSizeZ / 2);
+    fprintf(file, "sizes: %d %d %d\n",
+            volume->nVoxelsX, volume->nVoxelsY, volume->nVoxelsZ);
+    fprintf(file, "spacings: %g %g %g\n",
+            volume->voxelSizeX, volume->voxelSizeY, volume->voxelSizeZ);
+    fprintf(file, "axis mins: %g %g %g\n",
+            -volume->nVoxelsX * volume->voxelSizeX / 2,
+            -volume->nVoxelsY * volume->voxelSizeY / 2,
+            -volume->nVoxelsZ * volume->voxelSizeZ / 2);
 
     // Set the endianness of the data
     #if !defined(__ORDER_BIG_ENDIAN__) && !defined(__ORDER_LITTLE_ENDIAN__)
@@ -78,13 +83,13 @@ bool writeVolumeNRRD(FILE* file, volume* vol) {
     // Set the encoding of the data and write the coefficients
     #ifdef _OUTPUT_FORMAT_ASCII
     fprintf(file, "encoding: ascii\n\n");
-    for (int i = 0; i < vol->nVoxelsX * vol->nVoxelsY * vol->nVoxelsZ; i++) {
-        fprintf(file, "%g ", vol->coefficients[i]);
+    for (int i = 0; i < volume->nVoxelsX * volume->nVoxelsY * volume->nVoxelsZ; i++) {
+        fprintf(file, "%g ", volume->coefficients[i]);
     }
     #else
     fprintf(file, "encoding: raw\n\n");
-    size_t numVoxels = vol->nVoxelsX * vol->nVoxelsY * vol->nVoxelsZ;
-    if (fwrite(vol->coefficients, sizeof(double), numVoxels, file) != numVoxels) {
+    size_t numVoxels = volume->nVoxelsX * volume->nVoxelsY * volume->nVoxelsZ;
+    if (fwrite(volume->coefficients, sizeof(double), numVoxels, file) != numVoxels) {
         return false;  // If fwrite doesn't write all the data, return false
     }
     #endif
@@ -97,20 +102,20 @@ bool writeVolumeNRRD(FILE* file, volume* vol) {
  * @brief Write a 3D volume of voxels to a file.
  *
  * @param file handle to the file to write
- * @param vol `volume` struct containing the Voxel data to write
+ * @param volume `volume` struct containing the Voxel data to write
  * @return `true` if the file was written successfully
  * @return `false` if an error occurred while writing the file
  */
-bool writeVolumeRAW(FILE* file, volume* vol) {
+bool writeVolumeRAW(FILE* file, volume* volume) {
     // Print the RAW file properties to standard output for reference when opening the file
     fprintf(stdout, "\r                               \n");
     fprintf(stdout, "RAW file properties:            \n");
     fprintf(stdout, "--------------------------------\n");
     fprintf(stdout, "Image type: %ld-bit Real        \n", sizeof(double) * 8);
-    fprintf(stdout, "Width: %d pixels                \n", vol->nVoxelsX);
-    fprintf(stdout, "Height: %d pixels               \n", vol->nVoxelsY);
+    fprintf(stdout, "Width: %d pixels                \n", volume->nVoxelsX);
+    fprintf(stdout, "Height: %d pixels               \n", volume->nVoxelsY);
     fprintf(stdout, "Offset to first image: 0 bytes  \n");
-    fprintf(stdout, "Number of images: %d            \n", vol->nVoxelsZ);
+    fprintf(stdout, "Number of images: %d            \n", volume->nVoxelsZ);
     fprintf(stdout, "Gap between images: 0 bytes     \n");
     fprintf(stdout, "White is zero: 🗹              \n");
     #if !defined(__ORDER_BIG_ENDIAN__) && !defined(__ORDER_LITTLE_ENDIAN__)
@@ -125,8 +130,8 @@ bool writeVolumeRAW(FILE* file, volume* vol) {
     fprintf(stdout, "--------------------------------\n\n");
 
     // Write the coefficients to the file
-    size_t numVoxels = vol->nVoxelsX * vol->nVoxelsY * vol->nVoxelsZ;
-    if (fwrite(vol->coefficients, sizeof(double), numVoxels, file) != numVoxels) {
+    size_t numVoxels = volume->nVoxelsX * volume->nVoxelsY * volume->nVoxelsZ;
+    if (fwrite(volume->coefficients, sizeof(double), numVoxels, file) != numVoxels) {
         return false;  // If fwrite doesn't write all the data, return false
     }
     return true;

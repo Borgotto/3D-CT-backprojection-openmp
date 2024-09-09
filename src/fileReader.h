@@ -54,7 +54,8 @@ typedef struct projection {
  * @return `true` if the file was read successfully
  * @return `false` if an error occurred while reading the file or during memory allocation
  */
-bool readProjectionPGM(FILE* file, projection* projection, int* width, int* height, double* minVal, double* maxVal) {
+bool readProjectionPGM(FILE* file, projection* projection,
+                    int* width, int* height, double* minVal, double* maxVal) {
     // If the read pointer is at the beginning of the file
     if (ftell(file) == 0) {
         char fileFormat[3];
@@ -74,7 +75,8 @@ bool readProjectionPGM(FILE* file, projection* projection, int* width, int* heig
 
         int nProjections = *height / *width;
         if (nProjections != N_THETA) {
-            fprintf(stderr, "Number of projections in the file (%d) doesn't match the expected value (%d)\n", nProjections, N_THETA);
+            fprintf(stderr, "Number of projections in the file (%d) doesn't match the expected value (%d)\n",
+                    nProjections, N_THETA);
             fclose(file);
             exit(EXIT_FAILURE);
         }
@@ -143,7 +145,8 @@ bool readProjectionPGM(FILE* file, projection* projection, int* width, int* heig
  * @return `true` if the file was read successfully
  * @return `false` if an error occurred while reading the file or during memory allocation
  */
-bool readProjectionDAT(FILE* file, projection* projection, int* width, int* height, double* minVal, double* maxVal) {
+bool readProjectionDAT(FILE* file, projection* projection,
+                    int* width, int* height, double* minVal, double* maxVal) {
     // If the read pointer is at the beginning of the file
     if (ftell(file) == 0) {
         int nProjections;
@@ -156,7 +159,8 @@ bool readProjectionDAT(FILE* file, projection* projection, int* width, int* heig
         *height = *width * nProjections;
 
         if (nProjections != N_THETA) {
-            fprintf(stderr, "Number of projections in the file (%d) doesn't match the expected value (%d)\n", nProjections, N_THETA);
+            fprintf(stderr, "Number of projections in the file (%d) doesn't match the expected value (%d)\n",
+                    nProjections, N_THETA);
             fclose(file);
             exit(EXIT_FAILURE);
         }

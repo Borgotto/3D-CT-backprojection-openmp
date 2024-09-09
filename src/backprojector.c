@@ -35,12 +35,11 @@
  */
 
 #include <stdio.h>      // fprintf
-#include <stdlib.h>     // malloc, calloc, free
+#include <stdlib.h>     // malloc, calloc, free, exit
 #include <stdbool.h>    // bool, true, false
 #include <ctype.h>      // tolower
-#include <string.h>     // strcmp, strstr
-#include <math.h>       // sinl, cosl, sqrt, ceil, floor, fmax, fmin
-#include <unistd.h>     // isatty
+#include <string.h>     // strcmp
+#include <math.h>       // sinl, cosl, sqrt, ceil, floor, fmax, fmin, fmod
 #include <time.h>       // nanosleep
 #include <omp.h>        // omp_get_wtime, #pragma omp
 #ifdef _DEBUG
@@ -124,8 +123,10 @@ void getSidesIntersections(const ray ray, const axis parallelTo, double intersec
 
         // Calculate the entry and exit points of the ray with the planes of this axis
         // Siddon's algorithm, equation (4)
-        intersections[axis][0] = (firstPlane[axis] - source.coordsArray[axis]) / (pixel.coordsArray[axis] - source.coordsArray[axis]);
-        intersections[axis][1] = (lastPlane[axis] - source.coordsArray[axis]) / (pixel.coordsArray[axis] - source.coordsArray[axis]);
+        intersections[axis][0] = (firstPlane[axis] - source.coordsArray[axis]) /
+                                (pixel.coordsArray[axis] - source.coordsArray[axis]);
+        intersections[axis][1] = (lastPlane[axis] - source.coordsArray[axis]) /
+                                (pixel.coordsArray[axis] - source.coordsArray[axis]);
     }
 }
 
@@ -162,11 +163,19 @@ void getPlanesRanges(const ray ray, range planesRanges[3], const double aMin, co
         // Siddon's algorithm, equation (6)
         int minIndex, maxIndex;
         if (pixel.coordsArray[axis] - source.coordsArray[axis] >= 0) {
-            minIndex = N_PLANES[axis] - ceil((lastPlane[axis] - aMin * (pixel.coordsArray[axis] - source.coordsArray[axis]) - source.coordsArray[axis]) / VOXEL_SIZE[axis]);
-            maxIndex = floor((source.coordsArray[axis] + aMax * (pixel.coordsArray[axis] - source.coordsArray[axis]) - firstPlane[axis]) / VOXEL_SIZE[axis]);
+            minIndex = N_PLANES[axis] - ceil((lastPlane[axis] - aMin *
+                (pixel.coordsArray[axis] - source.coordsArray[axis]) -
+                source.coordsArray[axis]) / VOXEL_SIZE[axis]);
+            maxIndex = floor((source.coordsArray[axis] + aMax *
+                (pixel.coordsArray[axis] - source.coordsArray[axis]) -
+                firstPlane[axis]) / VOXEL_SIZE[axis]);
         } else {
-            minIndex = N_PLANES[axis] - ceil((lastPlane[axis] - aMax * (pixel.coordsArray[axis] - source.coordsArray[axis]) - source.coordsArray[axis]) / VOXEL_SIZE[axis]);
-            maxIndex = floor((source.coordsArray[axis] + aMin * (pixel.coordsArray[axis] - source.coordsArray[axis]) - firstPlane[axis]) / VOXEL_SIZE[axis]);
+            minIndex = N_PLANES[axis] - ceil((lastPlane[axis] - aMax *
+                (pixel.coordsArray[axis] - source.coordsArray[axis]) -
+                source.coordsArray[axis]) / VOXEL_SIZE[axis]);
+            maxIndex = floor((source.coordsArray[axis] + aMin *
+                (pixel.coordsArray[axis] - source.coordsArray[axis]) -
+                firstPlane[axis]) / VOXEL_SIZE[axis]);
         }
         planesRanges[axis] = (range){.min=minIndex, .max=maxIndex};
     }
@@ -189,20 +198,28 @@ void getAllIntersections(const ray ray, const range planesRanges[3], double* a[3
 
         // Siddon's algorithm, equation (7)
         if (pixel.coordsArray[axis] - source.coordsArray[axis] > 0) {
-            a[axis][0] = (getPlanePosition(axis, minIndex) - source.coordsArray[axis]) / (pixel.coordsArray[axis] - source.coordsArray[axis]);
+            a[axis][0] = (getPlanePosition(axis, minIndex) - source.coordsArray[axis]) /
+                        (pixel.coordsArray[axis] - source.coordsArray[axis]);
+
             for (int i = 1; i < maxIndex - minIndex; i++) {
-                a[axis][i] = a[axis][i - 1] + VOXEL_SIZE[axis] / (pixel.coordsArray[axis] - source.coordsArray[axis]);
+                a[axis][i] = a[axis][i - 1] + VOXEL_SIZE[axis] /
+                    (pixel.coordsArray[axis] - source.coordsArray[axis]);
             }
         } else if (pixel.coordsArray[axis] - source.coordsArray[axis] < 0) {
-            a[axis][0] = (getPlanePosition(axis, maxIndex) - source.coordsArray[axis]) / (pixel.coordsArray[axis] - source.coordsArray[axis]);
+            a[axis][0] = (getPlanePosition(axis, maxIndex) - source.coordsArray[axis]) /
+                        (pixel.coordsArray[axis] - source.coordsArray[axis]);
+
             for (int i = 1; i < maxIndex - minIndex; i++) {
-                a[axis][i] = a[axis][i - 1] - VOXEL_SIZE[axis] / (pixel.coordsArray[axis] - source.coordsArray[axis]);
+                a[axis][i] = a[axis][i - 1] - VOXEL_SIZE[axis] /
+                    (pixel.coordsArray[axis] - source.coordsArray[axis]);
             }
         }
     }
 }
 
-void mergeIntersections(const double aX[], const double aY[], const double aZ[], const int aXSize, const int aYSize, const int aZSize, double aMerged[]) {
+void mergeIntersections(const double aX[], const double aY[], const double aZ[],
+                        const int aXSize, const int aYSize, const int aZSize,
+                        double aMerged[]) {
     int i = 0, j = 0, k = 0, l = 0;
 
     while (i < aXSize && j < aYSize && k < aZSize) {
@@ -251,7 +268,9 @@ bool isArraySorted(const double array[], int size) {
 }
 #endif
 
-void computeAbsorption(const ray ray, const double a[], const int lenA, const volume* volume, const projection* projection, const int pixelIndex) {
+void computeAbsorption(const ray ray, const double a[], const int lenA,
+                        const volume* volume, const projection* projection,
+                        const int pixelIndex) {
     const point3D source = ray.source;
     const point3D pixel = ray.pixel;
 
@@ -271,13 +290,14 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const vo
 
         // Calculate the voxel indices that the ray intersects
         // Siddon's algorithm, equation (12)
-        const int voxelX = (source.coords.x + aMid * (pixel.coords.x - source.coords.x) - firstPlane[X]) / VOXEL_SIZE_X;
-        const int voxelY = (source.coords.y + aMid * (pixel.coords.y - source.coords.y) - firstPlane[Y]) / VOXEL_SIZE_Y;
-        const int voxelZ = (source.coords.z + aMid * (pixel.coords.z - source.coords.z) - firstPlane[Z]) / VOXEL_SIZE_Z;
+        const int voxelX = (source.coords.x + aMid * dx - firstPlane[X]) / VOXEL_SIZE_X;
+        const int voxelY = (source.coords.y + aMid * dy - firstPlane[Y]) / VOXEL_SIZE_Y;
+        const int voxelZ = (source.coords.z + aMid * dz - firstPlane[Z]) / VOXEL_SIZE_Z;
 
         // Update the value of the voxel given the value of the pixel and the
         // length of the segment that the ray intersects with the voxel
-        const double normalizedPixelValue = (projection->pixels[pixelIndex] - projection->minVal) / (projection->maxVal - projection->minVal);
+        const double normalizedPixelValue = (projection->pixels[pixelIndex] - projection->minVal) /
+                                            (projection->maxVal - projection->minVal);
         const double normalizedSegmentLength = segmentLength / (DOD + DOS);
         const double voxelAbsorptionValue = normalizedPixelValue * normalizedSegmentLength;
 
@@ -286,13 +306,13 @@ void computeAbsorption(const ray ray, const double a[], const int lenA, const vo
         #ifdef _DEBUG
         assert(normalizedPixelValue >= 0 && normalizedPixelValue <= 1);
         assert(normalizedSegmentLength >= 0 && normalizedSegmentLength <= 1);
-        assert(voxelX >= 0 && voxelY >= 0 && voxelZ >= 0);
-        assert(voxelX <= N_VOXELS_X && voxelY <= N_VOXELS_Y && voxelZ <= N_VOXELS_Z);
+        assert(voxelX >= 0 && voxelX <= N_VOXELS_X);
+        assert(voxelY >= 0 && voxelY <= N_VOXELS_Y);
+        assert(voxelZ >= 0 && voxelZ <= N_VOXELS_Z);
         assert(voxelAbsorptionValue >= 0);
-        assert(voxelIndex >= 0 && voxelIndex <= N_VOXELS_X * N_VOXELS_Y * N_VOXELS_Z);
+        assert(voxelIndex >= 0 && voxelIndex < N_VOXELS_X * N_VOXELS_Y * N_VOXELS_Z);
         #endif
 
-        // TODO: find a way to avoid using atomic operations
         // Siddon's algorithm, equation (14)
         #pragma omp atomic update
         volume->coefficients[voxelIndex] += voxelAbsorptionValue;
@@ -311,9 +331,7 @@ void computeBackProjection(const projection* projection, volume* volume) {
 
     // Iterate through every pixel of the projection image and calculate the
     // coefficients of the voxels that contribute to the pixel.
-    //#pragma omp parallel for collapse(2) schedule(dynamic) default(none) shared(volume, projection, source)
-    // TODO: to reduce the atomic operations, it may be possible to offset the pixel processing by a certain amount * thread_id
-    // TODO: so that each thread shoots rays at different pixels, this could reduce the intersecting voxels between threads
+    //#pragma omp parallel for collapse(2) schedule(dynamic)
     for (int row = 0; row < projection->nSidePixels; row++) {
         for (int col = 0; col < projection->nSidePixels; col++) {
             const point3D pixel = getPixelPosition(projection, row, col);
@@ -323,8 +341,8 @@ void computeBackProjection(const projection* projection, volume* volume) {
             #ifdef _DEBUG
             // check if the source and pixel coordinates are NaN or infinite
             assert(!isnan(source.coords.x) && !isnan(source.coords.y) && !isnan(source.coords.z));
-            assert(!isnan(pixel.coords.x) && !isnan(pixel.coords.y) && !isnan(pixel.coords.z));
             assert(!isinf(source.coords.x) && !isinf(source.coords.y) && !isinf(source.coords.z));
+            assert(!isnan(pixel.coords.x) && !isnan(pixel.coords.y) && !isnan(pixel.coords.z));
             assert(!isinf(pixel.coords.x) && !isinf(pixel.coords.y) && !isinf(pixel.coords.z));
             #endif
 
@@ -352,8 +370,9 @@ void computeBackProjection(const projection* projection, volume* volume) {
             getPlanesRanges(ray, planesRanges, aMin, aMax);
 
             #ifdef _DEBUG
-            assert(planesRanges[X].min >= 0 && planesRanges[Y].min >= 0 && planesRanges[Z].min >= 0);
-            assert(planesRanges[X].max <= N_PLANES_X && planesRanges[Y].max <= N_PLANES_Y && planesRanges[Z].max <= N_PLANES_Z);
+            assert(planesRanges[X].min >= 0 && planesRanges[X].max <= N_PLANES_X);
+            assert(planesRanges[Y].min >= 0 && planesRanges[Y].max <= N_PLANES_Y);
+            assert(planesRanges[Z].min >= 0 && planesRanges[Z].max <= N_PLANES_Z);
             #endif
 
             // Calculate all of the intersections of the ray with the planes of
@@ -449,11 +468,6 @@ int main(int argc, char* argv[]) {
         exit(EXIT_FAILURE);
     }
 
-
-    /*
-    * This struct is used to store the calculated coefficients of the voxels
-    * using the backprojection algorithm starting from the projection images
-    */
     volume volume = {
         .nVoxelsX = N_VOXELS_X,
         .nVoxelsY = N_VOXELS_Y,
@@ -461,10 +475,8 @@ int main(int argc, char* argv[]) {
         .voxelSizeX = VOXEL_SIZE_X,
         .voxelSizeY = VOXEL_SIZE_Y,
         .voxelSizeZ = VOXEL_SIZE_Z,
-        // TODO: find a way to split this array into multiple parts because it's too big (1000^3)*8 bytes = 8GB
-        // TODO: a possible solution is to split the volume into chunks and process them serially, this reduces the memory usage but increases the runtime
-        // TODO: or sacrifice accuracy for memory by using float instead of double
-        .coefficients = (double*)calloc(N_VOXELS_X * N_VOXELS_Y * N_VOXELS_Z, sizeof(double))
+        .coefficients = (double*)calloc(N_VOXELS_X * N_VOXELS_Y * N_VOXELS_Z,
+                                        sizeof(double))
     };
     // Check if the memory was allocated successfully
     if (volume.coefficients == NULL) {
@@ -482,26 +494,27 @@ int main(int argc, char* argv[]) {
 
     // Read the projection images from the file and compute the backprojection
     int processedProjections = 0;
-    #pragma omp parallel for schedule(dynamic) default(none) shared(inputFile, volume, width, height, minVal, maxVal, stderr, processedProjections, inputFileExtension)
+    #pragma omp parallel for schedule(dynamic)
     for (int i = 0; i < N_THETA; i++) {
         projection projection;
         bool read;
 
-        // TODO: find a way to not have to pass the width, height, minVal, and maxVal to the function
-        // TODO: fix projection index assignment, it shouldn't depend on the projection angle
         // File reading has to be done sequentially
         #pragma omp critical
         if (strcmp(inputFileExtension, ".dat") == 0) {
-            read = readProjectionDAT(inputFile, &projection, &width, &height, &minVal, &maxVal);
+            read = readProjectionDAT(inputFile, &projection,
+                                    &width, &height, &minVal, &maxVal);
         } else {
-            read = readProjectionPGM(inputFile, &projection, &width, &height, &minVal, &maxVal);
+            read = readProjectionPGM(inputFile, &projection,
+                                    &width, &height, &minVal, &maxVal);
         }
 
         // if read is false, it means that the end of the file was reached
         if (read) {
             #pragma omp atomic update
             processedProjections++;
-            fprintf(stderr, "Processing projection %d/%d\r", processedProjections, N_THETA);
+            fprintf(stderr, "Processing projection %d/%d\r",
+                    processedProjections, N_THETA);
             computeBackProjection(&projection, &volume);
         }
 
@@ -509,13 +522,14 @@ int main(int argc, char* argv[]) {
     }
 
     double finalTime = omp_get_wtime();
-    fprintf(stderr, "\nTime taken (%dx%d): %.3lf seconds\n", width, height, (finalTime - initialTime));
+    fprintf(stderr, "\nTime taken (%dx%d): %.3lf seconds\n",
+            width, height, (finalTime - initialTime));
 
     // Write the volume to the output file
     bool done = false;
     int loadingBarIndex = 0;
     char* loadingBar = "|/-\\";
-    #pragma omp parallel num_threads(2) default(none) shared(outputFile, volume, done, loadingBarIndex, loadingBar, stderr, outputFileExtension)
+    #pragma omp parallel num_threads(2)
     {
         #pragma omp single nowait
         if (strcmp(outputFileExtension, ".nrrd") == 0) {
@@ -525,7 +539,8 @@ int main(int argc, char* argv[]) {
         }
         #pragma omp critical
         while (!done) {
-            fprintf(stderr, "Writing volume to file.. %c\r", loadingBar[loadingBarIndex]);
+            fprintf(stderr, "Writing volume to file.. %c\r",
+                    loadingBar[loadingBarIndex]);
             loadingBarIndex = (loadingBarIndex + 1) % 4;
             // TODO: find platform-independent way to sleep
             nanosleep((const struct timespec[]){{0, 100000000L}}, NULL);

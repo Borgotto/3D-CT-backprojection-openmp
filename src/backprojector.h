@@ -46,6 +46,8 @@
 #define AP 360
 /// distance between rays sources (in degrees)
 #define STEP_ANGLE 15
+/// number of rays sources
+#define N_THETA ((int)((AP) / (STEP_ANGLE)) + 1)
 
 #if defined(_WORK_UNITS) && _WORK_UNITS > 0
     // These values will be used when running benchmarks for scalability
@@ -67,8 +69,6 @@
 //#define DETECTOR_SIZE     200000 // side length of the detector (square)
 //#define NPIXELS   ((int)((DETECTOR_SIZE) / (PIXEL_SIZE)))   // number of pixels in the detector
 
-// Macros for derived constants
-
 /// number of voxels in the x-axis
 #define N_VOXELS_X ((int)(VOXEL_MATRIX_SIZE / VOXEL_SIZE_X))
 /// number of voxels in the y-axis
@@ -83,10 +83,7 @@
 /// number of planes in the z-axis
 #define N_PLANES_Z ((N_VOXELS_Z) + 1)
 
-/// number of rays sources
-#define N_THETA    ((int)((AP) / (STEP_ANGLE)) + 1)
-
-// Convenience variable accessible by indexing using the axis enum
+// Convenient variables accessible by index using the axis enum
 static const double VOXEL_SIZE[3] = {VOXEL_SIZE_X, VOXEL_SIZE_Y, VOXEL_SIZE_Z};
 static const int N_VOXELS[3] = {N_VOXELS_X, N_VOXELS_Y, N_VOXELS_Z};
 static const int N_PLANES[3] = {N_PLANES_X, N_PLANES_Y, N_PLANES_Z};
@@ -368,8 +365,9 @@ void getAllIntersections(const ray ray, const range planesRanges[3], double* a[3
  * @param aZSize The size of the aZ array.
  * @param aMerged The array to store the merged intersection points.
  */
-void mergeIntersections(const double aX[], const double aY[], const double aZ[], const int aXSize, const int aYSize, const int aZSize, double aMerged[]);
-
+void mergeIntersections(const double aX[], const double aY[], const double aZ[],
+                        const int aXSize, const int aYSize, const int aZSize,
+                        double aMerged[]);
 
 #ifdef _DEBUG
 /**
@@ -423,7 +421,9 @@ bool isArraySorted(const double array[], int size);
  * @param projection The projection data.
  * @param pixelIndex The index of the pixel to get the absorption value for.
  */
-void computeAbsorption(const ray ray, const double a[], const int lenA, const volume* volume, const projection* projection, const int pixelIndex);
+void computeAbsorption(const ray ray, const double a[], const int lenA,
+                        const volume* volume, const projection* projection,
+                        const int pixelIndex);
 
 /**
  * @brief Computes the backprojection of the projection.
