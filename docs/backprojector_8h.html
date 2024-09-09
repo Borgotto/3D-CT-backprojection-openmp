@@ -143,6 +143,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a16e0a6585d892aa03b6c0102ddfd0b75" id="r_a16e0a6585d892aa03b6c0102ddfd0b75"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a16e0a6585d892aa03b6c0102ddfd0b75">STEP_ANGLE</a>&#160;&#160;&#160;15</td></tr>
 <tr class="memdesc:a16e0a6585d892aa03b6c0102ddfd0b75"><td class="mdescLeft">&#160;</td><td class="mdescRight">distance between rays sources (in degrees)  <br /></td></tr>
 <tr class="separator:a16e0a6585d892aa03b6c0102ddfd0b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d8f246b13887f17dd67a8ce2cbdaea3" id="r_a5d8f246b13887f17dd67a8ce2cbdaea3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d8f246b13887f17dd67a8ce2cbdaea3">N_THETA</a>&#160;&#160;&#160;((int)((<a class="el" href="#a8300bbcd56f47545962fcf22d934e24b">AP</a>) / (<a class="el" href="#a16e0a6585d892aa03b6c0102ddfd0b75">STEP_ANGLE</a>)) + 1)</td></tr>
+<tr class="memdesc:a5d8f246b13887f17dd67a8ce2cbdaea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of rays sources  <br /></td></tr>
+<tr class="separator:a5d8f246b13887f17dd67a8ce2cbdaea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cd66512d32043f2b9475a4a23b21f54" id="r_a7cd66512d32043f2b9475a4a23b21f54"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cd66512d32043f2b9475a4a23b21f54">VOXEL_MATRIX_SIZE</a>&#160;&#160;&#160;100000</td></tr>
 <tr class="memdesc:a7cd66512d32043f2b9475a4a23b21f54"><td class="mdescLeft">&#160;</td><td class="mdescRight">side length of the volumetric object (cube)  <br /></td></tr>
 <tr class="separator:a7cd66512d32043f2b9475a4a23b21f54"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -170,9 +173,6 @@ Macros</h2></td></tr>
 <tr class="memitem:a70b79c1e11466ce6e40be89f54e1f02b" id="r_a70b79c1e11466ce6e40be89f54e1f02b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70b79c1e11466ce6e40be89f54e1f02b">N_PLANES_Z</a>&#160;&#160;&#160;((<a class="el" href="#a30ddf7294bb91a0b16a37edc3fbd6fe6">N_VOXELS_Z</a>) + 1)</td></tr>
 <tr class="memdesc:a70b79c1e11466ce6e40be89f54e1f02b"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of planes in the z-axis  <br /></td></tr>
 <tr class="separator:a70b79c1e11466ce6e40be89f54e1f02b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d8f246b13887f17dd67a8ce2cbdaea3" id="r_a5d8f246b13887f17dd67a8ce2cbdaea3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5d8f246b13887f17dd67a8ce2cbdaea3">N_THETA</a>&#160;&#160;&#160;((int)((<a class="el" href="#a8300bbcd56f47545962fcf22d934e24b">AP</a>) / (<a class="el" href="#a16e0a6585d892aa03b6c0102ddfd0b75">STEP_ANGLE</a>)) + 1)</td></tr>
-<tr class="memdesc:a5d8f246b13887f17dd67a8ce2cbdaea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of rays sources  <br /></td></tr>
-<tr class="separator:a5d8f246b13887f17dd67a8ce2cbdaea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -312,7 +312,7 @@ Variables</h2></td></tr>
 
 <p>distance from the volumetric center of object to the detector </p>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00061">61</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00063">63</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
 
 </div>
 </div>
@@ -330,7 +330,7 @@ Variables</h2></td></tr>
 
 <p>distance from the volumetric center of object to the source </p>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00063">63</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00065">65</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
 
 </div>
 </div>
@@ -420,7 +420,7 @@ Variables</h2></td></tr>
 
 <p>number of rays sources </p>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00087">87</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00050">50</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
 
 </div>
 </div>
@@ -528,7 +528,7 @@ Variables</h2></td></tr>
 
 <p>side length of the volumetric object (cube) </p>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00059">59</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00061">61</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
 
 </div>
 </div>
@@ -708,7 +708,7 @@ Variables</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00097">97</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00094">94</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
 
 </div>
 </div>
@@ -784,7 +784,7 @@ k(m) = 1 + (Z_1 + \alpha_{mid} * (Z_2 - Z_1) - Z_{plane}(0)) / d_z
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00254">254</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00271">271</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -826,7 +826,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00302">302</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00322">322</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -909,7 +909,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00175">175</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00184">184</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -957,7 +957,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The maximum intersection point. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00145">145</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00146">146</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -994,7 +994,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The minimum intersection point. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00132">132</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00133">133</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1023,7 +1023,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The axis that is parallel to the ray, or axis::NONE if none. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00099">99</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00098">98</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1063,7 +1063,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The 3D coordinates of the pixel. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00085">85</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00084">84</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1102,7 +1102,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The position of the plane. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00112">112</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00111">111</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1156,7 +1156,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00158">158</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00159">159</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1203,7 +1203,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00117">117</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00116">116</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1232,7 +1232,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The 3D coordinates of the source. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00077">77</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00076">76</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1254,7 +1254,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
 <p>Initializes the sine and cosine tables, as well as the firstPlane and lastPlane arrays. </p>
 <p>These values are complex to calculate each time, so they are precomputed and cached to optimize performance during backprojection operations. </p>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00061">61</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00060">60</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1324,7 +1324,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00205">205</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00220">220</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -1349,7 +1349,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00092">92</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00089">89</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
 
 </div>
 </div>
@@ -1373,7 +1373,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00091">91</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00088">88</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
 
 </div>
 </div>
@@ -1397,7 +1397,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00090">90</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8h_source.html#l00087">87</a> of file <a class="el" href="backprojector_8h_source.html">backprojector.h</a>.</p>
 
 </div>
 </div>

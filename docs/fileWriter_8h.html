@@ -111,12 +111,12 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a25c018aea36b43f77e3f14af4ba7a6f6" id="r_a25c018aea36b43f77e3f14af4ba7a6f6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25c018aea36b43f77e3f14af4ba7a6f6">writeVolumeNRRD</a> (FILE *file, <a class="el" href="structvolume.html">volume</a> *vol)</td></tr>
-<tr class="memdesc:a25c018aea36b43f77e3f14af4ba7a6f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a 3D volume of voxels to a file.  <br /></td></tr>
-<tr class="separator:a25c018aea36b43f77e3f14af4ba7a6f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fc77da284b460f4ab96af666194aa42" id="r_a0fc77da284b460f4ab96af666194aa42"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fc77da284b460f4ab96af666194aa42">writeVolumeRAW</a> (FILE *file, <a class="el" href="structvolume.html">volume</a> *vol)</td></tr>
-<tr class="memdesc:a0fc77da284b460f4ab96af666194aa42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a 3D volume of voxels to a file.  <br /></td></tr>
-<tr class="separator:a0fc77da284b460f4ab96af666194aa42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b67947c4cdb01abad830fd1cf4392c4" id="r_a6b67947c4cdb01abad830fd1cf4392c4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6b67947c4cdb01abad830fd1cf4392c4">writeVolumeNRRD</a> (FILE *file, <a class="el" href="structvolume.html">volume</a> *<a class="el" href="structvolume.html">volume</a>)</td></tr>
+<tr class="memdesc:a6b67947c4cdb01abad830fd1cf4392c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a 3D volume of voxels to a file.  <br /></td></tr>
+<tr class="separator:a6b67947c4cdb01abad830fd1cf4392c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab47e9ce2de4f8ba260db443f8fe7c30d" id="r_ab47e9ce2de4f8ba260db443f8fe7c30d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab47e9ce2de4f8ba260db443f8fe7c30d">writeVolumeRAW</a> (FILE *file, <a class="el" href="structvolume.html">volume</a> *<a class="el" href="structvolume.html">volume</a>)</td></tr>
+<tr class="memdesc:ab47e9ce2de4f8ba260db443f8fe7c30d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a 3D volume of voxels to a file.  <br /></td></tr>
+<tr class="separator:ab47e9ce2de4f8ba260db443f8fe7c30d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><code>fileWriter</code> module </p>
@@ -159,8 +159,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a25c018aea36b43f77e3f14af4ba7a6f6" name="a25c018aea36b43f77e3f14af4ba7a6f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25c018aea36b43f77e3f14af4ba7a6f6">&#9670;&#160;</a></span>writeVolumeNRRD()</h2>
+<a id="a6b67947c4cdb01abad830fd1cf4392c4" name="a6b67947c4cdb01abad830fd1cf4392c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b67947c4cdb01abad830fd1cf4392c4">&#9670;&#160;</a></span>writeVolumeNRRD()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -173,7 +173,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structvolume.html">volume</a> *</td>          <td class="paramname"><span class="paramname"><em>vol</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="structvolume.html">volume</a> *</td>          <td class="paramname"><span class="paramname"><em>volume</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -182,7 +182,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>handle to the file to write </td></tr>
-    <tr><td class="paramname">vol</td><td><code>volume</code> struct containing the Voxel data to write </td></tr>
+    <tr><td class="paramname">volume</td><td><code>volume</code> struct containing the Voxel data to write </td></tr>
   </table>
   </dd>
 </dl>
@@ -194,8 +194,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0fc77da284b460f4ab96af666194aa42" name="a0fc77da284b460f4ab96af666194aa42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fc77da284b460f4ab96af666194aa42">&#9670;&#160;</a></span>writeVolumeRAW()</h2>
+<a id="ab47e9ce2de4f8ba260db443f8fe7c30d" name="ab47e9ce2de4f8ba260db443f8fe7c30d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab47e9ce2de4f8ba260db443f8fe7c30d">&#9670;&#160;</a></span>writeVolumeRAW()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -208,7 +208,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structvolume.html">volume</a> *</td>          <td class="paramname"><span class="paramname"><em>vol</em></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="structvolume.html">volume</a> *</td>          <td class="paramname"><span class="paramname"><em>volume</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -217,7 +217,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">file</td><td>handle to the file to write </td></tr>
-    <tr><td class="paramname">vol</td><td><code>volume</code> struct containing the Voxel data to write </td></tr>
+    <tr><td class="paramname">volume</td><td><code>volume</code> struct containing the Voxel data to write </td></tr>
   </table>
   </dd>
 </dl>
@@ -225,7 +225,7 @@ Functions</h2></td></tr>
 <dd>
 <code>false</code> if an error occurred while writing the file </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="fileWriter_8h_source.html#l00104">104</a> of file <a class="el" href="fileWriter_8h_source.html">fileWriter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fileWriter_8h_source.html#l00109">109</a> of file <a class="el" href="fileWriter_8h_source.html">fileWriter.h</a>.</p>
 
 </div>
 </div>

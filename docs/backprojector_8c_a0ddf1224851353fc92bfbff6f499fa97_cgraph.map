@@ -8,9 +8,9 @@
 <area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="60,357,111,349,111,354,61,362"/>
 <area shape="rect" id="Node000016" href="$fileReader_8h.html#a403f55e2c17353b9a5e358a582ab8e31" title="Read a PGM file containing CT projections." alt="" coords="123,375,269,400"/>
 <area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="61,365,109,372,108,377,60,370"/>
-<area shape="rect" id="Node000017" href="$fileWriter_8h.html#a25c018aea36b43f77e3f14af4ba7a6f6" title="Write a 3D volume of voxels to a file." alt="" coords="125,424,267,449"/>
+<area shape="rect" id="Node000017" href="$fileWriter_8h.html#a6b67947c4cdb01abad830fd1cf4392c4" title="Write a 3D volume of voxels to a file." alt="" coords="125,424,267,449"/>
 <area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="52,374,78,392,109,409,130,417,128,422,107,414,76,396,49,378"/>
-<area shape="rect" id="Node000018" href="$fileWriter_8h.html#a0fc77da284b460f4ab96af666194aa42" title="Write a 3D volume of voxels to a file." alt="" coords="129,473,263,499"/>
+<area shape="rect" id="Node000018" href="$fileWriter_8h.html#ab47e9ce2de4f8ba260db443f8fe7c30d" title="Write a 3D volume of voxels to a file." alt="" coords="129,473,263,499"/>
 <area shape="poly" id="edge17_Node000001_Node000018" title=" " alt="" coords="43,375,68,416,87,439,110,458,122,466,119,470,106,463,83,443,64,419,38,378"/>
 <area shape="rect" id="Node000003" href="$backprojector_8c.html#adeed0117a7aa23163c82f9b64d019b82" title="Computes the absorption value of the voxels intersected by the ray." alt="" coords="339,5,488,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="200,225,217,189,244,139,282,86,305,61,330,40,338,35,341,39,334,44,309,65,286,89,249,142,221,191,205,228"/>

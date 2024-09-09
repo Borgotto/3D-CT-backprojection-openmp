@@ -89,7 +89,6 @@ $(function(){initNavTree('backprojector_8c.html',''); initResizable(true); });
 <code>#include &lt;ctype.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
-<code>#include &lt;unistd.h&gt;</code><br />
 <code>#include &lt;time.h&gt;</code><br />
 <code>#include &lt;omp.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="backprojector_8h_source.html">backprojector.h</a>&quot;</code><br />
@@ -100,31 +99,29 @@ Include dependency graph for backprojector.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="backprojector_8c__incl.png" border="0" usemap="#abackprojector_8c" alt=""/></div>
 <map name="abackprojector_8c" id="abackprojector_8c">
-<area shape="rect" title="Implementation of the backprojection algorithm for CT reconstruction." alt="" coords="510,5,631,31"/>
+<area shape="rect" title="Implementation of the backprojection algorithm for CT reconstruction." alt="" coords="462,5,583,31"/>
 <area shape="rect" title=" " alt="" coords="5,79,72,104"/>
-<area shape="poly" title=" " alt="" coords="510,27,325,46,207,62,86,81,85,76,207,56,324,41,510,22"/>
+<area shape="poly" title=" " alt="" coords="462,28,296,48,86,81,85,76,295,43,461,23"/>
 <area shape="rect" title=" " alt="" coords="97,79,167,104"/>
-<area shape="poly" title=" " alt="" coords="510,30,364,50,181,81,180,76,364,45,509,24"/>
+<area shape="poly" title=" " alt="" coords="462,31,182,81,181,76,461,26"/>
 <area shape="rect" title=" " alt="" coords="192,79,275,104"/>
-<area shape="poly" title=" " alt="" coords="516,33,289,81,288,76,515,28"/>
+<area shape="poly" title=" " alt="" coords="477,33,289,79,288,74,476,28"/>
 <area shape="rect" title=" " alt="" coords="299,79,370,104"/>
-<area shape="poly" title=" " alt="" coords="534,33,384,78,382,73,532,28"/>
+<area shape="poly" title=" " alt="" coords="493,33,379,76,377,71,492,28"/>
 <area shape="rect" title=" " alt="" coords="394,79,465,104"/>
-<area shape="poly" title=" " alt="" coords="549,33,466,75,463,70,547,28"/>
+<area shape="poly" title=" " alt="" coords="509,33,457,72,454,68,506,29"/>
 <area shape="rect" title=" " alt="" coords="489,79,557,104"/>
-<area shape="poly" title=" " alt="" coords="565,33,540,69,536,66,561,30"/>
-<area shape="rect" title=" " alt="" coords="581,79,656,104"/>
-<area shape="poly" title=" " alt="" coords="581,30,606,66,601,69,576,33"/>
-<area shape="rect" title=" " alt="" coords="680,79,744,104"/>
-<area shape="poly" title=" " alt="" coords="595,28,678,70,676,75,592,33"/>
-<area shape="rect" title=" " alt="" coords="769,79,831,104"/>
-<area shape="poly" title=" " alt="" coords="608,28,756,74,754,79,607,33"/>
-<area shape="rect" href="backprojector_8h.html" title="Header file for the backprojector module." alt="" coords="856,79,979,104"/>
-<area shape="poly" title=" " alt="" coords="627,28,848,73,847,78,626,33"/>
-<area shape="rect" href="fileReader_8h.html" title="fileReader module" alt="" coords="1003,79,1101,104"/>
-<area shape="poly" title=" " alt="" coords="632,24,989,76,989,81,631,30"/>
-<area shape="rect" href="fileWriter_8h.html" title="fileWriter module" alt="" coords="1125,79,1219,104"/>
-<area shape="poly" title=" " alt="" coords="632,22,840,42,1112,76,1111,81,840,47,631,27"/>
+<area shape="poly" title=" " alt="" coords="525,31,525,65,520,65,520,31"/>
+<area shape="rect" title=" " alt="" coords="581,79,645,104"/>
+<area shape="poly" title=" " alt="" coords="539,29,589,68,586,72,536,33"/>
+<area shape="rect" title=" " alt="" coords="670,79,733,104"/>
+<area shape="poly" title=" " alt="" coords="552,28,661,71,659,76,550,33"/>
+<area shape="rect" href="backprojector_8h.html" title="Header file for the backprojector module." alt="" coords="757,79,880,104"/>
+<area shape="poly" title=" " alt="" coords="571,28,758,73,757,78,570,33"/>
+<area shape="rect" href="fileReader_8h.html" title="fileReader module" alt="" coords="904,79,1003,104"/>
+<area shape="poly" title=" " alt="" coords="584,26,891,76,890,81,583,31"/>
+<area shape="rect" href="fileWriter_8h.html" title="fileWriter module" alt="" coords="1027,79,1120,104"/>
+<area shape="poly" title=" " alt="" coords="584,23,772,43,1014,76,1013,81,771,49,583,28"/>
 </map>
 </div>
 </div>
@@ -281,7 +278,7 @@ k(m) = 1 + (Z_1 + \alpha_{mid} * (Z_2 - Z_1) - Z_{plane}(0)) / d_z
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00254">254</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00271">271</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -323,7 +320,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00302">302</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00322">322</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -406,7 +403,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00175">175</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00184">184</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -454,7 +451,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The maximum intersection point. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00145">145</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00146">146</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -491,7 +488,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The minimum intersection point. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00132">132</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00133">133</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -520,7 +517,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The axis that is parallel to the ray, or axis::NONE if none. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00099">99</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00098">98</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -560,7 +557,7 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The 3D coordinates of the pixel. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00085">85</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00084">84</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -599,7 +596,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The position of the plane. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00112">112</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00111">111</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -653,7 +650,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00158">158</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00159">159</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -700,7 +697,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00117">117</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00116">116</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -729,7 +726,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The 3D coordinates of the source. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00077">77</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00076">76</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -751,7 +748,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
 <p>Initializes the sine and cosine tables, as well as the firstPlane and lastPlane arrays. </p>
 <p>These values are complex to calculate each time, so they are precomputed and cached to optimize performance during backprojection operations. </p>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00061">61</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00060">60</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -774,7 +771,7 @@ Z_{plane}(k) = Z_{plane}(0) + k * d_z \quad (k = 0, \ldots, N_z)
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00390">390</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00409">409</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -789,9 +786,9 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="60,357,111,349,111,354,61,362"/>
 <area shape="rect" href="fileReader_8h.html#a403f55e2c17353b9a5e358a582ab8e31" title="Read a PGM file containing CT projections." alt="" coords="123,375,269,400"/>
 <area shape="poly" title=" " alt="" coords="61,365,109,372,108,377,60,370"/>
-<area shape="rect" href="fileWriter_8h.html#a25c018aea36b43f77e3f14af4ba7a6f6" title="Write a 3D volume of voxels to a file." alt="" coords="125,424,267,449"/>
+<area shape="rect" href="fileWriter_8h.html#a6b67947c4cdb01abad830fd1cf4392c4" title="Write a 3D volume of voxels to a file." alt="" coords="125,424,267,449"/>
 <area shape="poly" title=" " alt="" coords="52,374,78,392,109,409,130,417,128,422,107,414,76,396,49,378"/>
-<area shape="rect" href="fileWriter_8h.html#a0fc77da284b460f4ab96af666194aa42" title="Write a 3D volume of voxels to a file." alt="" coords="129,473,263,499"/>
+<area shape="rect" href="fileWriter_8h.html#ab47e9ce2de4f8ba260db443f8fe7c30d" title="Write a 3D volume of voxels to a file." alt="" coords="129,473,263,499"/>
 <area shape="poly" title=" " alt="" coords="43,375,68,416,87,439,110,458,122,466,119,470,106,463,83,443,64,419,38,378"/>
 <area shape="rect" href="backprojector_8c.html#adeed0117a7aa23163c82f9b64d019b82" title="Computes the absorption value of the voxels intersected by the ray." alt="" coords="339,5,488,31"/>
 <area shape="poly" title=" " alt="" coords="200,225,217,189,244,139,282,86,305,61,330,40,338,35,341,39,334,44,309,65,286,89,249,142,221,191,205,228"/>
@@ -886,7 +883,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00205">205</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00220">220</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -903,7 +900,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00056">56</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00055">55</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -919,7 +916,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00059">59</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00058">58</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -935,7 +932,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00059">59</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00058">58</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
@@ -951,7 +948,7 @@ N = (i_{max} - i_{min} + 1) + (j_{max} - j_{min} + 1) + (k_{max} - k_{min} + 1)
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00056">56</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="backprojector_8c_source.html#l00055">55</a> of file <a class="el" href="backprojector_8c_source.html">backprojector.c</a>.</p>
 
 </div>
 </div>
