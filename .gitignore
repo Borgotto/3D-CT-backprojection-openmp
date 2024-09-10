@@ -20,7 +20,5 @@ docs/build/doxy*
 !tests/*.pgm
 # same for output files!output/*.dat
 /output/**
-!output/*-ascii.nrrd
-!output/*-binary.nrrd
-!output/*-original.nrrd
-!output/*-*.raw
+!output/*.nrrd
+!output/*.raw
