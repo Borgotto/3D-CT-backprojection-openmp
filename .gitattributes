@@ -1,9 +1,8 @@
-*.c text eol=lf
-*.h text eol=lf
-*.md text eol=lf
-.gitattributes text eol=lf
-.gitignore text eol=lf
+* text eol=lf
 
+*.png binary
+*.jpg binary
+*.jpeg binary
 *.dat binary
 *.nrrd binary
 *.raw binary
