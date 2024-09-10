@@ -50,7 +50,7 @@ An example of the comparison of two output files can be found [here](https://kit
 
 ---
 
-To visualize the output `.raw` file you can use [ImageJ](https://imagej.net/ij/).
+To visualize the output `.raw` file you can use [ImageJ](https://imagej.net/ij/) or its web-based version [ImageJ.js](https://ij.imjoy.io/).
 
 Simply open the program, under the `File` menu select `Import` and then `Raw...`\
 After selecting the file, you will be prompted with a dialog to specify the image parameters, here you will input the values outputted by the program.
