@@ -55,6 +55,9 @@ To visualize the output `.raw` file you can use [ImageJ](https://imagej.net/ij/)
 Simply open the program, under the `File` menu select `Import` and then `Raw...`\
 After selecting the file, you will be prompted with a dialog to specify the image parameters, here you will input the values outputted by the program.
 
+Once opened, you may need to adjust the brightness and contrast of the image.\
+This can be done by selecting the `Image` menu, then `Adjust` and `Brightness/Contrast...` or by pressing `Ctrl+Shift+C`.
+
 ## Profiling
 First, compile the program with the `-pg` flag then run it as usual:
 ```bash
