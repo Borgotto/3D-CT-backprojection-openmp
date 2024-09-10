@@ -117,7 +117,7 @@ bool writeVolumeRAW(FILE* file, volume* volume) {
     fprintf(stdout, "Offset to first image: 0 bytes  \n");
     fprintf(stdout, "Number of images: %d            \n", volume->nVoxelsZ);
     fprintf(stdout, "Gap between images: 0 bytes     \n");
-    fprintf(stdout, "White is zero: 🗹              \n");
+    fprintf(stdout, "White is zero: ☐              \n");
     #if !defined(__ORDER_BIG_ENDIAN__) && !defined(__ORDER_LITTLE_ENDIAN__)
         #error "Endianness not defined"
     #elif __FLOAT_WORD_ORDER__ == __ORDER_LITTLE_ENDIAN__
